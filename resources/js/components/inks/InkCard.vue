@@ -1,5 +1,5 @@
 <template>
-    <div class="ink-card">
+    <div class="ink-card" @click="show = ! show">
         <img v-bind:src="ink.user.avatar" class="card-avatar">
         <div class="card-title">
             <span class="name-slug">
@@ -29,6 +29,7 @@
                 <span>43</span>
             </div>
         </div>
+        <comments :show="show"></comments>
     </div>
 </template>
 
@@ -37,6 +38,7 @@
         name: "InkCard",
         data(){
             return{
+                show: false,
                 image: "hard-fill.svg",
             }
         },
@@ -68,6 +70,9 @@
                         this.image = "hard-fill.svg"
                     }
                 })
+            },
+            showComments: function () {
+                ;
             }
         }
     }

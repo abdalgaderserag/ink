@@ -1,12 +1,15 @@
-.comments-line {
+.comments-main {
+  margin-top: 20px;
+}
+
+.comments-main #comments-line {
   width: 0;
-  height: 200px;
   border: 1px solid #9a9a9a;
   margin: 0 0 0 40px;
   float: left;
 }
 
-.comment {
+.comments-main .comment {
   justify-content: left;
   align-items: baseline;
   padding-left: 40px;
@@ -14,7 +17,7 @@
   min-height: 100px;
 }
 
-.comment .comment-avatar {
+.comments-main .comment .comment-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -23,44 +26,44 @@
   left: 134px;
 }
 
-.comment .comment-text {
+.comments-main .comment .comment-text {
   flex-direction: column;
   justify-content: left;
   justify-items: left;
 }
 
-.comment .comment-text span {
+.comments-main .comment .comment-text span {
   font-weight: 700;
 }
 
-.comment .comment-text p {
+.comments-main .comment .comment-text p {
   padding-left: 12px;
   margin: 12px 0;
 }
 
-.comment .comment-text .comment-footer {
+.comments-main .comment .comment-text .comment-footer {
   margin: 0 0 0 12px;
   color: #B2B2B2;
 }
 
-.comment .comment-text .comment-footer img {
+.comments-main .comment .comment-text .comment-footer img {
   margin-left: 8px;
 }
 
-.comment .comment-text .comment-footer a {
+.comments-main .comment .comment-text .comment-footer a {
   margin-left: 40px;
 }
 
-.replies-line {
+.comments-main .replies-line {
   position: absolute;
-  left: 220px;
+  left: 258px;
 }
 
-.reply {
+.comments-main .reply {
   padding-left: 120px;
 }
 
-.reply .comment-avatar {
+.comments-main .reply .comment-avatar {
   left: 214px;
 }
 

@@ -26,6 +26,13 @@ window.Vue = require('vue');
 Vue.component('ink-main', require('./components/inks/InkMain.vue').default);
 Vue.component('ink-card', require('./components/inks/InkCard.vue').default);
 
+Vue.component('comments', require('./components/comment/Comments.vue').default);
+Vue.component('comment-card', require('./components/comment/CommentCard.vue').default);
+Vue.component('reply-card', require('./components/comment/ReplyCard.vue').default);
+
+Vue.component('replies-card', require('./components/comment/RepliesCard.vue').default);
+
+
 
 Vue.component('file-reader', require('./components/FileReader.vue').default);
 

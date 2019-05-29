@@ -8,7 +8,7 @@
                 <div class="comment-footer">
                     <img src="/images/Hard-fill.svg" width="24px" alt="">
                     <span>12</span>
-                    <img src="/images/Hard-fill-color.svg" width="24px" alt="">
+                    <img src="/images/comment.svg" width="24px" alt="">
                     <span>12</span>
                     <a href="/share">Share</a>
                 </div>
