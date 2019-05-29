@@ -138,6 +138,7 @@ body {
   @include card($br: 0);
   @include widthToPer(950);
   margin-left: ((120/1366)*100%);
+  box-shadow: 2px 0px 4px 0px #b2b2b2a6;
   border-width: 0;
   padding-bottom: 0;
 
@@ -149,8 +150,9 @@ body {
   background: $bg-rtl;
   position: fixed;
   top: 574px;
-  left: 1160px;
+  left: 1262px;
   border-radius: 50%;
+  box-shadow: 1px 2px 20px 0px #00000059;
 }
 
 //.b-2-p2 {

@@ -143,6 +143,7 @@ body {
   border-radius: 0px;
   width: 69.5461200586%;
   margin-left: 8.78477306%;
+  box-shadow: 2px 0px 4px 0px #b2b2b2a6;
   border-width: 0;
   padding-bottom: 0;
 }
@@ -153,7 +154,8 @@ body {
   background: linear-gradient(to right, #FC4027, #f98835);
   position: fixed;
   top: 574px;
-  left: 1160px;
+  left: 1262px;
   border-radius: 50%;
+  box-shadow: 1px 2px 20px 0px #00000059;
 }
 

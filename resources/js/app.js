@@ -20,15 +20,15 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('file-upload', require("vue-upload-component").default);
+// Vue.component('file-upload', require("vue-upload-component").default);
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('ink-main', require('./components/inks/InkMain.vue').default);
 Vue.component('ink-card', require('./components/inks/InkCard.vue').default);
+
+
 Vue.component('file-reader', require('./components/FileReader.vue').default);
-// Vue.component('input-file', require('./components/InputFile.vue').default);
-// Vue.component('file-upload', require('./components/FileUpload.vue').default);
+
 
 Vue.component('pop-up', require('./components/PopUps/PopUp.vue').default);
 Vue.component('create-ink', require('./components/PopUps/CreateInk.vue').default);
