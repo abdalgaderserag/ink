@@ -42,7 +42,9 @@
             <input type="search" placeholder="S e a r c h">
         </div>
         <div class="icon-menu flew-box">
-            <img src="/images/profile.jpeg" class="icon">
+            <a href="/profile" style="width: 58px;height: 58px;">
+            <img src="/images/profile.jpeg" style="width: 58px;height: 58px" class="icon">
+            </a>
 
             <img src="/images/notification.svg"
                  onclick="var notification =
@@ -52,11 +54,20 @@
                  :notification.style.display = 'none';"
                  class="icon">
 
+
             <div class="icon">
-                <hr class="line">
-                <hr class="line">
-                <hr class="line">
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    <hr class="line">
+                    <hr class="line">
+                    <hr class="line">
+                </a>
             </div>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
     </div>
     <div class="container flew-box">
