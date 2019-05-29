@@ -1,0 +1,82 @@
+.main {
+  width: 100%;
+  border-width: 0;
+}
+
+.main .ink-card {
+  margin-top: 20px;
+}
+
+.main .ink-card .card-avatar {
+  width: 100px;
+  border-radius: 50%;
+  border: 2px solid #f98835;
+  float: left;
+  position: absolute;
+  left: 152px;
+}
+
+.main .ink-card .card-title {
+  margin-left: 124px;
+}
+
+.main .ink-card .card-title .name-slug {
+  position: relative;
+  top: 10px;
+  width: auto;
+}
+
+.main .ink-card .card-title .name-slug span {
+  font-weight: 700;
+  font-size: 14px;
+  color: #b2b2b2;
+}
+
+.main .ink-card .card-title .name-slug span:first-child {
+  color: #f98835;
+  font-size: 18px;
+}
+
+.main .ink-card .card-body {
+  font-size: 28px;
+  border: 2px solid #f98835;
+  padding: 36px 20px 12px 20px;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+.main .ink-card .card-body p {
+  margin: 20px 0 0 0;
+}
+
+.main .ink-card .card-body span {
+  font-size: 18px;
+}
+
+.main .ink-card .card-body .images {
+  padding: 8px 20px 4px 20px;
+  border-radius: 8px;
+  display: flex;
+}
+
+.main .ink-card .card-body .images img {
+  flex-grow: 1;
+}
+
+.main .ink-card .card-body .videos {
+  padding: 8px 20px 4px 20px;
+  border-radius: 8px;
+  display: flex;
+}
+
+.main .ink-card .card-body .videos video {
+  flex-grow: 1;
+}
+
+.main .ink-card .card-body .card-footer {
+  color: #b2b2b2;
+  font-size: 20px;
+  margin-top: 12px;
+  vertical-align: center;
+}
+

@@ -1,0 +1,62 @@
+// Body
+$body-bg: #eaeaea;
+
+// Typography
+$font-family-g: Montserrat-Bold, sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$white: #fff;
+$gray: #b2b2b2;
+$orange: #f98835;
+$red: #FC4027;
+
+// Width
+$full: 1366;
+//$main: percentage((892* $full)/100);
+//$left: percentage((154* $full)/100);
+//$right: percentage((320* $full)/100);
+//$w-5: percentage((50*$full)/100);
+
+@mixin widthToPer($wid){
+  width: (($wid/$full)*100%);
+}
+
+@mixin marginToPer($t:0,$r:0,$b:0,$l:0){
+  margin: (($t/$full)*100%) (($r/$full)*100%) (($b/$full)*100%) (($l/$full)*100%);
+}
+
+$f:100%;
+
+// Padding
+$padd-20: 20px;
+
+
+// Bg
+$bg-ltr: linear-gradient(to right, $orange, $red);
+$bg-rtl: linear-gradient(to right, $red, $orange);
+
+// Border
+$border-2: 2px solid $orange;
+$border-6: 6px solid $orange;
+$r-2: 2px;
+$r-round: 50%;
+
+// Mix
+@mixin card($wid: $f,
+            $bg:$white,
+            $pa:$padd-20,
+            $br:$border-2,
+            $b-r:0px,
+            $f-color:#000,
+            $mar:0px 0px 0px 0px)
+{
+  width: $wid;
+  color: $f-color;
+  background-color: $white;
+  padding: $padd-20;
+  margin: $mar;
+  border: $border-2;
+  border-radius: $b-r;
+}

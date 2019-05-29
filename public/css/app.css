@@ -1,0 +1,159 @@
+a {
+  color: unset;
+  text-decoration: unset;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat-Bold, sans-serif;
+  background-color: #eaeaea;
+}
+
+.flew-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  align-items: inherit;
+  justify-content: left;
+}
+
+.nav-bar {
+  height: 54px;
+  width: 100%;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  margin: 0px 0px 0px 0px;
+  border: 2px solid #f98835;
+  border-radius: 0px;
+  background: linear-gradient(to right, #f98835, #FC4027);
+  border-width: 0 0 6px 0;
+  margin-bottom: 40px;
+  width: auto;
+}
+
+.nav-bar .nav-bar-l {
+  width: 43.1918008785%;
+}
+
+.nav-bar .nav-bar-l .title {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  float: left;
+  margin-left: 8px;
+}
+
+.nav-bar .nav-bar-l input {
+  height: 58px;
+  width: 88%;
+  padding: 20px;
+  border: 2px solid #f98835;
+  margin-left: 38px;
+}
+
+.nav-bar .icon-menu {
+  width: 15.0805270864%;
+}
+
+.nav-bar .icon-menu .icon {
+  width: 34px;
+}
+
+.nav-bar .icon-menu .icon .line {
+  width: 100%;
+  border: #FFFFFF solid 0;
+  border-bottom-width: 2px;
+  margin: 0 0 13px 0;
+}
+
+.nav-bar .icon-menu .icon .line:last-child {
+  margin-bottom: 0;
+}
+
+.nav-bar .icon-menu .icon:first-child {
+  width: 54px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.nav-bar .icon-menu .icon:last-child {
+  width: 40px;
+}
+
+.follow-card {
+  margin-left: 1.4641288433%;
+}
+
+.follow-card .follow-card-title {
+  float: left;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f98835;
+  margin-bottom: 10px;
+}
+
+.follow-card img {
+  width: 90px;
+  border: 2px solid #f98835;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.follow-card div {
+  color: #b2b2b2;
+  flex-direction: column;
+  align-items: end;
+  font-size: 14px;
+}
+
+.follow-card div span {
+  width: 114px;
+}
+
+.follow-card div span:first-child {
+  color: #f98835;
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 22px;
+}
+
+.follow-card div button {
+  width: 114px;
+  height: 26px;
+  background-color: #fff;
+  border: 2px solid #f98835;
+  border-width: 1px;
+  margin-top: 12px;
+}
+
+.main-body {
+  width: 100%;
+  color: #000;
+  background-color: #fff;
+  padding: 20px;
+  margin: 0px 0px 0px 0px;
+  border: 2px solid #f98835;
+  border-radius: 0px;
+  width: 69.5461200586%;
+  margin-left: 8.78477306%;
+  border-width: 0;
+  padding-bottom: 0;
+}
+
+.ink {
+  height: 58px;
+  width: 58px;
+  background: linear-gradient(to right, #FC4027, #f98835);
+  position: fixed;
+  top: 574px;
+  left: 1160px;
+  border-radius: 50%;
+}
+

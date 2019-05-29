@@ -1,0 +1,90 @@
+// Variables
+@import 'variables';
+
+
+.main {
+  //@include card($br: 0);
+  //@include widthToPer(950);
+  //margin-left: ((120/1366)*100%);
+  width: 100%;
+  //border: 1px solid $gray;
+  border-width: 0;
+
+  .ink-card {
+    margin-top: 20px;
+    .card-avatar {
+      width: 100px;
+      border-radius: $r-round;
+      border: $border-2;
+      float: left;
+      position: absolute;
+      left: 152px;
+    }
+
+    .card-title {
+      margin-left: 124px;
+
+      .name-slug {
+        position: relative;
+        top: 10px;
+        width: auto;
+
+        span {
+          font-weight: 700;
+          font-size: 14px;
+          color: $gray;
+        }
+
+        span:first-child {
+          color: $orange;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .card-body {
+      font-size: 28px;
+      border: $border-2;
+      padding: 36px 20px 12px 20px;
+      border-radius: 4px;
+      margin-top: 12px;
+
+      p {
+        margin: 20px 0 0 0;
+      }
+
+      span {
+        font-size: 18px;
+      }
+
+      .images {
+        padding: 8px 20px 4px 20px;
+        border-radius: 8px;
+        display: flex;
+
+        img {
+          flex-grow: 1;
+        }
+      }
+
+      .videos {
+        padding: 8px 20px 4px 20px;
+        border-radius: 8px;
+        display: flex;
+
+        video {
+          flex-grow: 1;
+        }
+      }
+
+
+      .card-footer {
+        color: #b2b2b2;
+        font-size: 20px;
+        margin-top: 12px;
+        vertical-align: center;
+      }
+    }
+  }
+
+}

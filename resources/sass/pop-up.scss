@@ -1,0 +1,62 @@
+@import "variables";
+
+
+// JS:document.getElementsByTagName('body')[0].style.overflow = "hidden";
+//JS: if (window.scrollY < 140) window.scrollTo(0,140);
+#pop-main {
+  display: none;
+  width: 100%;
+  // JS: screen.availHeight
+  height: 728px;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.65);
+  .pop-card {
+    border-top: 6px solid $orange;
+    @include widthToPer(950);
+    // JS: screen.availHeight - 40
+    //height: 548px;
+    background-color: $white;
+    padding: 20px;
+    overflow-y: auto;
+    margin: 20px 0 0 ((120/1366)*100%);
+    h3{
+      width: 100%;
+      //text-align: center;
+      font-size: 28px;
+      margin-top: 0;
+      span{
+        margin-left: 36px;
+      }
+    }
+    textarea{
+      width: 100%;
+      border: 2px solid $gray;
+    }
+    input{
+      width: 100%;
+      margin: 12px 0 0 6px;
+      height: 240px;
+      border: 2px solid $gray;
+    }
+    input::-webkit-file-upload-button{
+      display: none;
+      margin-left: 50%;
+    }
+    #uploader:before{
+      content: "Drag files here";
+    }
+    button{
+      background: $bg-rtl;
+      width: 30%;
+      margin-left: 35%;
+      margin-top: 32px;
+      font-size: 16px;
+      text-align: center;
+      color: $white;
+      border-width: 0;
+      border-radius: 4px;
+      padding: 12px;
+    }
+  }
+}

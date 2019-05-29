@@ -1,0 +1,160 @@
+// Variables
+@import 'variables';
+
+a {
+  color: unset;
+  text-decoration: unset;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-g;
+  background-color: $body-bg;
+}
+
+.flew-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  align-items: inherit;
+  justify-content: left;
+}
+
+
+.nav-bar {
+  height: 54px;
+  @include card($br: $border-6);
+  background: $bg-ltr;
+  border-width: 0 0 6px 0;
+  margin-bottom: 40px;
+  width: auto;
+
+  .nav-bar-l {
+    @include widthToPer(590);
+
+    .title {
+      color: $white;
+      font-size: 32px;
+      font-weight: 700;
+      float: left;
+      margin-left: 8px;
+    }
+
+    input {
+      height: 58px;
+      width: 88%;
+      //@include marginToPer(0,540,0,20);
+      padding: $padd-20;
+      border: 2px solid $orange;
+      margin-left: 38px;
+    }
+  }
+
+  .icon-menu {
+    //@include marginToPer(0,0,0,540);
+    @include widthToPer(206);
+
+    .icon {
+      //@include widthToPer(42);
+      width: 34px;
+
+      .line {
+        width: $f;
+        border: #FFFFFF solid 0;
+        border-bottom-width: 2px;
+        margin: 0 0 13px 0;
+      }
+
+      .line:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .icon:first-child {
+      width: 54px;
+      border: 2px solid $white;
+      border-radius: $r-round;
+    }
+
+    .icon:last-child {
+      width: 40px;
+    }
+  }
+}
+
+.follow-card {
+  margin-left: ((20/1366)*100%);
+
+  .follow-card-title {
+    float: left;
+    font-size: 20px;
+    font-weight: 700;
+    color: $orange;
+    margin-bottom: 10px;
+  }
+
+  img {
+    width: 90px;
+    border: $border-2;
+    border-radius: $r-round;
+    margin-right: 8px;
+  }
+
+  div {
+    color: $gray;
+    flex-direction: column;
+    align-items: end;
+    font-size: 14px;
+
+    span {
+      width: 114px;
+    }
+
+    span:first-child {
+      color: $orange;
+      font-weight: 700;
+      font-size: 16px;
+      margin-top: 22px;
+    }
+
+    button {
+      width: 114px;
+      height: 26px;
+      background-color: $white;
+      border: $border-2;
+      border-width: 1px;
+      margin-top: 12px;
+    }
+  }
+}
+
+.main-body {
+  @include card($br: 0);
+  @include widthToPer(950);
+  margin-left: ((120/1366)*100%);
+  border-width: 0;
+  padding-bottom: 0;
+
+}
+
+.ink {
+  height: 58px;
+  width: 58px;
+  background: $bg-rtl;
+  position: fixed;
+  top: 574px;
+  left: 1160px;
+  border-radius: 50%;
+}
+
+//.b-2-p2 {
+//  padding: $padd-20;
+//  border: $border-2;
+//  border-radius: $r-2;
+//}

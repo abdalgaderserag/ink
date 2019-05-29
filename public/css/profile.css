@@ -1,0 +1,78 @@
+.main-container {
+  border-width: 0;
+  background-color: inherit;
+}
+
+.main-container .wallpaper img {
+  width: 100%;
+  height: 240px;
+}
+
+.main-container .w-line {
+  color: #fff;
+  background-color: #f98835;
+  padding: 6px 20px 6px 190px;
+  font-weight: 700;
+}
+
+.main-container .profile-avatar {
+  width: 150px;
+  height: 150px;
+  border: 6px solid #eaeaea;
+  border-radius: 50%;
+  position: absolute;
+  top: 332px;
+  left: 160px;
+}
+
+.main-container .profile-details {
+  height: 60px;
+  margin-left: 210px;
+  justify-content: left;
+}
+
+.main-container .profile-details div {
+  flex-direction: column;
+  margin-right: 100px;
+  color: #b2b2b2;
+}
+
+.main-container .profile-details div span {
+  color: #000;
+  font-weight: 700;
+}
+
+.main-container .profile-details div button {
+  width: 160px;
+  padding: 8px 20px 8px 20px;
+  border: 1px solid #f98835;
+  background-color: #fff;
+  margin-left: 168px;
+}
+
+.main-container .details {
+  padding: 0 86px 0 180px;
+  font-size: 18px;
+}
+
+.main-container .profile-main {
+  background-color: #fff;
+}
+
+.main-container .profile-main .profile-menu button {
+  height: 42px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #fff;
+  padding: 8px 4px;
+  width: 24.6%;
+}
+
+.main-container .profile-main .profile-menu .active {
+  border-bottom-color: #f98835;
+}
+
+.main-body {
+  background-color: unset;
+}
+

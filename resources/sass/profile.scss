@@ -1,0 +1,90 @@
+@import 'variables';
+
+.main-container {
+  //@include card($br: 0);
+  //@include widthToPer(950);
+  //margin-left: ((120/1366)*100%);
+  border-width: 0;
+  background-color: inherit;
+  //padding: 0;
+
+  .wallpaper {
+    img {
+      width: 100%;
+      height: 240px;
+    }
+  }
+
+  .w-line{
+    color: $white;
+    background-color: $orange;
+    padding: 6px 20px 6px 190px;
+    font-weight: 700;
+  }
+
+  .profile-avatar{
+    width: 150px;
+    height: 150px;
+    border: 6px solid #eaeaea;
+    border-radius: $r-round;
+    position: absolute;
+    top: 332px;
+    left: 160px;
+    //float: left;
+  }
+
+  .profile-details{
+    height: 60px;
+    margin-left: 210px;
+    justify-content: left;
+    div{
+      flex-direction: column;
+      margin-right: 100px;
+      color: $gray;
+      span{
+        color: #000;
+        font-weight: 700;
+      }
+      button{
+        width: 160px;
+        padding: 8px 20px 8px 20px;
+        border: 1px solid $orange;
+        background-color: $white;
+        margin-left: 168px;
+      }
+    }
+  }
+
+  .details{
+    padding: 0 86px 0 180px;
+    font-size: 18px;
+  }
+
+
+
+  .profile-main {
+    background-color: $white;
+    .profile-menu{
+      //margin-bottom: 20px;
+      button{
+        height: 42px;
+        font-size: 16px;
+        background-color: $white;
+        border: 2px solid $white;
+        padding: 8px 4px;
+        width: 24.6%;
+      }
+      .active{
+        border-bottom-color: $orange;
+      }
+    }
+
+    //.profile-main-posts{
+    //  padding: 20px 0;
+    //}
+  }
+}
+
+.main-body{
+  background-color: unset;
+}
