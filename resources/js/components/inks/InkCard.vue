@@ -1,5 +1,5 @@
 <template>
-    <div class="ink-card" @click="show = ! show">
+    <div class="ink-card">
         <img v-bind:src="ink.user.avatar" class="card-avatar">
         <div class="card-title">
             <span class="name-slug">
@@ -11,7 +11,7 @@
             </span>
         </div>
 
-        <div class="card-body">
+        <div class="card-body" @click="showComments()">
             <p>{{ ink.media[0].text }}</p>
             <div v-show="ink.media[0].images != null || ink.media[0].videos != null"
                  class="media">
@@ -29,7 +29,7 @@
                 <span>43</span>
             </div>
         </div>
-        <comments :show="show"></comments>
+        <comments :id="ink.id" :show="show"></comments>
     </div>
 </template>
 
@@ -72,7 +72,7 @@
                 })
             },
             showComments: function () {
-                ;
+                this.show = ! this.show;
             }
         }
     }

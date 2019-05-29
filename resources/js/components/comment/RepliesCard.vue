@@ -19,6 +19,12 @@
         mounted() {
             this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
         },
+        props:{
+            replies:{
+                type: Object,
+                required: true,
+            }
+        }
     }
 </script>
 

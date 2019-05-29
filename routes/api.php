@@ -16,9 +16,11 @@ use Illuminate\Http\Request;
 
 Route::get('/ink/{type}','Api\InkController@all');
 Route::post('/create-ink','Api\InkController@store');
-Route::get('/show-ink/{ink}','Api\InkController@show');
 Route::put('/edit-ink','Api\InkController@update');
 Route::delete('/delete-ink/{ink}','Api\InkController@destroy');
+
+
+Route::get('/show-ink/{ink}','Api\InkController@show');
 
 
 Route::post('/create-comment','Api\CommentController@store');

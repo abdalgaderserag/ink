@@ -3,6 +3,7 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link href="{{ asset('css/comments.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

@@ -1912,7 +1912,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CommentCard"
+  name: "CommentCard",
+  props: {
+    comment: {
+      type: Object,
+      required: true
+    }
+  }
 });
 
 /***/ }),
@@ -1941,17 +1947,35 @@ __webpack_require__.r(__webpack_exports__);
   name: "Comments",
   data: function data() {
     return {
-      line: 0
+      line: 0,
+      comments: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/show-ink/' + this.id).then(function (response) {
+      _this.comments = response.data;
+    });
   },
   props: {
     show: {
       type: Boolean,
       required: true
+    },
+    id: {
+      type: Number,
+      required: true
     }
   },
-  mounted: function mounted() {
-    this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+  methods: {
+    lineHeigth: function lineHeigth() {
+      this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+    },
+    styleChenged: function styleChenged() {
+      axios.get();
+      this.lineHeigth();
+    }
   }
 });
 
@@ -1985,6 +2009,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+  },
+  props: {
+    replies: {
+      type: Object,
+      required: true
+    }
   }
 });
 
@@ -2106,7 +2136,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     showComments: function showComments() {
-      ;
+      this.show = !this.show;
     }
   }
 });
@@ -3514,46 +3544,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "comment flew-box" }, [
+    _c("img", {
+      staticClass: "comment-avatar",
+      attrs: { src: "/images/profile.jpeg", alt: "" }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "comment-card" }, [
+      _c("div", { staticClass: "comment-text" }, [
+        _c("span", [_vm._v(_vm._s(_vm.comment.user.name))]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.comment.media[0].text))]),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "comment flew-box" }, [
+    return _c("div", { staticClass: "comment-footer" }, [
       _c("img", {
-        staticClass: "comment-avatar",
-        attrs: { src: "/images/profile.jpeg", alt: "" }
+        attrs: { src: "/images/Hard-fill.svg", width: "24px", alt: "" }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "comment-card" }, [
-        _c("div", { staticClass: "comment-text" }, [
-          _c("span", [_vm._v("Gadora Serag")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "sadas 9diyhhhhfi kjsaf jkdgfd jfjdksatfjiadgkltttttfg kgljfg"
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "comment-footer" }, [
-            _c("img", {
-              attrs: { src: "/images/Hard-fill.svg", width: "24px", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v("12")]),
-            _vm._v(" "),
-            _c("img", {
-              attrs: { src: "/images/comment.svg", width: "24px", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v("12")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
-          ])
-        ])
-      ])
+      _c("span", [_vm._v("12")]),
+      _vm._v(" "),
+      _c("img", {
+        attrs: { src: "/images/comment.svg", width: "24px", alt: "" }
+      }),
+      _vm._v(" "),
+      _c("span", [_vm._v("12")]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
     ])
   }
 ]
@@ -3580,7 +3606,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "comments-main" },
+    {
+      directives: [
+        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+      ],
+      staticClass: "comments-main"
+    },
     [
       _c("hr", {
         ref: "line",
@@ -3588,17 +3619,31 @@ var render = function() {
         attrs: { id: "comments-line" }
       }),
       _vm._v(" "),
-      _c("comment-card"),
-      _vm._v(" "),
-      _c("replies-card"),
-      _vm._v(" "),
-      _c("comment-card"),
-      _vm._v(" "),
-      _c("comment-card"),
+      _vm._l(_vm.comments, function(comment) {
+        return _c(
+          "div",
+          [
+            _c("comment-card", { attrs: { comment: comment } }),
+            _vm._v(" "),
+            _c("replies-card", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: comment.replies == [],
+                  expression: "comment.replies == []"
+                }
+              ],
+              attrs: { replies: comment.replies }
+            })
+          ],
+          1
+        )
+      }),
       _vm._v(" "),
       _c("comment-card", { ref: "last" })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -3735,14 +3780,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "ink-card",
-      on: {
-        click: function($event) {
-          _vm.show = !_vm.show
-        }
-      }
-    },
+    { staticClass: "ink-card" },
     [
       _c("img", {
         staticClass: "card-avatar",
@@ -3761,59 +3799,70 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("p", [_vm._v(_vm._s(_vm.ink.media[0].text))]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value:
-                  _vm.ink.media[0].images != null ||
-                  _vm.ink.media[0].videos != null,
-                expression:
-                  "ink.media[0].images != null || ink.media[0].videos != null"
-              }
-            ],
-            staticClass: "media"
-          },
-          [_vm._m(0), _vm._v(" "), _vm._m(1)]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-footer" }, [
-          _c("img", {
-            attrs: {
-              src: "/images/" + _vm.image,
-              width: "28px",
-              height: "24px",
-              alt: ""
+      _c(
+        "div",
+        {
+          staticClass: "card-body",
+          on: {
+            click: function($event) {
+              return _vm.showComments()
+            }
+          }
+        },
+        [
+          _c("p", [_vm._v(_vm._s(_vm.ink.media[0].text))]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.ink.media[0].images != null ||
+                    _vm.ink.media[0].videos != null,
+                  expression:
+                    "ink.media[0].images != null || ink.media[0].videos != null"
+                }
+              ],
+              staticClass: "media"
             },
-            on: {
-              click: function($event) {
-                return _vm.like()
+            [_vm._m(0), _vm._v(" "), _vm._m(1)]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c("img", {
+              attrs: {
+                src: "/images/" + _vm.image,
+                width: "28px",
+                height: "24px",
+                alt: ""
+              },
+              on: {
+                click: function($event) {
+                  return _vm.like()
+                }
               }
-            }
-          }),
-          _vm._v(" "),
-          _c("span", [_vm._v("312")]),
-          _vm._v(" "),
-          _c("img", {
-            attrs: {
-              src: "/images/comment.svg",
-              width: "36px",
-              height: "30px",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", [_vm._v("43")])
-        ])
-      ]),
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v("312")]),
+            _vm._v(" "),
+            _c("img", {
+              attrs: {
+                src: "/images/comment.svg",
+                width: "36px",
+                height: "30px",
+                alt: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v("43")])
+          ])
+        ]
+      ),
       _vm._v(" "),
-      _c("comments", { attrs: { show: _vm.show } })
+      _c("comments", { attrs: { id: _vm.ink.id, show: _vm.show } })
     ],
     1
   )

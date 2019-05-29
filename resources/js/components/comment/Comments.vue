@@ -1,10 +1,10 @@
 <template>
-    <div class="comments-main">
+    <div class="comments-main" v-show="show">
         <hr id="comments-line" ref="line" :style="{height:line + 'px'}">
-        <comment-card></comment-card>
-        <replies-card></replies-card>
-        <comment-card></comment-card>
-        <comment-card></comment-card>
+        <div v-for="comment in comments">
+            <comment-card :comment="comment"></comment-card>
+            <replies-card v-show="comment.replies == []" :replies="comment.replies"></replies-card>
+        </div>
         <comment-card ref="last"></comment-card>
     </div>
 </template>
@@ -12,20 +12,37 @@
 <script>
     export default {
         name: "Comments",
-        data(){
-            return{
+        data() {
+            return {
                 line: 0,
-            }
-        },
-        props:{
-            show:{
-                type: Boolean,
-                required: true,
+                comments: [],
             }
         },
         mounted() {
-            this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+            axios.get('/api/show-ink/' + this.id)
+                .then((response) => {
+                    this.comments = response.data;
+                })
         },
+        props: {
+            show: {
+                type: Boolean,
+                required: true,
+            },
+            id: {
+                type: Number,
+                required: true,
+            }
+        },
+        methods: {
+            lineHeigth: function () {
+                this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+            },
+            styleChenged: function () {
+                axios.get()
+                this.lineHeigth()
+            }
+        }
     }
 </script>
 

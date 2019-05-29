@@ -65,7 +65,7 @@ class InkController extends Controller
      */
     public function show(Ink $ink)
     {
-        return response($ink->comment()->get(),200);
+        return response($ink->comment()->with('user','replies','media')->get(),200);
     }
 
     /**
