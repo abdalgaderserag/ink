@@ -29,8 +29,7 @@ Route::put('/edit-comment','Api\CommentController@update');
 Route::delete('/delete-comment/{comment}','Api\CommentController@destroy');
 
 
-Route::post('/image','Api\UploadController@image');
-Route::post('/video','Api\UploadController@video');
+Route::post('/upload','Api\UploadController@upload');
 
 
 Route::post('/like','Api\InteractController@like');

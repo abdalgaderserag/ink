@@ -7,23 +7,26 @@ use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InkController extends Controller
 {
     public function all($type = "home")
     {
-
-//        if ($type == "home") {
+        return response()->json(Ink::with('user','media')->get(),200);
+        if ($type == "home") {
 //            $inks = Ink::with('user','media')->get();
-//        }
-//        else if ($type == "profile"){
-//            $inks = Ink::where('user_slug', Auth::user()->slug)->with('user','media')->get();
-//        }
-//        else{
-//            $inks = Ink::with('user','media')->get();
-//
-//        }
-        $inks = Ink::with('user','media')->get();
+            $slugs = DB::table('follows')->where('followed_id',Auth::id())->get('follower_id');
+            $inks = Ink::with('user','media')->whereIn('user_slug',$slugs)->get();
+        }
+        else if ($type == "profile"){
+            $inks = Ink::where('user_slug', Auth::user()->slug)->with('user','media')->get();
+        }
+        else{
+            $slug = explode('/',$type);
+            $inks = Ink::where('user_slug', $slug[1])->with('user','media')->get();
+        }
+//        $inks = Ink::with('user','media')->get();
         return response()->json($inks,200);
     }
 

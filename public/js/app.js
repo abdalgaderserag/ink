@@ -1792,13 +1792,16 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.onload = function () {
         app.$data.images.push(reader.result);
-        app.$data.imageNames.push(e.target.files[0].name);
-        axios.post('/api/' + app.$children[0].$children[0].$children[0].file, {
+        app.$data.imageNames.push(e.target.files[0].name); // axios.post('/api/' + app.$children[0].$children[0].$children[0].file,{
+
+        axios.post('/api/upload', {
           'api_token': app.$data.api_token,
           'file': reader.result,
           'post': app.$children[0].$children[0].$children[0].post
         }).then(function (response) {
           console.log(response.data);
+        })["catch"](function (error) {
+          console.log("error while uploading file :" + error);
         });
       };
     }
