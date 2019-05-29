@@ -24,7 +24,7 @@ class InkController extends Controller
 //
 //        }
         $inks = Ink::with('user','media')->get();
-        return response($inks);
+        return response()->json($inks,200);
     }
 
     /**
@@ -35,7 +35,7 @@ class InkController extends Controller
     public function index()
     {
         //
-        return response()->json(Ink::where('user_slug',Auth::user()->slug));
+        return response()->json(Ink::where('user_slug',Auth::user()->slug),200);
     }
 
     /**
@@ -54,7 +54,7 @@ class InkController extends Controller
         $media->ink_id = $ink->id;
         $media->text = $request->text;
         $media->save();
-        return response()->json($ink);
+        return response()->json($ink,200);
     }
 
     /**
@@ -65,7 +65,7 @@ class InkController extends Controller
      */
     public function show(Ink $ink)
     {
-        return response($ink->comment()->get());
+        return response($ink->comment()->get(),200);
     }
 
     /**
@@ -80,7 +80,7 @@ class InkController extends Controller
         //
         $ink->media()->text = $request->text;
         $ink->save();
-        return true;
+        return response()->json(true,200);
     }
 
     /**
@@ -94,6 +94,6 @@ class InkController extends Controller
         //
         $ink->media()->delete();
         $ink->delete();
-        return response()->json($ink);
+        return response()->json($ink,200);
     }
 }

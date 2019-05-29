@@ -9,7 +9,7 @@ class UploadController extends Controller
 {
     public function image(Request $request)
     {
-        return response($request);
+        return response()->json($request,200);
     }
 
     public function video()

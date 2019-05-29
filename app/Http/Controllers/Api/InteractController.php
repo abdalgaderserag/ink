@@ -19,9 +19,9 @@ class InteractController extends Controller
         if ($request->comment_id)
             $check = Like::all()->where('user_id', Auth::id())->where('ink_id', $request->comment_id);
         if (!empty($check)) {
-            return response("false");
+            return response()->json("false", 200);
             $check->delete();
-            return response("false");
+            return response()->json("false", 200);
         } else {
             $like = new Like();
             $like->user_id = Auth::id();
@@ -30,7 +30,7 @@ class InteractController extends Controller
             if (!empty($request->comment_id))
                 $like->comment_id = $request->comment_id;
             $like->save();
-            return response("true");
+            return response()->json("true", 200);
         }
     }
 
@@ -42,8 +42,8 @@ class InteractController extends Controller
         if ($request->comment_id)
             $check = Like::all()->where('user_id', Auth::id())->where('ink_id', $request->comment_id);
         if (empty($check))
-            return response("true");
-        return response("false");
+            return response()->json("true", 200);
+        return response()->json('false', 200);
     }
 
     public function share(Request $request)
@@ -55,6 +55,6 @@ class InteractController extends Controller
         else
             $share->comment_id = $request->comment_id;
         $share->save();
-        return true;
+        return response()->json("true", 200);
     }
 }
