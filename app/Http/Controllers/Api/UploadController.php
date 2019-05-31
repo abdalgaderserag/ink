@@ -26,14 +26,4 @@ class UploadController extends Controller
 
         return response()->json($request, 200);
     }
-
-    private function image($data, $type)
-    {
-
-    }
-
-    private function video($data, $type)
-    {
-
-    }
 }
