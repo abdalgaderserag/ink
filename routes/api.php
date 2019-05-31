@@ -35,3 +35,6 @@ Route::post('/upload','Api\UploadController@upload');
 Route::post('/like','Api\InteractController@like');
 Route::post('/like/check','Api\InteractController@likeCheck');
 Route::post('/share','Api\InteractController@share');
+
+Route::get('/ink','Api\InkController@index');
+

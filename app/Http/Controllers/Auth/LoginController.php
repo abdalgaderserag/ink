@@ -43,8 +43,7 @@ class LoginController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-
+            $user->createToken('MyApp')->accessToken;
             return redirect('home');
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);

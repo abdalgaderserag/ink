@@ -1945,7 +1945,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Comments",
   data: function data() {
@@ -2002,7 +2001,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RepliesCard",
   data: function data() {
@@ -2010,12 +2008,11 @@ __webpack_require__.r(__webpack_exports__);
       line: 0
     };
   },
-  mounted: function mounted() {
-    this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+  mounted: function mounted() {// this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
   },
   props: {
     replies: {
-      type: Object,
+      type: Array,
       required: true
     }
   }
@@ -2051,8 +2048,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ReplyCard"
+  name: "ReplyCard",
+  props: {
+    reply: {
+      type: Object,
+      required: true
+    }
+  }
 });
 
 /***/ }),
@@ -2118,8 +2123,16 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.post('/api/like/check', {
-      'ink_id': this.ink.id
+    axios({
+      method: 'post',
+      url: '/api/like/check',
+      data: {
+        'ink_id': this.ink.id
+      },
+      header: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer 79ff0a4eeafbeb8ec37192dec2883ae6bae922a8815a13e6daaacd624eab4a1e0c17b7bb4ba4dc50'
+      }
     }).then(function (response) {
       if (response.data) _this.image = "hard-fill-color.svg";else _this.image = "hard-fill.svg";
     });
@@ -2173,7 +2186,13 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     var link = document.location.pathname;
-    axios.get('/api/ink' + link).then(function (response) {
+    axios({
+      url: '/api/ink' + link,
+      header: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer 79ff0a4eeafbeb8ec37192dec2883ae6bae922a8815a13e6daaacd624eab4a1e0c17b7bb4ba4dc50'
+      }
+    }).then(function (response) {
       _this.inks = response.data;
     })["catch"](function (error) {
       console.log('error:\n'.error);
@@ -2222,7 +2241,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main .ink-card .card-body{\n    background-color: #FFFFFF;\n}\n", ""]);
+exports.push([module.i, "\n.main .ink-card .card-body {\n    background-color: #FFFFFF;\n}\n", ""]);
 
 // exports
 
@@ -3633,8 +3652,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: comment.replies == [],
-                  expression: "comment.replies == []"
+                  value: comment.replies,
+                  expression: "comment.replies"
                 }
               ],
               attrs: { replies: comment.replies }
@@ -3642,9 +3661,7 @@ var render = function() {
           ],
           1
         )
-      }),
-      _vm._v(" "),
-      _c("comment-card", { ref: "last" })
+      })
     ],
     2
   )
@@ -3680,15 +3697,11 @@ var render = function() {
         style: { height: _vm.line + "px" }
       }),
       _vm._v(" "),
-      _c("reply-card"),
-      _vm._v(" "),
-      _c("reply-card"),
-      _vm._v(" "),
-      _c("reply-card"),
-      _vm._v(" "),
-      _c("reply-card", { ref: "last" })
+      _vm._l(_vm.replies, function(reply) {
+        return _c("div", [_c("reply-card", { attrs: { reply: reply } })], 1)
+      })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -3713,50 +3726,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "comment reply flew-box" }, [
+    _c("img", {
+      staticClass: "comment-avatar",
+      attrs: { src: "/images/profile.jpeg", alt: "" }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "comment-card" }, [
+      _c(
+        "div",
+        { staticClass: "comment-text" },
+        [
+          _c("span", [_vm._v("Gadora Serag")]),
+          _vm._v(" "),
+          _vm._l(_vm.reply.media, function(media) {
+            return _c("div", [_c("p", [_vm._v(_vm._s(media.text))])])
+          }),
+          _vm._v(" "),
+          _vm._m(0)
+        ],
+        2
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "comment reply flew-box" }, [
+    return _c("div", { staticClass: "comment-footer" }, [
       _c("img", {
-        staticClass: "comment-avatar",
-        attrs: { src: "/images/profile.jpeg", alt: "" }
+        attrs: { src: "/images/Hard-fill.svg", width: "24px", alt: "" }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "comment-card" }, [
-        _c("div", { staticClass: "comment-text" }, [
-          _c("span", [_vm._v("Gadora Serag")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "sadas 9diyhhhhfi kjsaf jkdgfd jfjdksatfjiadgkltttttfg kgljfg"
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "comment-footer" }, [
-            _c("img", {
-              attrs: { src: "/images/Hard-fill.svg", width: "24px", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v("12")]),
-            _vm._v(" "),
-            _c("img", {
-              attrs: {
-                src: "/images/Hard-fill-color.svg",
-                width: "24px",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v("12")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
-          ])
-        ])
-      ])
+      _c("span", [_vm._v("12")]),
+      _vm._v(" "),
+      _c("img", {
+        attrs: {
+          src: "/images/comment.svg",
+          width: "36px",
+          height: "30px",
+          alt: ""
+        }
+      }),
+      _vm._v(" "),
+      _c("span", [_vm._v("12")]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
     ])
   }
 ]

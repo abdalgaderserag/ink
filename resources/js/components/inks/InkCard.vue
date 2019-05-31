@@ -36,8 +36,8 @@
 <script>
     export default {
         name: "InkCard",
-        data(){
-            return{
+        data() {
+            return {
                 show: false,
                 image: "hard-fill.svg",
             }
@@ -48,31 +48,38 @@
                 required: true,
             },
         },
-        mounted(){
-            axios.post('/api/like/check',{
-                'ink_id': this.ink.id,
-            }).then((response)=>{
+        mounted() {
+            axios({
+                method: 'post',
+                url: '/api/like/check',
+                data: {
+                    'ink_id': this.ink.id,
+                },
+                header:{
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer 79ff0a4eeafbeb8ec37192dec2883ae6bae922a8815a13e6daaacd624eab4a1e0c17b7bb4ba4dc50',
+                },
+            }).then((response) => {
                 if (response.data)
                     this.image = "hard-fill-color.svg"
                 else
                     this.image = "hard-fill.svg"
             })
         },
-        methods:{
-            like:function () {
-                axios.post('/api/like',{
+        methods: {
+            like: function () {
+                axios.post('/api/like', {
                     'ink_id': this.ink.id,
-                }).then((response)=>{
-                    if (response.data){
+                }).then((response) => {
+                    if (response.data) {
                         this.image = "hard-fill-color.svg"
-                    }
-                    else{
+                    } else {
                         this.image = "hard-fill.svg"
                     }
                 })
             },
             showComments: function () {
-                this.show = ! this.show;
+                this.show = !this.show;
             }
         }
     }

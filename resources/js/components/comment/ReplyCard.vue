@@ -4,11 +4,13 @@
         <div class="comment-card">
             <div class="comment-text">
                 <span>Gadora Serag</span>
-                <p>sadas 9diyhhhhfi kjsaf jkdgfd jfjdksatfjiadgkltttttfg kgljfg</p>
+                <div v-for="media in reply.media">
+                    <p>{{ media.text }}</p>
+                </div>
                 <div class="comment-footer">
                     <img src="/images/Hard-fill.svg" width="24px" alt="">
                     <span>12</span>
-                    <img src="/images/Hard-fill-color.svg" width="24px" alt="">
+                    <img src="/images/comment.svg" width="36px" height="30px" alt="">
                     <span>12</span>
                     <a href="/share">Share</a>
                 </div>
@@ -19,7 +21,13 @@
 
 <script>
     export default {
-        name: "ReplyCard"
+        name: "ReplyCard",
+        props: {
+            reply: {
+                type: Object,
+                required: true,
+            }
+        }
     }
 </script>
 

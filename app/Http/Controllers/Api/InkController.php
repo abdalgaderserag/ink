@@ -38,6 +38,7 @@ class InkController extends Controller
     public function index()
     {
         //
+        return response()->json('sad',200);
         return response()->json(Ink::where('user_slug',Auth::user()->slug),200);
     }
 
@@ -68,7 +69,7 @@ class InkController extends Controller
      */
     public function show(Ink $ink)
     {
-        return response($ink->comment()->with('user','replies','media')->get(),200);
+        return response($ink->comment()->with('user','replies.media','media')->get(),200);
     }
 
     /**

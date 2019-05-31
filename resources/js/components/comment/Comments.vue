@@ -3,9 +3,8 @@
         <hr id="comments-line" ref="line" :style="{height:line + 'px'}">
         <div v-for="comment in comments">
             <comment-card :comment="comment"></comment-card>
-            <replies-card v-show="comment.replies == []" :replies="comment.replies"></replies-card>
+            <replies-card v-show="comment.replies" :replies="comment.replies"></replies-card>
         </div>
-        <comment-card ref="last"></comment-card>
     </div>
 </template>
 

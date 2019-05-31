@@ -103,7 +103,13 @@
         data: {
             images: [],
             imageNames: [],
-            api_token: '{{ \Illuminate\Support\Facades\Auth::user()->api_token }}',
+            access_token : [],
+        },
+        mounted() {
+            axios.get('/oauth/personal-access-tokens')
+                .then((response)=>{
+                    this.access_token = response.data[0].id
+            })
         }
     });
 </script>
