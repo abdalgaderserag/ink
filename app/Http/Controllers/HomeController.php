@@ -19,6 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+         Auth::loginUsingId(1);
         $this->middleware('auth');
     }
 
@@ -29,8 +30,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $inks = Ink::all();
-        return view('home')->with('inks', $inks);
+        //$inks = Ink::all();
+        //return view('home')->with('inks', $inks);
+        return view('home');
     }
 
     public function profile($slug = '')

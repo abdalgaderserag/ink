@@ -13,11 +13,11 @@ class InkController extends Controller
 {
     public function all($type = "home")
     {
-        return response()->json(Ink::with('user','media')->get(),200);
+        return response()->json(Ink::with('user','media','like')->get(),200);
         if ($type == "home") {
 //            $inks = Ink::with('user','media')->get();
             $slugs = DB::table('follows')->where('followed_id',Auth::id())->get('follower_id');
-            $inks = Ink::with('user','media')->whereIn('user_slug',$slugs)->get();
+            $inks = Ink::with('user','media','like')->whereIn('user_slug',$slugs)->get();
         }
         else if ($type == "profile"){
             $inks = Ink::where('user_slug', Auth::user()->slug)->with('user','media')->get();
@@ -69,7 +69,7 @@ class InkController extends Controller
      */
     public function show(Ink $ink)
     {
-        return response($ink->comment()->with('user','replies.media','media')->get(),200);
+        return response($ink->comment()->with('user','replies.media','replies.likes', 'replies.user','media','like')->get(),200);
     }
 
     /**

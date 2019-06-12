@@ -21,7 +21,9 @@
             axios.get('/api/show-ink/' + this.id)
                 .then((response) => {
                     this.comments = response.data;
-                })
+                    this.$parent.commentCount = this.comments.length
+                });
+
         },
         props: {
             show: {

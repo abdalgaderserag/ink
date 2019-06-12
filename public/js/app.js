@@ -1916,10 +1916,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CommentCard",
+  data: function data() {
+    return {
+      image: 'hard-fill.svg'
+    };
+  },
   props: {
     comment: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    like: function like() {
+      var _this = this;
+
+      axios.post('/api/like', {
+        'comment_id': this.comment.id,
+        'type': 'comment'
+      }).then(function (response) {
+        if (response.data) {
+          _this.image = "hard-fill-color.svg";
+        } else {
+          _this.image = "hard-fill.svg";
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    if (this.comment.like) for (var i = 0; i < this.comment.like.length; i++) {
+      if (this.comment.like[i].user_id === 1) {
+        this.image = "hard-fill-color.svg";
+      }
     }
   }
 });
@@ -1958,6 +1986,7 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/api/show-ink/' + this.id).then(function (response) {
       _this.comments = response.data;
+      _this.$parent.commentCount = _this.comments.length;
     });
   },
   props: {
@@ -2052,10 +2081,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ReplyCard",
+  data: function data() {
+    return {
+      image: 'hard-fill.svg'
+    };
+  },
   props: {
     reply: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    like: function like() {
+      var _this = this;
+
+      axios.post('/api/like', {
+        'comment_id': this.comment.id,
+        'type': 'comment'
+      }).then(function (response) {
+        if (response.data) {
+          _this.image = "hard-fill-color.svg";
+        } else {
+          _this.image = "hard-fill.svg";
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    if (this.reply.like) for (var i = 0; i < this.reply.like.length; i++) {
+      if (this.reply.like[i].user_id === 1) {
+        this.image = "hard-fill-color.svg";
+      }
     }
   }
 });
@@ -2111,7 +2168,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       show: false,
-      image: "hard-fill.svg"
+      image: "hard-fill.svg",
+      commentCount: 0
     };
   },
   props: {
@@ -2121,33 +2179,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios({
-      method: 'post',
-      url: '/api/like/check',
-      data: {
-        'ink_id': this.ink.id
-      },
-      header: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer 79ff0a4eeafbeb8ec37192dec2883ae6bae922a8815a13e6daaacd624eab4a1e0c17b7bb4ba4dc50'
+    for (var i = 0; i < this.ink.like.length; i++) {
+      if (this.ink.like[i].user_id === 1) {
+        this.image = "hard-fill-color.svg";
       }
-    }).then(function (response) {
-      if (response.data) _this.image = "hard-fill-color.svg";else _this.image = "hard-fill.svg";
-    });
+    }
   },
   methods: {
     like: function like() {
-      var _this2 = this;
+      var _this = this;
 
       axios.post('/api/like', {
         'ink_id': this.ink.id
       }).then(function (response) {
         if (response.data) {
-          _this2.image = "hard-fill-color.svg";
+          _this.image = "hard-fill-color.svg";
         } else {
-          _this2.image = "hard-fill.svg";
+          _this.image = "hard-fill.svg";
         }
       });
     },
@@ -2187,11 +2235,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var link = document.location.pathname;
     axios({
-      url: '/api/ink' + link,
-      header: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer 79ff0a4eeafbeb8ec37192dec2883ae6bae922a8815a13e6daaacd624eab4a1e0c17b7bb4ba4dc50'
-      }
+      url: '/api/ink' + link
     }).then(function (response) {
       _this.inks = response.data;
     })["catch"](function (error) {
@@ -3578,33 +3622,27 @@ var render = function() {
         _vm._v(" "),
         _c("p", [_vm._v(_vm._s(_vm.comment.media[0].text))]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "comment-footer" }, [
+          _c("img", {
+            attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
+            on: { click: _vm.like }
+          }),
+          _vm._v(" "),
+          _c("span", [_vm._v(_vm._s(_vm.comment.like.length))]),
+          _vm._v(" "),
+          _c("img", {
+            attrs: { src: "/images/comment.svg", width: "24px", alt: "" }
+          }),
+          _vm._v(" "),
+          _c("span", [_vm._v(_vm._s(_vm.comment.replies.length))]),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
+        ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "comment-footer" }, [
-      _c("img", {
-        attrs: { src: "/images/Hard-fill.svg", width: "24px", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("span", [_vm._v("12")]),
-      _vm._v(" "),
-      _c("img", {
-        attrs: { src: "/images/comment.svg", width: "24px", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("span", [_vm._v("12")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -3737,46 +3775,29 @@ var render = function() {
         "div",
         { staticClass: "comment-text" },
         [
-          _c("span", [_vm._v("Gadora Serag")]),
+          _c("span", [_vm._v(_vm._s(_vm.reply.user.name))]),
           _vm._v(" "),
           _vm._l(_vm.reply.media, function(media) {
             return _c("div", [_c("p", [_vm._v(_vm._s(media.text))])])
           }),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "comment-footer" }, [
+            _c("img", {
+              attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
+              on: { click: _vm.like }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.reply.likes.length))]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
+          ])
         ],
         2
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "comment-footer" }, [
-      _c("img", {
-        attrs: { src: "/images/Hard-fill.svg", width: "24px", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("span", [_vm._v("12")]),
-      _vm._v(" "),
-      _c("img", {
-        attrs: {
-          src: "/images/comment.svg",
-          width: "36px",
-          height: "30px",
-          alt: ""
-        }
-      }),
-      _vm._v(" "),
-      _c("span", [_vm._v("12")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -3866,7 +3887,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v("312")]),
+            _c("span", [_vm._v(_vm._s(_vm.ink.like.length))]),
             _vm._v(" "),
             _c("img", {
               attrs: {
@@ -3877,7 +3898,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v("43")])
+            _c("span", [_vm._v(_vm._s(_vm.commentCount))])
           ])
         ]
       ),

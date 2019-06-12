@@ -6,10 +6,10 @@
                 <span>{{ comment.user.name }}</span>
                 <p>{{ comment.media[0].text }}</p>
                 <div class="comment-footer">
-                    <img src="/images/Hard-fill.svg" width="24px" alt="">
-                    <span>12</span>
+                    <img :src="'/images/' + image" @click="like" width="24px" alt="">
+                    <span>{{ comment.like.length }}</span>
                     <img src="/images/comment.svg" width="24px" alt="">
-                    <span>12</span>
+                    <span>{{ comment.replies.length}}</span>
                     <a href="/share">Share</a>
                 </div>
             </div>
@@ -20,11 +20,37 @@
 <script>
     export default {
         name: "CommentCard",
-        props:{
-            comment:{
+        data() {
+            return {
+                image: 'hard-fill.svg',
+            }
+        },
+        props: {
+            comment: {
                 type: Object,
                 required: true,
             }
+        },
+        methods: {
+            like: function () {
+                axios.post('/api/like', {
+                    'comment_id': this.comment.id,
+                    'type': 'comment',
+                }).then((response) => {
+                    if (response.data) {
+                        this.image = "hard-fill-color.svg"
+                    } else {
+                        this.image = "hard-fill.svg"
+                    }
+                })
+            },
+        },
+        mounted() {
+            if (this.comment.like)
+            for (var i = 0; i < this.comment.like.length; i++)
+                if (this.comment.like[i].user_id === 1) {
+                    this.image = "hard-fill-color.svg";
+                }
         }
     }
 </script>

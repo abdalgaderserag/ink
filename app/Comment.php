@@ -30,7 +30,7 @@ class Comment extends Model
         return $this->hasMany('App\Comment','comment_id');
     }
 
-    public function likes()
+    public function like()
     {
         return $this->hasMany('App\Like');
     }

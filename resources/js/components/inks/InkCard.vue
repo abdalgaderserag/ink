@@ -24,9 +24,9 @@
             </div>
             <div class="card-footer">
                 <img :src="'/images/' + image" @click="like()" width="28px" height="24px" alt="">
-                <span>312</span>
+                <span>{{ ink.like.length }}</span>
                 <img src="/images/comment.svg" width="36px" height="30px" alt="">
-                <span>43</span>
+                <span>{{ commentCount }}</span>
             </div>
         </div>
         <comments :id="ink.id" :show="show"></comments>
@@ -40,6 +40,7 @@
             return {
                 show: false,
                 image: "hard-fill.svg",
+                commentCount: 0,
             }
         },
         props: {
@@ -49,22 +50,12 @@
             },
         },
         mounted() {
-            axios({
-                method: 'post',
-                url: '/api/like/check',
-                data: {
-                    'ink_id': this.ink.id,
-                },
-                header:{
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer 79ff0a4eeafbeb8ec37192dec2883ae6bae922a8815a13e6daaacd624eab4a1e0c17b7bb4ba4dc50',
-                },
-            }).then((response) => {
-                if (response.data)
-                    this.image = "hard-fill-color.svg"
-                else
-                    this.image = "hard-fill.svg"
-            })
+            for (var i = 0; i < this.ink.like.length; i++)
+                if (this.ink.like[i].user_id === 1) {
+                    this.image = "hard-fill-color.svg";
+                }
+
+
         },
         methods: {
             like: function () {
