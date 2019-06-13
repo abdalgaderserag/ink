@@ -3,14 +3,14 @@
         <h3>
             <img @click="hide" src="/images/back.png" alt="">
             <span>
-                    Create Ink
+                    Create Reply
                 </span>
         </h3>
         <textarea v-model="text" cols="124" rows="6" class="text-input"></textarea>
         <file-reader file="image" post="ink"></file-reader>
         <!--<input type="button" value="Ink It !">-->
         <br>
-        <button role="button" @click="submitInk()">Ink it!</button>
+        <button role="button" @click="submitInk()">reply</button>
     </div>
 </template>
 

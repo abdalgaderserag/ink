@@ -1,7 +1,7 @@
 <template>
     <div id="pop-main">
         <create-ink></create-ink>
-        <!--add-commen-->
+        <!--<add-comment></add-comment>-->
     </div>
 </template>
 

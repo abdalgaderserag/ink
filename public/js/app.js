@@ -1970,6 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CommentCard",
   data: function data() {
@@ -1997,6 +1998,9 @@ __webpack_require__.r(__webpack_exports__);
           _this.image = "hard-fill.svg";
         }
       });
+    },
+    reply: function reply() {
+      document.getElementById('pop-main').style.display = "block";
     }
   },
   mounted: function mounted() {
@@ -2031,12 +2035,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Comments",
   data: function data() {
     return {
       line: 0,
-      comments: []
+      comments: [],
+      text: ''
     };
   },
   mounted: function mounted() {
@@ -2046,8 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.comments = response.data;
       _this.$parent.commentCount = _this.comments.length;
       _this.$parent.commentId = _this.comments[_this.comments.length - 1].id;
-    }); // console.log(lineHe())
-    // console.log(this.$refs.line)
+    });
   },
   props: {
     show: {
@@ -2058,14 +2068,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: true
     }
-  },
-  methods: {
-    lineHeigth: function lineHeigth() {// this.line = document.getElementById('comment'+this.last).offsetTop - this.$refs.line.offsetTop;
-    } // styleChenged: function () {
-    //     axios.get()
-    //     this.lineHeigth()
-    // }
-
   }
 });
 
@@ -2222,6 +2224,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2263,10 +2266,30 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    reply: function reply() {
+      document.getElementById('pop-main').style.display = "block";
+    },
     showComments: function showComments() {
-      this.show = !this.show; // console.log(this.number)
-
+      this.show = !this.show;
       this.$children[0].line = lineHe(this.number, this.commentId);
+
+      if (this.show) {
+        var inks = document.getElementsByClassName('ink-card');
+
+        for (var i = 0; i < inks.length; i++) {
+          if (i !== this.number) {
+            inks[i].style.display = "none";
+          }
+        }
+      } else {
+        var _inks = document.getElementsByClassName('ink-card');
+
+        for (var i = 0; i < _inks.length; i++) {
+          if (i !== this.number) {
+            _inks[i].style.display = "block";
+          }
+        }
+      }
     }
   }
 });
@@ -3585,7 +3608,7 @@ var render = function() {
           on: { click: _vm.hide }
         }),
         _vm._v(" "),
-        _c("span", [_vm._v("\n                Create Ink\n            ")])
+        _c("span", [_vm._v("\n                Create Reply\n            ")])
       ]),
       _vm._v(" "),
       _c("textarea", {
@@ -3624,7 +3647,7 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Ink it!")]
+        [_vm._v("reply")]
       )
     ],
     1
@@ -3779,6 +3802,8 @@ var render = function() {
           _vm._v(" "),
           _c("span", [_vm._v(_vm._s(_vm.comment.replies.length))]),
           _vm._v(" "),
+          _c("a", { on: { click: _vm.reply } }, [_vm._v("Reply")]),
+          _vm._v(" "),
           _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
         ])
       ])
@@ -3816,6 +3841,8 @@ var render = function() {
       staticClass: "comments-main"
     },
     [
+      _c("br"),
+      _vm._v(" "),
       _c("hr", {
         ref: "line",
         style: { height: _vm.line + "px" },
@@ -4063,7 +4090,16 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.commentCount))])
+            _c("span", [_vm._v(_vm._s(_vm.commentCount))]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticStyle: { "margin-left": "48px" },
+                on: { click: _vm.reply }
+              },
+              [_vm._v("Reply")]
+            )
           ])
         ]
       ),

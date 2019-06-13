@@ -27,6 +27,7 @@
                 <span>{{ ink.like.length }}</span>
                 <img src="/images/comment.svg" width="36px" height="30px" alt="">
                 <span>{{ commentCount }}</span>
+                <span @click="reply" style="margin-left: 48px">Reply</span>
             </div>
         </div>
         <comments :id="ink.id" :show="show"></comments>
@@ -74,10 +75,27 @@
                     }
                 })
             },
+            reply: function () {
+                document.getElementById('pop-main').style.display = "block"
+            },
             showComments: function () {
                 this.show = !this.show;
-                // console.log(this.number)
-                this.$children[0].line = lineHe(this.number,this.commentId);
+                this.$children[0].line = lineHe(this.number, this.commentId);
+                if (this.show) {
+                    let inks = document.getElementsByClassName('ink-card');
+                    for (var i = 0; i < inks.length; i++) {
+                        if (i !== this.number) {
+                            inks[i].style.display = "none"
+                        }
+                    }
+                }else {
+                    let inks = document.getElementsByClassName('ink-card');
+                    for (var i = 0; i < inks.length; i++) {
+                        if (i !== this.number) {
+                            inks[i].style.display = "block"
+                        }
+                    }
+                }
             }
         }
     }

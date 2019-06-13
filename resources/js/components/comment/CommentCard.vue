@@ -10,6 +10,7 @@
                     <span>{{ comment.like.length }}</span>
                     <img src="/images/comment.svg" width="24px" alt="">
                     <span>{{ comment.replies.length}}</span>
+                    <a @click="reply">Reply</a>
                     <a href="/share">Share</a>
                 </div>
             </div>
@@ -44,6 +45,9 @@
                     }
                 })
             },
+            reply: function () {
+                document.getElementById('pop-main').style.display = "block"
+            }
         },
         mounted() {
             if (this.comment.like)
