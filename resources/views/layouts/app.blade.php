@@ -10,6 +10,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script>
+        function lineHe(number = 0, id = 3) {
+            app.$children[2].$children[number].$children[0].$refs.line.parentElement.style.display = "block";
+            return document.getElementById('comment' + id).offsetTop -
+                app.$children[2].$children[number].$children[0].$refs.line.offsetTop
+        }
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Styles -->
@@ -43,7 +50,7 @@
         </div>
         <div class="icon-menu flew-box">
             <a href="/profile" style="width: 58px;height: 58px;">
-            <img src="/images/profile.jpeg" style="width: 58px;height: 58px" class="icon">
+                <img src="/images/profile.jpeg" style="width: 58px;height: 58px" class="icon">
             </a>
 
             <img src="/images/notification.svg"
@@ -103,13 +110,14 @@
         data: {
             images: [],
             imageNames: [],
-            access_token : [],
+            access_token: [],
+            axx: '{!! $access !!}',
         },
         mounted() {
             axios.get('/oauth/personal-access-tokens')
-                .then((response)=>{
+                .then((response) => {
                     this.access_token = response.data[0].id
-            })
+                })
         }
     });
 </script>

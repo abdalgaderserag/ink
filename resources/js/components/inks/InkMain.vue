@@ -1,7 +1,7 @@
 <template>
     <div class="main">
-        <div v-for="ink in inks">
-            <ink-card :ink="ink"></ink-card>
+        <div v-for="(ink,index) in inks">
+            <ink-card :ink="ink" :number="index"></ink-card>
         </div>
     </div>
 </template>

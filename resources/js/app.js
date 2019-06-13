@@ -39,6 +39,8 @@ Vue.component('file-reader', require('./components/FileReader.vue').default);
 
 Vue.component('pop-up', require('./components/PopUps/PopUp.vue').default);
 Vue.component('create-ink', require('./components/PopUps/CreateInk.vue').default);
+Vue.component('add-comment', require('./components/PopUps/AddComment.vue').default);
+
 
 
 Vue.component('notification-main', require('./components/notification/NotificationMain.vue').default);

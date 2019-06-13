@@ -41,6 +41,7 @@
                 show: false,
                 image: "hard-fill.svg",
                 commentCount: 0,
+                commentId: 0,
             }
         },
         props: {
@@ -48,6 +49,10 @@
                 type: Object,
                 required: true,
             },
+            number: {
+                type: Number,
+                required: true,
+            }
         },
         mounted() {
             for (var i = 0; i < this.ink.like.length; i++)
@@ -71,6 +76,8 @@
             },
             showComments: function () {
                 this.show = !this.show;
+                // console.log(this.number)
+                this.$children[0].line = lineHe(this.number,this.commentId);
             }
         }
     }

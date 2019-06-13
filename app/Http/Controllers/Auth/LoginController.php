@@ -37,14 +37,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        Auth::loginUsingId(5);
+        Auth::user()->createToken('log');
     }
 
     public function login(Request $request)
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $user->createToken('MyApp')->accessToken;
-            return redirect('home');
+            $d = $user->createToken('MyApp')->accessToken;
+            //return redirect('home');
+return response()->json(['data' => $d],200);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }

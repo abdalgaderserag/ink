@@ -1,8 +1,10 @@
 <template>
     <div class="comments-main" v-show="show">
         <hr id="comments-line" ref="line" :style="{height:line + 'px'}">
-        <div v-for="comment in comments">
-            <comment-card :comment="comment"></comment-card>
+        <div v-for="(comment, index) in comments">
+            <!--<comment-card ref="comment" :comment="comment"></comment-card>-->
+            <comment-card v-show="index + 1 !== comments.length" :comment="comment"></comment-card>
+            <comment-card v-show="index + 1 === comments.length" :id="'comment' + comment.id" :comment="comment"></comment-card>
             <replies-card v-show="comment.replies" :replies="comment.replies"></replies-card>
         </div>
     </div>
@@ -22,8 +24,10 @@
                 .then((response) => {
                     this.comments = response.data;
                     this.$parent.commentCount = this.comments.length
+                    this.$parent.commentId = this.comments[this.comments.length - 1].id
                 });
-
+            // console.log(lineHe())
+            // console.log(this.$refs.line)
         },
         props: {
             show: {
@@ -37,12 +41,13 @@
         },
         methods: {
             lineHeigth: function () {
-                this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
+
+                // this.line = document.getElementById('comment'+this.last).offsetTop - this.$refs.line.offsetTop;
             },
-            styleChenged: function () {
-                axios.get()
-                this.lineHeigth()
-            }
+            // styleChenged: function () {
+            //     axios.get()
+            //     this.lineHeigth()
+            // }
         }
     }
 </script>
