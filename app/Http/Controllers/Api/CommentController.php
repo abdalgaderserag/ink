@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
+use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -19,8 +21,12 @@ class CommentController extends Controller
         //
         $comment = new Comment();
         $comment->ink_id = $request->ink_id;
-        $comment->media()->text = $request->text;
+        $comment->user_id = Auth::id();
         $comment->save();
+        $media = new Media();
+        $media->text = $request->text;
+        $media->comment_id = $comment->id;
+        $media->save();
         return response()->json($comment, 200);
     }
 

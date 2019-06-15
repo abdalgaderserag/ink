@@ -2071,7 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/show-ink/' + this.id).then(function (response) {
       _this.comments = response.data;
       _this.$parent.commentCount = _this.comments.length;
-      _this.$parent.commentId = _this.comments[_this.comments.length - 1].id;
+      if (_this.comments[_this.comments.length - 1] === null) _this.$parent.commentId = _this.comments[_this.comments.length - 1].id;
     });
   },
   props: {
@@ -2082,6 +2082,20 @@ __webpack_require__.r(__webpack_exports__);
     id: {
       type: Number,
       required: true
+    }
+  },
+  methods: {
+    reply: function reply() {
+      var _this2 = this;
+
+      if (this.text !== '') axios.post('api/create-comment', {
+        'text': this.text,
+        'ink_id': this.id
+      }).then(function (response) {
+        _this2.comments.push(response.data);
+
+        _this2.text = '';
+      });
     }
   }
 });
@@ -2239,7 +2253,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2282,12 +2295,10 @@ __webpack_require__.r(__webpack_exports__);
         'type': 'ink'
       }).then(function (response) {
         if (response.data.type) {
-          // console.log(this.ink.like)
           _this.ink.like.push(response.data.like);
 
-          _this.image = "hard-fill-color.svg"; // console.log(this.ink.like)
+          _this.image = "hard-fill-color.svg";
         } else if (!response.data.type) {
-          // console.log(response.data.like)
           _this.ink.like = response.data.like;
           _this.image = "hard-fill.svg";
         }
@@ -2295,9 +2306,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.image = temp;
       });
     },
-    // reply: function () {
-    //     document.getElementById('pop-main').style.display = "block"
-    // },
     showComments: function showComments() {
       var scrS;
       this.show = !this.show;
@@ -2387,8 +2395,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showNotification: function showNotification() {}
   },
-  mounted: function mounted() {
-    axios.get();
+  mounted: function mounted() {// axios.get()
   }
 });
 
@@ -3934,9 +3941,40 @@ var render = function() {
       staticClass: "comments-main"
     },
     [
-      _c("input", { staticClass: "input-text", attrs: { type: "text" } }),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.text,
+            expression: "text"
+          }
+        ],
+        staticClass: "input-text",
+        attrs: { type: "text" },
+        domProps: { value: _vm.text },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.text = $event.target.value
+          }
+        }
+      }),
       _vm._v(" "),
-      _c("button", { staticClass: "input-bottom" }, [_vm._v("Reply")]),
+      _c(
+        "button",
+        {
+          staticClass: "input-bottom",
+          on: {
+            click: function($event) {
+              return _vm.reply()
+            }
+          }
+        },
+        [_vm._v("Reply")]
+      ),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
@@ -4129,68 +4167,67 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "card-body",
-          on: {
-            click: function($event) {
-              return _vm.showComments()
+      _c("div", { staticClass: "card-body" }, [
+        _c(
+          "p",
+          {
+            on: {
+              click: function($event) {
+                return _vm.showComments()
+              }
             }
-          }
-        },
-        [
-          _c("p", [_vm._v(_vm._s(_vm.ink.media[0].text))]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.ink.media[0].images != null ||
-                    _vm.ink.media[0].videos != null,
-                  expression:
-                    "ink.media[0].images != null || ink.media[0].videos != null"
-                }
-              ],
-              staticClass: "media"
+          },
+          [_vm._v(_vm._s(_vm.ink.media[0].text))]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  _vm.ink.media[0].images != null ||
+                  _vm.ink.media[0].videos != null,
+                expression:
+                  "ink.media[0].images != null || ink.media[0].videos != null"
+              }
+            ],
+            staticClass: "media"
+          },
+          [_vm._m(0), _vm._v(" "), _vm._m(1)]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-footer" }, [
+          _c("img", {
+            attrs: {
+              src: "/images/" + _vm.image,
+              width: "28px",
+              height: "24px",
+              alt: ""
             },
-            [_vm._m(0), _vm._v(" "), _vm._m(1)]
-          ),
+            on: {
+              click: function($event) {
+                return _vm.like()
+              }
+            }
+          }),
           _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c("img", {
-              attrs: {
-                src: "/images/" + _vm.image,
-                width: "28px",
-                height: "24px",
-                alt: ""
-              },
-              on: {
-                click: function($event) {
-                  return _vm.like()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.ink.like.length))]),
-            _vm._v(" "),
-            _c("img", {
-              attrs: {
-                src: "/images/comment.svg",
-                width: "36px",
-                height: "30px",
-                alt: ""
-              }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.commentCount))])
-          ])
-        ]
-      ),
+          _c("span", [_vm._v(_vm._s(_vm.ink.like.length))]),
+          _vm._v(" "),
+          _c("img", {
+            attrs: {
+              src: "/images/comment.svg",
+              width: "36px",
+              height: "30px",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", [_vm._v(_vm._s(_vm.commentCount))])
+        ])
+      ]),
       _vm._v(" "),
       _c("comments", { attrs: { id: _vm.ink.id, show: _vm.show } })
     ],

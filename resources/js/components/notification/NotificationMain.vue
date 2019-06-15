@@ -12,7 +12,7 @@
 
             }
         },mounted() {
-            axios.get()
+            // axios.get()
         }
     }
 </script>

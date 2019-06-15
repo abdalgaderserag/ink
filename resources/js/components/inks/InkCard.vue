@@ -11,8 +11,8 @@
             </span>
         </div>
 
-        <div class="card-body" @click="showComments()">
-            <p>{{ ink.media[0].text }}</p>
+        <div class="card-body">
+            <p @click="showComments()">{{ ink.media[0].text }}</p>
             <div v-show="ink.media[0].images != null || ink.media[0].videos != null"
                  class="media">
                 <div class="images">
@@ -27,7 +27,6 @@
                 <span>{{ ink.like.length }}</span>
                 <img src="/images/comment.svg" width="36px" height="30px" alt="">
                 <span>{{ commentCount }}</span>
-                <!--<span onclick="inkForm('reply')" style="margin-left: 48px">Reply</span>-->
             </div>
         </div>
         <comments :id="ink.id" :show="show"></comments>
@@ -73,12 +72,9 @@
                     'type': 'ink',
                 }).then((response) => {
                     if (response.data.type) {
-                        // console.log(this.ink.like)
                         this.ink.like.push(response.data.like);
                         this.image = "hard-fill-color.svg";
-                        // console.log(this.ink.like)
                     } else if (!response.data.type) {
-                        // console.log(response.data.like)
                         this.ink.like = response.data.like;
                         this.image = "hard-fill.svg"
                     }
@@ -86,9 +82,6 @@
                     this.image = temp;
                 })
             },
-            // reply: function () {
-            //     document.getElementById('pop-main').style.display = "block"
-            // },
             showComments: function () {
                 let scrS;
                 this.show = !this.show;
