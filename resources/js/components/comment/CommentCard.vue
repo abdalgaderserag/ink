@@ -1,19 +1,25 @@
 <template>
-    <div class="comment flew-box">
-        <img class="comment-avatar" src="/images/profile.jpeg" alt="">
-        <div class="comment-card">
-            <div class="comment-text">
-                <span>{{ comment.user.name }}</span>
-                <p>{{ comment.media[0].text }}</p>
-                <div class="comment-footer">
-                    <img :src="'/images/' + image" @click="like" width="24px" alt="">
-                    <span>{{ comment.like.length }}</span>
-                    <img src="/images/comment.svg" width="24px" alt="">
-                    <span>{{ comment.replies.length}}</span>
-                    <a @click="reply">Reply</a>
-                    <a href="/share">Share</a>
+    <div>
+        <div class="comment flew-box">
+            <img class="comment-avatar" src="/images/profile.jpeg" alt="">
+            <div class="comment-card">
+                <div class="comment-text">
+                    <span>{{ comment.user.name }}</span>
+                    <p>{{ comment.media[0].text }}</p>
+                    <div class="comment-footer">
+                        <img :src="'/images/' + image" @click="like" width="24px" alt="">
+                        <span>{{ comment.like.length }}</span>
+                        <img src="/images/comment.svg" width="24px" alt="">
+                        <span>{{ comment.replies.length}}</span>
+                        <a @click="replyFun()">Reply</a>
+                        <a href="/share">Share</a>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div style="margin-left: 120px" v-show="showReply">
+            <input type="text" class="input-text">
+            <button class="input-bottom">Reply</button>
         </div>
     </div>
 </template>
@@ -24,6 +30,7 @@
         data() {
             return {
                 image: 'hard-fill.svg',
+                showReply: false,
             }
         },
         props: {
@@ -47,14 +54,22 @@
             },
             reply: function () {
                 document.getElementById('pop-main').style.display = "block"
+            },
+            replyFun: function () {
+                this.showReply = ! this.showReply;
+                if (this.showReply)
+                    this.$parent.line += 78;
+                else
+                    this.$parent.line -= 78;
+                // this.$parent.$parent.$children[0].line = lineHe(this.$parent.$parent.number,this.$parent.$parent.commentId);
             }
         },
         mounted() {
             if (this.comment.like)
-            for (var i = 0; i < this.comment.like.length; i++)
-                if (this.comment.like[i].user_id === 1) {
-                    this.image = "hard-fill-color.svg";
-                }
+                for (var i = 0; i < this.comment.like.length; i++)
+                    if (this.comment.like[i].user_id === 1) {
+                        this.image = "hard-fill-color.svg";
+                    }
         }
     }
 </script>

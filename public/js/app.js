@@ -1835,6 +1835,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddComment",
   data: function data() {
@@ -1937,7 +1938,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "PopUp"
+  name: "PopUp",
+  data: function data() {
+    return {
+      type: ''
+    };
+  }
 });
 
 /***/ }),
@@ -1971,11 +1977,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CommentCard",
   data: function data() {
     return {
-      image: 'hard-fill.svg'
+      image: 'hard-fill.svg',
+      showReply: false
     };
   },
   props: {
@@ -2001,6 +2014,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     reply: function reply() {
       document.getElementById('pop-main').style.display = "block";
+    },
+    replyFun: function replyFun() {
+      this.showReply = !this.showReply;
+      if (this.showReply) this.$parent.line += 78;else this.$parent.line -= 78; // this.$parent.$parent.$children[0].line = lineHe(this.$parent.$parent.number,this.$parent.$parent.commentId);
     }
   },
   mounted: function mounted() {
@@ -2023,6 +2040,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2266,9 +2285,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    reply: function reply() {
-      document.getElementById('pop-main').style.display = "block";
-    },
+    // reply: function () {
+    //     document.getElementById('pop-main').style.display = "block"
+    // },
     showComments: function showComments() {
       this.show = !this.show;
       this.$children[0].line = lineHe(this.number, this.commentId);
@@ -3611,6 +3630,8 @@ var render = function() {
         _c("span", [_vm._v("\n                Create Reply\n            ")])
       ]),
       _vm._v(" "),
+      _c("div", { attrs: { id: "reply-section" } }),
+      _vm._v(" "),
       _c("textarea", {
         directives: [
           {
@@ -3752,7 +3773,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "pop-main" } }, [_c("create-ink")], 1)
+  return _c(
+    "div",
+    { attrs: { id: "pop-main" } },
+    [
+      _c("create-ink", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.type === "ink",
+            expression: "type === 'ink'"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c("add-comment", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.type === "reply",
+            expression: "type === 'reply'"
+          }
+        ]
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3776,38 +3824,70 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "comment flew-box" }, [
-    _c("img", {
-      staticClass: "comment-avatar",
-      attrs: { src: "/images/profile.jpeg", alt: "" }
-    }),
-    _vm._v(" "),
-    _c("div", { staticClass: "comment-card" }, [
-      _c("div", { staticClass: "comment-text" }, [
-        _c("span", [_vm._v(_vm._s(_vm.comment.user.name))]),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.comment.media[0].text))]),
-        _vm._v(" "),
-        _c("div", { staticClass: "comment-footer" }, [
-          _c("img", {
-            attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
-            on: { click: _vm.like }
-          }),
+  return _c("div", [
+    _c("div", { staticClass: "comment flew-box" }, [
+      _c("img", {
+        staticClass: "comment-avatar",
+        attrs: { src: "/images/profile.jpeg", alt: "" }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "comment-card" }, [
+        _c("div", { staticClass: "comment-text" }, [
+          _c("span", [_vm._v(_vm._s(_vm.comment.user.name))]),
           _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.comment.like.length))]),
+          _c("p", [_vm._v(_vm._s(_vm.comment.media[0].text))]),
           _vm._v(" "),
-          _c("img", {
-            attrs: { src: "/images/comment.svg", width: "24px", alt: "" }
-          }),
-          _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.comment.replies.length))]),
-          _vm._v(" "),
-          _c("a", { on: { click: _vm.reply } }, [_vm._v("Reply")]),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
+          _c("div", { staticClass: "comment-footer" }, [
+            _c("img", {
+              attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
+              on: { click: _vm.like }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.comment.like.length))]),
+            _vm._v(" "),
+            _c("img", {
+              attrs: { src: "/images/comment.svg", width: "24px", alt: "" }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.comment.replies.length))]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.replyFun()
+                  }
+                }
+              },
+              [_vm._v("Reply")]
+            ),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
+          ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showReply,
+            expression: "showReply"
+          }
+        ],
+        staticStyle: { "margin-left": "120px" }
+      },
+      [
+        _c("input", { staticClass: "input-text", attrs: { type: "text" } }),
+        _vm._v(" "),
+        _c("button", { staticClass: "input-bottom" }, [_vm._v("Reply")])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -3841,6 +3921,10 @@ var render = function() {
       staticClass: "comments-main"
     },
     [
+      _c("input", { staticClass: "input-text", attrs: { type: "text" } }),
+      _vm._v(" "),
+      _c("button", { staticClass: "input-bottom" }, [_vm._v("Reply")]),
+      _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _c("hr", {
@@ -4096,7 +4180,7 @@ var render = function() {
               "span",
               {
                 staticStyle: { "margin-left": "48px" },
-                on: { click: _vm.reply }
+                attrs: { onclick: "inkForm('reply')" }
               },
               [_vm._v("Reply")]
             )

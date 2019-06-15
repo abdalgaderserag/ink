@@ -94,16 +94,24 @@
             </div>
         </div>
 
-        <div class="ink" onclick="inkForm()">
+        <div class="ink" onclick="inkForm('ink')">
 
         </div>
     </div>
 </div>
 </body>
 <script>
-    function inkForm() {
-        document.getElementById('pop-main').style.display = "block"
+    function inkForm(type) {
+        document.getElementById('pop-main').style.display = "block";
+        app.$children[0].type = type;
     }
+
+    // let section = ''
+    // document.addEventListener('click',function (event) {
+    //     section = event.target.parentElement.parentElement.parentElement.innerHTML
+    //     document.getElementById('reply-section').innerHTML = section;
+    // });
+
 
     let app = new Vue({
         el: "#app",

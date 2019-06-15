@@ -160,3 +160,21 @@ body {
 //  border: $border-2;
 //  border-radius: $r-2;
 //}
+
+.input-text{
+  width: 70%;
+  margin-bottom: 32px;
+  font-size: 16px;
+  padding: 12px;
+  border: 2px solid #d2d2d2;
+  border-radius: 4px;
+}
+.input-bottom{
+  height: 46px;
+  color: #FFFFFF;
+  padding: 10px 34px;
+  font-size: 20px;
+  background: linear-gradient(to right, #FC4027, #f98835);
+  border-radius: 30px;
+  border-width: 0;
+}

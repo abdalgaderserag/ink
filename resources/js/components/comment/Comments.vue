@@ -5,6 +5,8 @@
             <!--file-->
         <!--</button>-->
         <!--<span>Ink</span>-->
+        <input type="text" class="input-text">
+        <button class="input-bottom">Reply</button>
         <br>
         <hr id="comments-line" ref="line" :style="{height:line + 'px'}">
         <div v-for="(comment, index) in comments">

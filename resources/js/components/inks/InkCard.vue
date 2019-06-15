@@ -27,7 +27,7 @@
                 <span>{{ ink.like.length }}</span>
                 <img src="/images/comment.svg" width="36px" height="30px" alt="">
                 <span>{{ commentCount }}</span>
-                <span @click="reply" style="margin-left: 48px">Reply</span>
+                <span onclick="inkForm('reply')" style="margin-left: 48px">Reply</span>
             </div>
         </div>
         <comments :id="ink.id" :show="show"></comments>
@@ -75,9 +75,9 @@
                     }
                 })
             },
-            reply: function () {
-                document.getElementById('pop-main').style.display = "block"
-            },
+            // reply: function () {
+            //     document.getElementById('pop-main').style.display = "block"
+            // },
             showComments: function () {
                 this.show = !this.show;
                 this.$children[0].line = lineHe(this.number, this.commentId);

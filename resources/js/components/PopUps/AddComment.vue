@@ -6,9 +6,10 @@
                     Create Reply
                 </span>
         </h3>
+        <div id="reply-section">
+        </div>
         <textarea v-model="text" cols="124" rows="6" class="text-input"></textarea>
         <file-reader file="image" post="ink"></file-reader>
-        <!--<input type="button" value="Ink It !">-->
         <br>
         <button role="button" @click="submitInk()">reply</button>
     </div>
@@ -22,21 +23,23 @@
                 text: '',
             }
         },
-        methods: {
-            hide: function () {
-                var main = document.getElementById('pop-main');
-                main.style.display = "none";
-            },
-            submitInk: function () {
-                axios.post('/api/create-ink',{
-                    'api_token': this.$data.api_token,
-                    'text': this.text,
-                    'file': '',
-                }).then((response)=>{
-                    this.hide()
-                    this.text = ''
-                })
+        methods:
+            {
+                hide: function () {
+                    var main = document.getElementById('pop-main');
+                    main.style.display = "none";
+                }
+                ,
+                submitInk: function () {
+                    axios.post('/api/create-ink', {
+                        'api_token': this.$data.api_token,
+                        'text': this.text,
+                        'file': '',
+                    }).then((response) => {
+                        this.hide()
+                        this.text = ''
+                    })
+                }
             }
-        }
     }
 </script>
