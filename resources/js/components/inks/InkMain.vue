@@ -14,10 +14,9 @@
             }
         },
         mounted() {
+            window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.$root.access_token;
             var link = document.location.pathname;
-            axios({
-                url: '/api/ink' + link,
-            })
+            axios.get('/api/ink' + link)
                 .then((response) => {
                     this.inks = response.data
                 }).catch((error) => {

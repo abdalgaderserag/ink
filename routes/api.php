@@ -13,28 +13,42 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::get('/ink/{type}','Api\InkController@all');
-Route::post('/create-ink','Api\InkController@store');
-Route::put('/edit-ink','Api\InkController@update');
-Route::delete('/delete-ink/{ink}','Api\InkController@destroy');
+//Route::middleware('auth:api')->group( function () {
 
 
-Route::get('/show-ink/{ink}','Api\InkController@show');
+
+Route::middleware('auth:api')->group(function () {
+
+    Route::get('/ink/{type}', 'Api\InkController@all');
+    Route::post('/create-ink', 'Api\InkController@store');
+    Route::put('/edit-ink', 'Api\InkController@update');
+    Route::delete('/delete-ink/{ink}', 'Api\InkController@destroy');
+
+    Route::get('/show-ink/{ink}', 'Api\InkController@show');
 
 
-Route::post('/create-comment','Api\CommentController@store');
-Route::get('/show-comment/{comment}','Api\CommentController@show');
-Route::put('/edit-comment','Api\CommentController@update');
-Route::delete('/delete-comment/{comment}','Api\CommentController@destroy');
+    Route::post('/create-comment', 'Api\CommentController@store');
+    Route::get('/show-comment/{comment}', 'Api\CommentController@show');
+    Route::put('/edit-comment', 'Api\CommentController@update');
+    Route::delete('/delete-comment/{comment}', 'Api\CommentController@destroy');
 
 
-Route::post('/upload','Api\UploadController@upload');
+    Route::post('/upload', 'Api\UploadController@upload');
 
 
-Route::post('/like','Api\InteractController@like');
-Route::post('/like/check','Api\InteractController@likeCheck');
-Route::post('/share','Api\InteractController@share');
+    Route::post('/like', 'Api\InteractController@like');
+    Route::post('/like/check', 'Api\InteractController@likeCheck');
+    Route::post('/share', 'Api\InteractController@share');
 
-Route::get('/ink','Api\InkController@index');
+    Route::get('/ink', 'Api\InkController@index');
+
+});
+
+
+
+
+
+
+
+//});
 

@@ -28,14 +28,14 @@
                 main.style.display = "none";
             },
             submitInk: function () {
-                axios.post('/api/create-ink',{
-                    'api_token': this.$data.api_token,
-                    'text': this.text,
-                    'file': '',
-                }).then((response)=>{
-                    this.hide()
-                    this.text = ''
-                })
+                if (this.text !== "")
+                    axios.post('/api/create-ink', {
+                        'text': this.text,
+                        'file': '',
+                    }).then((response) => {
+                        this.hide();
+                        this.text = '';
+                    })
             }
         }
     }

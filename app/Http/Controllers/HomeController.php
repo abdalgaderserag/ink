@@ -38,7 +38,7 @@ class HomeController extends Controller
     {
         //$inks = Ink::all();
         //return view('home')->with('inks', $inks);
-        return view('home')->with('access',Auth::user()->createToken('accc')->accessToken);
+        return view('home')->with('access',Auth::user()->createToken('home')->accessToken);
     }
 
     public function profile($slug = '')

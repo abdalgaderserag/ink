@@ -13,19 +13,20 @@ class InteractController extends Controller
 {
     public function like(Request $request)
     {
-        if ($request->typee == 'comment') {
-            $like = Like::where('ink_id', $request->ink_id)->where('user_id', Auth::guard('api')->id())->first();
+        if ($request->type == 'ink') {
+            $like = Like::where('ink_id', $request->ink_id)->where('user_id', Auth::id())->first();
             if (empty($like)) {
                 $like = new Like();
-                $like->user_id = Auth::guard('api')->id();
+                $like->user_id = Auth::id();
                 $like->ink_id = $request->ink_id;
                 $like->save();
-                return true;
+                return response(['like' => $like,'type' => true], 200);
             } else {
                 $like->delete();
-                return false;
+                $like = Like::where('ink_id', $request->ink_id);
+                return response(['like' => $like,'type' => false], 200);
             }
-        }else{
+        } else {
             $like = Like::where('comment_id', $request->comment_id)->where('user_id', Auth::guard('api')->id())->first();
             if (empty($like)) {
                 $like = new Like();

@@ -1771,8 +1771,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "FileReader",
   data: function data() {
     return {
-      images: [] // image:'',
-
+      images: []
     };
   },
   props: {
@@ -1788,14 +1787,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     upload: function upload(e) {
       var reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]); // console.log(e.target.files[0].name)
+      reader.readAsDataURL(e.target.files[0]);
 
       reader.onload = function () {
         app.$data.images.push(reader.result);
-        app.$data.imageNames.push(e.target.files[0].name); // axios.post('/api/' + app.$children[0].$children[0].$children[0].file,{
-
+        app.$data.imageNames.push(e.target.files[0].name);
         axios.post('/api/upload', {
-          'api_token': app.$data.api_token,
           'file': reader.result,
           'post': app.$children[0].$children[0].$children[0].post
         }).then(function (response) {
@@ -1906,8 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
     submitInk: function submitInk() {
       var _this = this;
 
-      axios.post('/api/create-ink', {
-        'api_token': this.$data.api_token,
+      if (this.text !== "") axios.post('/api/create-ink', {
         'text': this.text,
         'file': ''
       }).then(function (response) {
@@ -2266,33 +2262,52 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     for (var i = 0; i < this.ink.like.length; i++) {
-      if (this.ink.like[i].user_id === 1) {
-        this.image = "hard-fill-color.svg";
-      }
+      if (this.ink.like[i].user_id + '' === this.$root.id) this.image = "hard-fill-color.svg";
     }
   },
   methods: {
     like: function like() {
       var _this = this;
 
+      var temp = this.image;
+
+      if (this.image === "hard-fill-color.svg") {
+        this.image = "hard-fill.svg";
+      } else {
+        this.image = "hard-fill-color.svg";
+      }
+
       axios.post('/api/like', {
-        'ink_id': this.ink.id
+        'ink_id': this.ink.id,
+        'type': 'ink'
       }).then(function (response) {
-        if (response.data) {
-          _this.image = "hard-fill-color.svg";
-        } else {
+        if (response.data.type) {
+          // console.log(this.ink.like)
+          _this.ink.like.push(response.data.like);
+
+          _this.image = "hard-fill-color.svg"; // console.log(this.ink.like)
+        } else if (!response.data.type) {
+          console.log(_this.ink.like);
+
+          _this.ink.like.shift(response.data.like);
+
+          console.log(_this.ink.like);
           _this.image = "hard-fill.svg";
         }
+      })["catch"](function (error) {
+        _this.image = temp;
       });
     },
     // reply: function () {
     //     document.getElementById('pop-main').style.display = "block"
     // },
     showComments: function showComments() {
+      var scrS;
       this.show = !this.show;
-      this.$children[0].line = lineHe(this.number, this.commentId);
+      if (this.$children[0].comments.length !== 0) this.$children[0].line = lineHe(this.number, this.commentId);
 
       if (this.show) {
+        scrS = window.scrollY;
         var inks = document.getElementsByClassName('ink-card');
 
         for (var i = 0; i < inks.length; i++) {
@@ -2302,6 +2317,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       } else {
         var _inks = document.getElementsByClassName('ink-card');
+
+        window.scrollY = scrS;
 
         for (var i = 0; i < _inks.length; i++) {
           if (i !== this.number) {
@@ -2341,10 +2358,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.$root.access_token;
     var link = document.location.pathname;
-    axios({
-      url: '/api/ink' + link
-    }).then(function (response) {
+    axios.get('/api/ink' + link).then(function (response) {
       _this.inks = response.data;
     })["catch"](function (error) {
       console.log('error:\n'.error);
@@ -4174,16 +4190,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.commentCount))]),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticStyle: { "margin-left": "48px" },
-                attrs: { onclick: "inkForm('reply')" }
-              },
-              [_vm._v("Reply")]
-            )
+            _c("span", [_vm._v(_vm._s(_vm.commentCount))])
           ])
         ]
       ),
@@ -16429,6 +16436,7 @@ Vue.component('notification-main', __webpack_require__(/*! ./components/notifica
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["Accept"] = "application/json";
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just

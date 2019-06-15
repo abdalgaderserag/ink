@@ -27,7 +27,7 @@
                 <span>{{ ink.like.length }}</span>
                 <img src="/images/comment.svg" width="36px" height="30px" alt="">
                 <span>{{ commentCount }}</span>
-                <span onclick="inkForm('reply')" style="margin-left: 48px">Reply</span>
+                <!--<span onclick="inkForm('reply')" style="margin-left: 48px">Reply</span>-->
             </div>
         </div>
         <comments :id="ink.id" :show="show"></comments>
@@ -57,45 +57,62 @@
         },
         mounted() {
             for (var i = 0; i < this.ink.like.length; i++)
-                if (this.ink.like[i].user_id === 1) {
+                if (this.ink.like[i].user_id + '' === this.$root.id)
                     this.image = "hard-fill-color.svg";
-                }
-
-
         },
         methods: {
             like: function () {
+                var temp = this.image;
+                if (this.image === "hard-fill-color.svg") {
+                    this.image = "hard-fill.svg";
+                } else {
+                    this.image = "hard-fill-color.svg";
+                }
                 axios.post('/api/like', {
                     'ink_id': this.ink.id,
+                    'type': 'ink',
                 }).then((response) => {
-                    if (response.data) {
-                        this.image = "hard-fill-color.svg"
-                    } else {
+                    if (response.data.type) {
+                        // console.log(this.ink.like)
+                        this.ink.like.push(response.data.like);
+                        this.image = "hard-fill-color.svg";
+                        // console.log(this.ink.like)
+                    } else if (!response.data.type) {
+                        console.log(this.ink.like)
+                        this.ink.like.shift(response.data.like);
+                        console.log(this.ink.like)
                         this.image = "hard-fill.svg"
                     }
+                }).catch((error) => {
+                    this.image = temp;
                 })
             },
             // reply: function () {
             //     document.getElementById('pop-main').style.display = "block"
             // },
             showComments: function () {
+                let scrS;
                 this.show = !this.show;
-                this.$children[0].line = lineHe(this.number, this.commentId);
+                if (this.$children[0].comments.length !== 0)
+                    this.$children[0].line = lineHe(this.number, this.commentId);
                 if (this.show) {
+                    scrS = window.scrollY;
                     let inks = document.getElementsByClassName('ink-card');
                     for (var i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
                             inks[i].style.display = "none"
                         }
                     }
-                }else {
+                } else {
                     let inks = document.getElementsByClassName('ink-card');
+                    window.scrollY = scrS;
                     for (var i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
                             inks[i].style.display = "block"
                         }
                     }
                 }
+
             }
         }
     }

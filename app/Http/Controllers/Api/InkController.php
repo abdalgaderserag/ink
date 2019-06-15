@@ -13,6 +13,7 @@ class InkController extends Controller
 {
     public function all($type = "home")
     {
+//        return response('sad',200);
         return response()->json(Ink::with('user','media','like')->get(),200);
         if ($type == "home") {
 //            $inks = Ink::with('user','media')->get();
@@ -58,6 +59,7 @@ class InkController extends Controller
         $media->ink_id = $ink->id;
         $media->text = $request->text;
         $media->save();
+        $ink['media'] = $media;
         return response()->json($ink,200);
     }
 

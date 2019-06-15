@@ -14,7 +14,7 @@
         function lineHe(number = 0, id = 3) {
             app.$children[2].$children[number].$children[0].$refs.line.parentElement.style.display = "block";
             return document.getElementById('comment' + id).offsetTop -
-                app.$children[2].$children[number].$children[0].$refs.line.offsetTop
+                app.$children[2].$children[number].$children[0].$refs.line.offsetTop;
         }
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
@@ -118,14 +118,15 @@
         data: {
             images: [],
             imageNames: [],
-            access_token: [],
-            axx: '{!! $access !!}',
+            access_token: '{{ $access }}',
+            id: '{{ \Illuminate\Support\Facades\Auth::id() }}',
         },
         mounted() {
-            axios.get('/oauth/personal-access-tokens')
-                .then((response) => {
-                    this.access_token = response.data[0].id
-                })
+            window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;
+            // axios.get('/oauth/personal-access-tokens')
+            //     .then((response) => {
+            //         this.access_token = response.data[0].id
+            //     })
         }
     });
 </script>
