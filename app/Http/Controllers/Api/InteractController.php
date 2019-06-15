@@ -24,7 +24,7 @@ class InteractController extends Controller
             } else {
                 $like->delete();
                 $like = Like::where('ink_id', $request->ink_id);
-                return response(['like' => $like,'type' => false], 200);
+                return response(['like' => $like->get(),'type' => false], 200);
             }
         } else {
             $like = Like::where('comment_id', $request->comment_id)->where('user_id', Auth::guard('api')->id())->first();

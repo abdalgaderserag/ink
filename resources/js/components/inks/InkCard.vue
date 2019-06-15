@@ -78,9 +78,8 @@
                         this.image = "hard-fill-color.svg";
                         // console.log(this.ink.like)
                     } else if (!response.data.type) {
-                        console.log(this.ink.like)
-                        this.ink.like.shift(response.data.like);
-                        console.log(this.ink.like)
+                        // console.log(response.data.like)
+                        this.ink.like = response.data.like;
                         this.image = "hard-fill.svg"
                     }
                 }).catch((error) => {

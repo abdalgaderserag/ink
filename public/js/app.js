@@ -2287,11 +2287,8 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.image = "hard-fill-color.svg"; // console.log(this.ink.like)
         } else if (!response.data.type) {
-          console.log(_this.ink.like);
-
-          _this.ink.like.shift(response.data.like);
-
-          console.log(_this.ink.like);
+          // console.log(response.data.like)
+          _this.ink.like = response.data.like;
           _this.image = "hard-fill.svg";
         }
       })["catch"](function (error) {
