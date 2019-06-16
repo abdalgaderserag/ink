@@ -1997,15 +1997,28 @@ __webpack_require__.r(__webpack_exports__);
     like: function like() {
       var _this = this;
 
+      var temp = this.image;
+
+      if (this.image === "hard-fill-color.svg") {
+        this.image = "hard-fill.svg";
+      } else {
+        this.image = "hard-fill-color.svg";
+      }
+
       axios.post('/api/like', {
         'comment_id': this.comment.id,
         'type': 'comment'
       }).then(function (response) {
-        if (response.data) {
+        if (response.data.type) {
+          _this.comment.like.push(response.data.like);
+
           _this.image = "hard-fill-color.svg";
-        } else {
+        } else if (!response.data.type) {
+          _this.comment.like = response.data.like;
           _this.image = "hard-fill.svg";
         }
+      })["catch"](function (error) {
+        _this.image = temp;
       });
     },
     reply: function reply() {

@@ -41,15 +41,25 @@
         },
         methods: {
             like: function () {
+                var temp = this.image;
+                if (this.image === "hard-fill-color.svg") {
+                    this.image = "hard-fill.svg";
+                } else {
+                    this.image = "hard-fill-color.svg";
+                }
                 axios.post('/api/like', {
                     'comment_id': this.comment.id,
                     'type': 'comment',
                 }).then((response) => {
-                    if (response.data) {
-                        this.image = "hard-fill-color.svg"
-                    } else {
+                    if (response.data.type) {
+                        this.comment.like.push(response.data.like);
+                        this.image = "hard-fill-color.svg";
+                    } else if (!response.data.type) {
+                        this.comment.like = response.data.like;
                         this.image = "hard-fill.svg"
                     }
+                }).catch((error) => {
+                    this.image = temp;
                 })
             },
             reply: function () {

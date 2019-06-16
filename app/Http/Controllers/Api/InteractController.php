@@ -27,16 +27,17 @@ class InteractController extends Controller
                 return response(['like' => $like->get(),'type' => false], 200);
             }
         } else {
-            $like = Like::where('comment_id', $request->comment_id)->where('user_id', Auth::guard('api')->id())->first();
+            $like = Like::where('comment_id', $request->comment_id)->where('user_id', Auth::id())->first();
             if (empty($like)) {
                 $like = new Like();
-                $like->user_id = Auth::guard('api')->id();
+                $like->user_id = Auth::id();
                 $like->comment_id = $request->comment_id;
                 $like->save();
-                return true;
+                return response(['like' => $like,'type' => true], 200);
             } else {
                 $like->delete();
-                return false;
+                $like = Like::where('ink_id', $request->ink_id);
+                return response(['like' => $like->get(),'type' => false], 200);
             }
         }
 //        $check = '';
