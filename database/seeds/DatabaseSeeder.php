@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
 
         factory(App\User::class, 5)->create()->each(function ($u) {
             $fo = factory(App\Follow::class)->make();
-            $fo->followed_id = 1;
-            $fo->follower_slug = $u->slug;
+            $fo->follower_id = 1;
+            $fo->followed_slug = $u->slug;
             $fo->save();
             $i = factory(App\Ink::class)->make();
             $i->user_slug = $u->slug;

@@ -2354,6 +2354,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2365,6 +2368,11 @@ __webpack_require__.r(__webpack_exports__);
 
     window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.$root.access_token;
     var link = document.location.pathname;
+
+    if (link.indexOf('/', 1) !== -1) {
+      link = link.slice(link.indexOf('/', 1), link.length);
+    }
+
     axios.get('/api/ink' + link).then(function (response) {
       _this.inks = response.data;
     })["catch"](function (error) {
@@ -4276,14 +4284,22 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "main" },
-    _vm._l(_vm.inks, function(ink, index) {
-      return _c(
-        "div",
-        [_c("ink-card", { attrs: { ink: ink, number: index } })],
-        1
-      )
-    }),
-    0
+    [
+      _vm._l(_vm.inks, function(ink, index) {
+        return _c(
+          "div",
+          [_c("ink-card", { attrs: { ink: ink, number: index } })],
+          1
+        )
+      }),
+      _vm._v(" "),
+      _vm.inks === []
+        ? _c("div", [
+            _c("h2", [_vm._v("You didnt follow any one yet search know!")])
+          ])
+        : _vm._e()
+    ],
+    2
   )
 }
 var staticRenderFns = []

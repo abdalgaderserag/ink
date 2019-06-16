@@ -36,8 +36,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //$inks = Ink::all();
-        //return view('home')->with('inks', $inks);
         return view('home')->with('access',Auth::user()->createToken('home')->accessToken);
     }
 
@@ -46,6 +44,6 @@ class HomeController extends Controller
         if ($slug == '')
             $slug = Auth::user()->slug;
         $inks = Ink::all()->where('user_slug', $slug);
-        return view('profile')->with(['inks' => $inks, 'user' => User::where('slug', $slug)->first()]);
+        return view('profile')->with(['inks' => $inks, 'user' => User::where('slug', $slug)->first(),'access'=>Auth::user()->createToken("profile")->accessToken]);
     }
 }
