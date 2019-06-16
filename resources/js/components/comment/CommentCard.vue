@@ -14,6 +14,7 @@
                         <a @click="replyFun()">Reply</a>
                         <a href="/share">Share</a>
                         <a v-show="comment.user.slug == $root.slug" @click="deleteComment()">delete</a>
+                        <a v-show="comment.user.slug == $root.slug" @click="showEdit()">Edit</a>
                     </div>
                 </div>
             </div>
@@ -33,6 +34,7 @@
                 image: 'hard-fill.svg',
                 showReply: false,
                 text: '',
+                editText: '',
             }
         },
         props: {
@@ -68,7 +70,7 @@
                 document.getElementById('pop-main').style.display = "block"
             },
             replyFun: function () {
-                this.showReply = ! this.showReply;
+                this.showReply = !this.showReply;
                 if (this.showReply)
                     this.$parent.line += 78;
                 else
@@ -82,19 +84,23 @@
                         'comment_id': this.comment.id
                     }).then((response) => {
                         this.comment.replies.push(response.data);
-                        this.$parent.commentCount ++;
-                        this.text = ''
+                        this.$parent.commentCount++;
+                        this.text = '';
+                        this.replyFun();
                     })
             },
             deleteComment: function () {
                 // console.log(this.$el.parentElement.children)
                 axios.delete('/api/delete-comment/' + this.comment.id)
-                    .then((response)=>{
-                        this.$parent.$parent.commentCount --;
+                    .then((response) => {
+                        this.$parent.$parent.commentCount--;
                         this.$el.parentElement.children[2].innerHTML = ""
                         this.$el.innerHTML = ""
                     })
-            }
+            },
+            showEdit: function () {
+                inkForm('edit-comment',this.comment.media);
+            },
         },
         mounted() {
             if (this.comment.like)

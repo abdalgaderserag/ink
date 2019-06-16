@@ -22,12 +22,12 @@
 
             <div class="flew-box profile-details">
                 <div class="flew-box">
-                    <span>Follower</span>
-                    {{ $user->followed()->count() }}
+                    <span>Followers</span>
+                    {{ $user->follower()->count() }}
                 </div>
                 <div class="flew-box">
                     <span>Followed</span>
-                    {{ $user->follower()->count() }}
+                    {{ $user->followed()->count() }}
                 </div>
                 <div>
                     <button>

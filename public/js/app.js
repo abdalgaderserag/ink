@@ -1917,6 +1917,65 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PopUps/EditInk.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PopUps/EditInk.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EditInk",
+  data: function data() {
+    return {
+      text: ''
+    };
+  },
+  props: {
+    media: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    hide: function hide() {
+      var main = document.getElementById('pop-main');
+      main.style.display = "none";
+    },
+    submitInk: function submitInk() {
+      var _this = this;
+
+      if (this.text !== "") axios.post('/api/create-ink', {
+        'text': this.text,
+        'file': ''
+      }).then(function (response) {
+        _this.hide();
+
+        _this.text = '';
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PopUps/PopUp.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PopUps/PopUp.vue?vue&type=script&lang=js& ***!
@@ -1933,11 +1992,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PopUp",
   data: function data() {
     return {
-      type: ''
+      type: '',
+      media: {}
     };
   }
 });
@@ -1980,13 +2042,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CommentCard",
   data: function data() {
     return {
       image: 'hard-fill.svg',
       showReply: false,
-      text: ''
+      text: '',
+      editText: ''
     };
   },
   props: {
@@ -2041,6 +2105,8 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$parent.commentCount++;
         _this2.text = '';
+
+        _this2.replyFun();
       });
     },
     deleteComment: function deleteComment() {
@@ -2052,6 +2118,9 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$el.parentElement.children[2].innerHTML = "";
         _this3.$el.innerHTML = "";
       });
+    },
+    showEdit: function showEdit() {
+      inkForm('edit-comment', this.comment.media);
     }
   },
   mounted: function mounted() {
@@ -2209,6 +2278,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ReplyCard",
   data: function data() {
@@ -2257,6 +2327,9 @@ __webpack_require__.r(__webpack_exports__);
         // this.$el = ""
         _this2.$el.parentElement.innerHTML = "";
       });
+    },
+    showEdit: function showEdit() {
+      inkForm('edit-comment', this.reply.media);
     }
   },
   mounted: function mounted() {
@@ -2316,6 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2324,7 +2398,8 @@ __webpack_require__.r(__webpack_exports__);
       image: "hard-fill.svg",
       commentCount: 0,
       commentId: 0,
-      deleteAble: this.$root.slug == this.ink.user.slug
+      deleteAble: this.$root.slug == this.ink.user.slug,
+      editAble: this.$root.slug == this.ink.user.slug
     };
   },
   props: {
@@ -2401,6 +2476,16 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"]('/api/delete-ink/' + this.ink.id).then(function (response) {
         _this2.$el.innerHTML = "";
+      });
+    },
+    showEdit: function showEdit() {
+      inkForm('edit-ink', this.ink.media);
+    },
+    editInk: function editInk() {
+      var _this3 = this;
+
+      axios.put('/api/edit-ink/' + this.ink.id, {}).then(function (response) {
+        _this3.$el.innerHTML = "";
       });
     }
   }
@@ -3857,6 +3942,87 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PopUps/EditInk.vue?vue&type=template&id=4d1d799f&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PopUps/EditInk.vue?vue&type=template&id=4d1d799f&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "pop-card" },
+    [
+      _c("h3", [
+        _c("img", {
+          attrs: { src: "/images/back.png", alt: "" },
+          on: { click: _vm.hide }
+        }),
+        _vm._v(" "),
+        _c("span", [_vm._v("\n                Edit Ink\n            ")])
+      ]),
+      _vm._v(" "),
+      _c(
+        "textarea",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.text,
+              expression: "text"
+            }
+          ],
+          staticClass: "text-input",
+          attrs: { cols: "124", rows: "6" },
+          domProps: { value: _vm.text },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.text = $event.target.value
+            }
+          }
+        },
+        [_vm._v(_vm._s(_vm.media.text))]
+      ),
+      _vm._v(" "),
+      _c("file-reader", { attrs: { file: "image", post: "ink" } }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          attrs: { role: "button" },
+          on: {
+            click: function($event) {
+              return _vm.submitInk()
+            }
+          }
+        },
+        [_vm._v("Edit")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PopUps/PopUp.vue?vue&type=template&id=4956a7af&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PopUps/PopUp.vue?vue&type=template&id=4956a7af&scoped=true& ***!
@@ -3896,6 +4062,30 @@ var render = function() {
             expression: "type === 'reply'"
           }
         ]
+      }),
+      _vm._v(" "),
+      _c("edit-ink", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.type === "edit-ink",
+            expression: "type === 'edit-ink'"
+          }
+        ],
+        attrs: { media: _vm.media }
+      }),
+      _vm._v(" "),
+      _c("edit-ink", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.type === "edit-comment",
+            expression: "type === 'edit-comment'"
+          }
+        ],
+        attrs: { media: _vm.media }
       })
     ],
     1
@@ -3982,6 +4172,26 @@ var render = function() {
                 }
               },
               [_vm._v("delete")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.comment.user.slug == _vm.$root.slug,
+                    expression: "comment.user.slug == $root.slug"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.showEdit()
+                  }
+                }
+              },
+              [_vm._v("Edit")]
             )
           ])
         ])
@@ -4266,6 +4476,26 @@ var render = function() {
                 }
               },
               [_vm._v("delete")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.reply.user.slug == _vm.$root.slug,
+                    expression: "reply.user.slug == $root.slug"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.showEdit()
+                  }
+                }
+              },
+              [_vm._v("edit")]
             )
           ])
         ],
@@ -4315,6 +4545,28 @@ var render = function() {
           _vm._v(" "),
           _c("span", [_vm._v(_vm._s("@" + _vm.ink.user.slug))])
         ]),
+        _vm._v(" "),
+        _c("img", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.editAble,
+              expression: "editAble"
+            }
+          ],
+          attrs: {
+            src: "/images/" + _vm.image,
+            width: "28px",
+            height: "24px",
+            alt: ""
+          },
+          on: {
+            click: function($event) {
+              return _vm.showEdit()
+            }
+          }
+        }),
         _vm._v(" "),
         _c("img", {
           directives: [
@@ -16636,6 +16888,7 @@ Vue.component('file-reader', __webpack_require__(/*! ./components/FileReader.vue
 Vue.component('pop-up', __webpack_require__(/*! ./components/PopUps/PopUp.vue */ "./resources/js/components/PopUps/PopUp.vue")["default"]);
 Vue.component('create-ink', __webpack_require__(/*! ./components/PopUps/CreateInk.vue */ "./resources/js/components/PopUps/CreateInk.vue")["default"]);
 Vue.component('add-comment', __webpack_require__(/*! ./components/PopUps/AddComment.vue */ "./resources/js/components/PopUps/AddComment.vue")["default"]);
+Vue.component('edit-ink', __webpack_require__(/*! ./components/PopUps/EditInk.vue */ "./resources/js/components/PopUps/EditInk.vue")["default"]);
 Vue.component('notification-main', __webpack_require__(/*! ./components/notification/NotificationMain.vue */ "./resources/js/components/notification/NotificationMain.vue")["default"]); // Vue.component('profile', require('./components/Profile.vue').default);
 // Vue.component('profile-ink-card', require('./components/inks/ProfileInkCard.vue').default);
 // Vue.component('profile-ink-main', require('./components/inks/ProfileInkMain.vue').default);
@@ -16870,6 +17123,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateInk_vue_vue_type_template_id_3bcbbbad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateInk_vue_vue_type_template_id_3bcbbbad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PopUps/EditInk.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/PopUps/EditInk.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditInk_vue_vue_type_template_id_4d1d799f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditInk.vue?vue&type=template&id=4d1d799f&scoped=true& */ "./resources/js/components/PopUps/EditInk.vue?vue&type=template&id=4d1d799f&scoped=true&");
+/* harmony import */ var _EditInk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditInk.vue?vue&type=script&lang=js& */ "./resources/js/components/PopUps/EditInk.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditInk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditInk_vue_vue_type_template_id_4d1d799f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditInk_vue_vue_type_template_id_4d1d799f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4d1d799f",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PopUps/EditInk.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PopUps/EditInk.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/PopUps/EditInk.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditInk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditInk.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PopUps/EditInk.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditInk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PopUps/EditInk.vue?vue&type=template&id=4d1d799f&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/PopUps/EditInk.vue?vue&type=template&id=4d1d799f&scoped=true& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditInk_vue_vue_type_template_id_4d1d799f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditInk.vue?vue&type=template&id=4d1d799f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PopUps/EditInk.vue?vue&type=template&id=4d1d799f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditInk_vue_vue_type_template_id_4d1d799f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditInk_vue_vue_type_template_id_4d1d799f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

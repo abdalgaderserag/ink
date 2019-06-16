@@ -9,6 +9,7 @@
                 <br>
                 <span>{{ '@' + ink.user.slug }}</span>
             </span>
+            <img v-show="editAble" :src="'/images/' + image" @click="showEdit()" width="28px" height="24px" alt="">
             <img v-show="deleteAble" :src="'/images/' + image" @click="deleteInk()"
                  style="float: right;margin-right: 20px" width="28px" height="24px" alt="">
         </div>
@@ -45,6 +46,7 @@
                 commentCount: 0,
                 commentId: 0,
                 deleteAble: this.$root.slug == this.ink.user.slug,
+                editAble: this.$root.slug == this.ink.user.slug,
             }
         },
         props: {
@@ -111,6 +113,17 @@
             },
             deleteInk: function () {
                 axios.delete('/api/delete-ink/' + this.ink.id)
+                    .then((response) => {
+                        this.$el.innerHTML = ""
+                    })
+            },
+            showEdit: function () {
+                inkForm('edit-ink',this.ink.media)
+            },
+            editInk: function () {
+                axios.put('/api/edit-ink/' + this.ink.id,{
+
+                })
                     .then((response) => {
                         this.$el.innerHTML = ""
                     })

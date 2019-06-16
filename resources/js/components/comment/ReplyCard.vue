@@ -14,6 +14,7 @@
                     <!--<span>12</span>-->
                     <a href="/share">Share</a>
                     <a v-show="reply.user.slug == $root.slug" @click="deleteReply()">delete</a>
+                    <a v-show="reply.user.slug == $root.slug" @click="showEdit()">edit</a>
                 </div>
             </div>
         </div>
@@ -63,7 +64,10 @@
                         // this.$el = ""
                         this.$el.parentElement.innerHTML = ""
                     })
-            }
+            },
+            showEdit: function () {
+                inkForm('edit-comment',this.reply.media);
+            },
         },
         mounted() {
             if (this.reply.like)

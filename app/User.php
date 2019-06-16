@@ -60,12 +60,12 @@ class User extends Authenticatable
 
     public function followed()
     {
-        return $this->hasOne('App\Follow','followed_id');
+        return $this->hasOne('App\Follow','followed_slug');
     }
 
     public function follower()
     {
-        return $this->hasOne('App\Follow','follower_slug');
+        return $this->hasMany('App\Follow','follower_id');
     }
 
 }

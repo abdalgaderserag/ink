@@ -101,9 +101,10 @@
 </div>
 </body>
 <script>
-    function inkForm(type) {
+    function inkForm(type,media) {
         document.getElementById('pop-main').style.display = "block";
         app.$children[0].type = type;
+        app.$children[0].media = media[0];
     }
 
     // let section = ''
