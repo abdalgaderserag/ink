@@ -2199,15 +2199,28 @@ __webpack_require__.r(__webpack_exports__);
     like: function like() {
       var _this = this;
 
+      var temp = this.image;
+
+      if (this.image === "hard-fill-color.svg") {
+        this.image = "hard-fill.svg";
+      } else {
+        this.image = "hard-fill-color.svg";
+      }
+
       axios.post('/api/like', {
-        'comment_id': this.comment.id,
-        'type': 'comment'
+        'comment_id': this.reply.id,
+        'type': 'reply'
       }).then(function (response) {
-        if (response.data) {
+        if (response.data.type) {
+          _this.reply.like.push(response.data.like);
+
           _this.image = "hard-fill-color.svg";
-        } else {
+        } else if (!response.data.type) {
+          _this.reply.like = response.data.like;
           _this.image = "hard-fill.svg";
         }
+      })["catch"](function (error) {
+        _this.image = temp;
       });
     }
   },
@@ -4135,7 +4148,7 @@ var render = function() {
               on: { click: _vm.like }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.reply.likes.length))]),
+            _c("span", [_vm._v(_vm._s(_vm.reply.like.length))]),
             _vm._v(" "),
             _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
           ])

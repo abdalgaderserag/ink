@@ -9,7 +9,7 @@
                 </div>
                 <div class="comment-footer">
                     <img :src="'/images/' + image" @click="like" width="24px" alt="">
-                    <span>{{ reply.likes.length }}</span>
+                    <span>{{ reply.like.length }}</span>
                     <!--<img src="/images/comment.svg" width="36px" height="30px" alt="">-->
                     <!--<span>12</span>-->
                     <a href="/share">Share</a>
@@ -35,15 +35,25 @@
         },
         methods: {
             like: function () {
+                var temp = this.image;
+                if (this.image === "hard-fill-color.svg") {
+                    this.image = "hard-fill.svg";
+                } else {
+                    this.image = "hard-fill-color.svg";
+                }
                 axios.post('/api/like', {
-                    'comment_id': this.comment.id,
-                    'type': 'comment',
+                    'comment_id': this.reply.id,
+                    'type': 'reply',
                 }).then((response) => {
-                    if (response.data) {
-                        this.image = "hard-fill-color.svg"
-                    } else {
+                    if (response.data.type) {
+                        this.reply.like.push(response.data.like);
+                        this.image = "hard-fill-color.svg";
+                    } else if (!response.data.type) {
+                        this.reply.like = response.data.like;
                         this.image = "hard-fill.svg"
                     }
+                }).catch((error) => {
+                    this.image = temp;
                 })
             },
         },

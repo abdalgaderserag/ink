@@ -20,11 +20,11 @@ class InteractController extends Controller
                 $like->user_id = Auth::id();
                 $like->ink_id = $request->ink_id;
                 $like->save();
-                return response(['like' => $like,'type' => true], 200);
+                return response(['like' => $like, 'type' => true], 200);
             } else {
                 $like->delete();
                 $like = Like::where('ink_id', $request->ink_id);
-                return response(['like' => $like->get(),'type' => false], 200);
+                return response(['like' => $like->get(), 'type' => false], 200);
             }
         } else {
             $like = Like::where('comment_id', $request->comment_id)->where('user_id', Auth::id())->first();
@@ -33,11 +33,13 @@ class InteractController extends Controller
                 $like->user_id = Auth::id();
                 $like->comment_id = $request->comment_id;
                 $like->save();
-                return response(['like' => $like,'type' => true], 200);
+                return response(['like' => $like, 'type' => true], 200);
             } else {
                 $like->delete();
-                $like = Like::where('ink_id', $request->ink_id);
-                return response(['like' => $like->get(),'type' => false], 200);
+                if ($request->type == 'reply')
+                    $like = Like::where('comment_id', $request->comment_id);
+                $like = Like::where('comment_id', $request->comment_id);
+                return response(['like' => $like->get(), 'type' => false], 200);
             }
         }
 //        $check = '';
