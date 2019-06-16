@@ -2279,6 +2279,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2286,7 +2288,8 @@ __webpack_require__.r(__webpack_exports__);
       show: false,
       image: "hard-fill.svg",
       commentCount: 0,
-      commentId: 0
+      commentId: 0,
+      deleteAble: this.$root.slug == this.ink.user.slug
     };
   },
   props: {
@@ -2357,6 +2360,14 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
+    },
+    deleteInk: function deleteInk() {
+      var _this2 = this;
+
+      axios["delete"]('/api/delete-ink/' + this.ink.id).then(function (response) {
+        console.log(response.data);
+        _this2.$el.innerHTML = "";
+      });
     }
   }
 });
@@ -4198,7 +4209,30 @@ var render = function() {
           _c("br"),
           _vm._v(" "),
           _c("span", [_vm._v(_vm._s("@" + _vm.ink.user.slug))])
-        ])
+        ]),
+        _vm._v(" "),
+        _c("img", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.deleteAble,
+              expression: "deleteAble"
+            }
+          ],
+          staticStyle: { float: "right", "margin-right": "20px" },
+          attrs: {
+            src: "/images/" + _vm.image,
+            width: "28px",
+            height: "24px",
+            alt: ""
+          },
+          on: {
+            click: function($event) {
+              return _vm.deleteInk()
+            }
+          }
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [

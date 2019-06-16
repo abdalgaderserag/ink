@@ -42,25 +42,6 @@ class InteractController extends Controller
                 return response(['like' => $like->get(), 'type' => false], 200);
             }
         }
-//        $check = '';
-//        if ($request->ink_id)
-//            $check = Like::all()->where('user_id', Auth::id())->where('ink_id', $request->ink_id);
-//        if ($request->comment_id)
-//            $check = Like::all()->where('user_id', Auth::id())->where('ink_id', $request->comment_id);
-//        if (!empty($check)) {
-//            return response()->json("false", 200);
-//            $check->delete();
-//            return response()->json("false", 200);
-//        } else {
-//            $like = new Like();
-//            $like->user_id = Auth::id();
-//            if (!empty($request->ink_id))
-//                $like->ink_id = $request->ink_id;
-//            if (!empty($request->comment_id))
-//                $like->comment_id = $request->comment_id;
-//            $like->save();
-//            return response()->json("true", 200);
-//        }
     }
 
     public function likeCheck(Request $request)

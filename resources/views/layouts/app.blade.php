@@ -120,6 +120,7 @@
             imageNames: [],
             access_token: '{{ $access }}',
             id: '{{ \Illuminate\Support\Facades\Auth::id() }}',
+            slug: '{{ \Illuminate\Support\Facades\Auth::user()->slug }}'
         },
         mounted() {
             window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;

@@ -47,7 +47,6 @@ class InkController extends Controller
     public function index()
     {
         //
-        return response()->json('sad', 200);
         return response()->json(Ink::where('user_slug', Auth::user()->slug), 200);
     }
 
