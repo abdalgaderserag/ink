@@ -1979,12 +1979,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CommentCard",
   data: function data() {
     return {
       image: 'hard-fill.svg',
-      showReply: false
+      showReply: false,
+      text: ''
     };
   },
   props: {
@@ -2027,6 +2029,29 @@ __webpack_require__.r(__webpack_exports__);
     replyFun: function replyFun() {
       this.showReply = !this.showReply;
       if (this.showReply) this.$parent.line += 78;else this.$parent.line -= 78; // this.$parent.$parent.$children[0].line = lineHe(this.$parent.$parent.number,this.$parent.$parent.commentId);
+    },
+    createReply: function createReply() {
+      var _this2 = this;
+
+      if (this.text !== '') axios.post('api/create-comment', {
+        'text': this.text,
+        'comment_id': this.comment.id
+      }).then(function (response) {
+        _this2.comment.replies.push(response.data);
+
+        _this2.$parent.commentCount++;
+        _this2.text = '';
+      });
+    },
+    deleteComment: function deleteComment() {
+      var _this3 = this;
+
+      // console.log(this.$el.parentElement.children)
+      axios["delete"]('/api/delete-comment/' + this.comment.id).then(function (response) {
+        _this3.$parent.$parent.commentCount--;
+        _this3.$el.parentElement.children[2].innerHTML = "";
+        _this3.$el.innerHTML = "";
+      });
     }
   },
   mounted: function mounted() {
@@ -2107,6 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.comments.push(response.data);
 
+        _this2.$parent.commentCount++;
         _this2.text = '';
       });
     }
@@ -2182,6 +2208,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ReplyCard",
   data: function data() {
@@ -2221,6 +2248,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         _this.image = temp;
+      });
+    },
+    deleteReply: function deleteReply() {
+      var _this2 = this;
+
+      axios["delete"]('/api/delete-comment/' + this.reply.id).then(function (response) {
+        // this.$el = ""
+        _this2.$el.parentElement.innerHTML = "";
       });
     }
   },
@@ -2365,7 +2400,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios["delete"]('/api/delete-ink/' + this.ink.id).then(function (response) {
-        console.log(response.data);
         _this2.$el.innerHTML = "";
       });
     }
@@ -3928,7 +3962,27 @@ var render = function() {
               [_vm._v("Reply")]
             ),
             _vm._v(" "),
-            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
+            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.comment.user.slug == _vm.$root.slug,
+                    expression: "comment.user.slug == $root.slug"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.deleteComment()
+                  }
+                }
+              },
+              [_vm._v("delete")]
+            )
           ])
         ])
       ])
@@ -3948,9 +4002,40 @@ var render = function() {
         staticStyle: { "margin-left": "120px" }
       },
       [
-        _c("input", { staticClass: "input-text", attrs: { type: "text" } }),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.text,
+              expression: "text"
+            }
+          ],
+          staticClass: "input-text",
+          attrs: { type: "text" },
+          domProps: { value: _vm.text },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.text = $event.target.value
+            }
+          }
+        }),
         _vm._v(" "),
-        _c("button", { staticClass: "input-bottom" }, [_vm._v("Reply")])
+        _c(
+          "button",
+          {
+            staticClass: "input-bottom",
+            on: {
+              click: function($event) {
+                return _vm.createReply()
+              }
+            }
+          },
+          [_vm._v("Reply")]
+        )
       ]
     )
   ])
@@ -4161,7 +4246,27 @@ var render = function() {
             _vm._v(" "),
             _c("span", [_vm._v(_vm._s(_vm.reply.like.length))]),
             _vm._v(" "),
-            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")])
+            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.reply.user.slug == _vm.$root.slug,
+                    expression: "reply.user.slug == $root.slug"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.deleteReply()
+                  }
+                }
+              },
+              [_vm._v("delete")]
+            )
           ])
         ],
         2

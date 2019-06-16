@@ -44,17 +44,7 @@ class InteractController extends Controller
         }
     }
 
-    public function likeCheck(Request $request)
-    {
-        $check = '';
-        if ($request->ink_id)
-            $check = Like::all()->where('user_id', Auth::id())->where('ink_id', $request->ink_id);
-        if ($request->comment_id)
-            $check = Like::all()->where('user_id', Auth::id())->where('ink_id', $request->comment_id);
-        if (empty($check))
-            return response()->json("true", 200);
-        return response()->json('false', 200);
-    }
+
 
     public function share(Request $request)
     {

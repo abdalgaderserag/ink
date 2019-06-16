@@ -20,14 +20,21 @@ class CommentController extends Controller
     {
         //
         $comment = new Comment();
+        if (empty($request->comment_id)){
         $comment->ink_id = $request->ink_id;
+        }else
+            {
+            $comment->comment_id = $request->comment_id;
+        }
         $comment->user_id = Auth::id();
         $comment->save();
         $media = new Media();
         $media->text = $request->text;
         $media->comment_id = $comment->id;
         $media->save();
-        return response()->json($comment, 200);
+        $re = Comment::with('user', 'replies.media', 'replies.like', 'replies.user', 'media', 'like')->find($comment->id);
+
+        return response()->json($re, 200);
     }
 
 //

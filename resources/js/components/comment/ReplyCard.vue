@@ -13,6 +13,7 @@
                     <!--<img src="/images/comment.svg" width="36px" height="30px" alt="">-->
                     <!--<span>12</span>-->
                     <a href="/share">Share</a>
+                    <a v-show="reply.user.slug == $root.slug" @click="deleteReply()">delete</a>
                 </div>
             </div>
         </div>
@@ -56,6 +57,13 @@
                     this.image = temp;
                 })
             },
+            deleteReply: function () {
+                axios.delete('/api/delete-comment/' + this.reply.id)
+                    .then((response)=>{
+                        // this.$el = ""
+                        this.$el.parentElement.innerHTML = ""
+                    })
+            }
         },
         mounted() {
             if (this.reply.like)

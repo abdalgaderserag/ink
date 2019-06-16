@@ -54,7 +54,8 @@
                         'text': this.text,
                         'ink_id': this.id
                     }).then((response) => {
-                        this.comments.push(response.data)
+                        this.comments.push(response.data);
+                        this.$parent.commentCount ++;
                         this.text = ''
                     })
             }

@@ -112,7 +112,6 @@
             deleteInk: function () {
                 axios.delete('/api/delete-ink/' + this.ink.id)
                     .then((response) => {
-                        console.log(response.data)
                         this.$el.innerHTML = ""
                     })
             }

@@ -13,13 +13,14 @@
                         <span>{{ comment.replies.length}}</span>
                         <a @click="replyFun()">Reply</a>
                         <a href="/share">Share</a>
+                        <a v-show="comment.user.slug == $root.slug" @click="deleteComment()">delete</a>
                     </div>
                 </div>
             </div>
         </div>
         <div style="margin-left: 120px" v-show="showReply">
-            <input type="text" class="input-text">
-            <button class="input-bottom">Reply</button>
+            <input v-model="text" type="text" class="input-text">
+            <button class="input-bottom" @click="createReply()">Reply</button>
         </div>
     </div>
 </template>
@@ -31,6 +32,7 @@
             return {
                 image: 'hard-fill.svg',
                 showReply: false,
+                text: '',
             }
         },
         props: {
@@ -72,6 +74,26 @@
                 else
                     this.$parent.line -= 78;
                 // this.$parent.$parent.$children[0].line = lineHe(this.$parent.$parent.number,this.$parent.$parent.commentId);
+            },
+            createReply: function () {
+                if (this.text !== '')
+                    axios.post('api/create-comment', {
+                        'text': this.text,
+                        'comment_id': this.comment.id
+                    }).then((response) => {
+                        this.comment.replies.push(response.data);
+                        this.$parent.commentCount ++;
+                        this.text = ''
+                    })
+            },
+            deleteComment: function () {
+                // console.log(this.$el.parentElement.children)
+                axios.delete('/api/delete-comment/' + this.comment.id)
+                    .then((response)=>{
+                        this.$parent.$parent.commentCount --;
+                        this.$el.parentElement.children[2].innerHTML = ""
+                        this.$el.innerHTML = ""
+                    })
             }
         },
         mounted() {
