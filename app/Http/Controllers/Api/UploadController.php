@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\MediaRequest;
 use App\Jobs\DecodeFiles;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-    public function Upload(Request $request)
+    public function Upload(MediaRequest $request)
     {
         list($type, $data) = explode(';', $request->file);
         list($code, $data) = explode(',', $data);

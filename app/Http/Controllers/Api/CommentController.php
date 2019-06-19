@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
+use App\Http\Requests\CommentRequest;
 use App\Media;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,7 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
         //
         $comment = new Comment();
@@ -66,7 +66,7 @@ class CommentController extends Controller
      * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(CommentRequest $request, Comment $comment)
     {
         //
         $comment->media()->text = $request->text;

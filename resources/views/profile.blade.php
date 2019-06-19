@@ -3,6 +3,11 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <style>
+        .main-body{
+            box-shadow: unset;
+        }
+    </style>
     <link href="{{ asset('css/comments.css') }}" rel="stylesheet">
 @endsection
 

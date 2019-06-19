@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Follow;
-use App\Http\Resources\SlugsToArray;
+use App\Http\Requests\InkRequest;
 use App\Ink;
 use App\Media;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class InkController extends Controller
 {
@@ -56,7 +54,7 @@ class InkController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InkRequest $request)
     {
         //
         $ink = new Ink();
@@ -88,7 +86,7 @@ class InkController extends Controller
      * @param  \App\Ink $ink
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ink $ink)
+    public function update(InkRequest $request, Ink $ink)
     {
         //
         $ink->media()->text = $request->text;
