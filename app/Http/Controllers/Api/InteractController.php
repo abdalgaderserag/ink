@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Like;
 use App\Share;
-use App\User;
+use App\Traites\LikeNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class InteractController extends Controller
 {
+    use LikeNotification;
+
     public function like(Request $request)
     {
         if ($request->type == 'ink') {
@@ -20,10 +22,12 @@ class InteractController extends Controller
                 $like->user_id = Auth::id();
                 $like->ink_id = $request->ink_id;
                 $like->save();
+                $this->notifyInkLiked($request->ink_id);
                 return response(['like' => $like, 'type' => true], 200);
             } else {
                 $like->delete();
                 $like = Like::where('ink_id', $request->ink_id);
+                $this->notifyInkDisliked($request->ink_id);
                 return response(['like' => $like->get(), 'type' => false], 200);
             }
         } else {
@@ -43,7 +47,6 @@ class InteractController extends Controller
             }
         }
     }
-
 
 
     public function share(Request $request)

@@ -13,7 +13,7 @@ class InkRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class InkRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_slug' => 'required|exists:mysql.users,slug|String'
+//            'user_slug' => 'required|exists:mysql.users,slug|String'
         ];
     }
 }

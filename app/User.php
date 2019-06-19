@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable,HasApiTokens;
+    use Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +39,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+//    public function notifications()
+//    {
+//        return $this->morphMany(DatabaseNotification::class, 'notifiable')->where('active', true)->orderBy('created_at', 'desc');
+//    }
+
     public function follow()
     {
         return $this->hasMany('App\Follow');
@@ -60,12 +66,12 @@ class User extends Authenticatable
 
     public function followed()
     {
-        return $this->hasOne('App\Follow','followed_slug');
+        return $this->hasOne('App\Follow', 'followed_slug');
     }
 
     public function follower()
     {
-        return $this->hasMany('App\Follow','follower_id');
+        return $this->hasMany('App\Follow', 'follower_id');
     }
 
 }
