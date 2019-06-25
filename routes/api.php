@@ -36,9 +36,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/upload', 'Api\UploadController@upload');
 
 
-    Route::post('/like', 'Api\InteractController@like');
-    Route::post('/like/check', 'Api\InteractController@likeCheck');
-    Route::post('/share', 'Api\InteractController@share');
+    Route::post('/like', 'Api\LikeController');
+//    Route::post('/like/check', 'Api\LikeController@likeCheck');
+//    Route::post('/share', 'Api\LikeController@share');
 
     Route::get('/ink', 'Api\InkController@index');
 

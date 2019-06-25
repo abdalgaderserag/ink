@@ -17847,12 +17847,12 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\gadora\Documents\Projects\twitter\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\gadora\Documents\Projects\twitter\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\Users\gadora\Documents\Projects\twitter\resources\sass\home.scss */"./resources/sass/home.scss");
-__webpack_require__(/*! C:\Users\gadora\Documents\Projects\twitter\resources\sass\comments.scss */"./resources/sass/comments.scss");
-__webpack_require__(/*! C:\Users\gadora\Documents\Projects\twitter\resources\sass\pop-up.scss */"./resources/sass/pop-up.scss");
-module.exports = __webpack_require__(/*! C:\Users\gadora\Documents\Projects\twitter\resources\sass\profile.scss */"./resources/sass/profile.scss");
+__webpack_require__(/*! C:\Users\Abd Al-Gader\Documents\Projects\Laravel\twitter\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\Abd Al-Gader\Documents\Projects\Laravel\twitter\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Abd Al-Gader\Documents\Projects\Laravel\twitter\resources\sass\home.scss */"./resources/sass/home.scss");
+__webpack_require__(/*! C:\Users\Abd Al-Gader\Documents\Projects\Laravel\twitter\resources\sass\comments.scss */"./resources/sass/comments.scss");
+__webpack_require__(/*! C:\Users\Abd Al-Gader\Documents\Projects\Laravel\twitter\resources\sass\pop-up.scss */"./resources/sass/pop-up.scss");
+module.exports = __webpack_require__(/*! C:\Users\Abd Al-Gader\Documents\Projects\Laravel\twitter\resources\sass\profile.scss */"./resources/sass/profile.scss");
 
 
 /***/ })

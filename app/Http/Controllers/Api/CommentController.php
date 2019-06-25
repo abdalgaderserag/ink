@@ -18,7 +18,6 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request)
     {
-        //
         $comment = new Comment();
         if (empty($request->comment_id)){
         $comment->ink_id = $request->ink_id;
@@ -40,7 +39,6 @@ class CommentController extends Controller
 //
 //    public function storeReply(Request $request)
 //    {
-//        //
 //        $comment = new Comment();
 //        $comment->comment_id = $request->comment_id;
 //        $comment->media()->text = $request->text;
@@ -68,7 +66,6 @@ class CommentController extends Controller
      */
     public function update(CommentRequest $request, Comment $comment)
     {
-        //
         $comment->media()->text = $request->text;
         $comment->save();
         return response()->json($comment, 200);
@@ -82,7 +79,6 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
         $comment->delete();
         return response()->json($comment, 200);
     }

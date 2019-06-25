@@ -8,32 +8,31 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Auth;
 
-class InkLiked extends Notification
+class NewComment extends Notification
 {
     use Queueable;
 
     protected $user_name;
     protected $user_slug;
-    protected $ink_text;
-    protected $ink_id;
+    protected $comment_text;
+    protected $comment_id;
 
     /**
      * Create a new notification instance.
      *
-     * @param $ink_id
+     * @param $comment_id
      * @param $user_id
      * @return void
      */
-    public function __construct($ink_id,$user_id)
+    public function __construct($comment_id,$user_id)
     {
         $user = User::find($user_id);
         $this->user_slug = $user->slug;
         $this->user_name = $user->name;
-        $media = Media::where('ink_id',$ink_id)->first();
-        $this->ink_id = $ink_id;
-        $this->ink_text = $media->text;
+        $media = Media::where('comment_id',$comment_id)->first();
+        $this->comment_id = $comment_id;
+        $this->comment_text = $media->text;
     }
 
     /**
@@ -57,11 +56,7 @@ class InkLiked extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user_id' => Auth::id(),
-            'ink_id' => $this->ink_id,
-            'ink' => $this->ink_text,
-            'name' => $this->user_name,
-            'slug' => $this->user_slug,
+            //
         ];
     }
 }
