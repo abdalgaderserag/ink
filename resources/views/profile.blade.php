@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <style>
-        .main-body{
+        .main-body {
             box-shadow: unset;
         }
     </style>
@@ -26,7 +26,7 @@
             <img src="/images/profile.jpeg" class="profile-avatar" alt="">
 
             <div class="flew-box profile-details">
-                <div class="flew-box">
+                <div class="flew-box" id="followers">
                     <span>Followers</span>
                     {{ $user->follower()->count() }}
                 </div>
@@ -35,8 +35,12 @@
                     {{ $user->followed()->count() }}
                 </div>
                 <div>
-                    <button>
-                        Follow
+                    <button id="follow" onclick="follow()">
+                        @empty(\Illuminate\Support\Facades\Auth::user()->followed()->where('follower_id',$user->id))
+                            Follow
+                        @else
+                            Unfollow
+                        @endempty
                     </button>
                 </div>
             </div>
@@ -54,4 +58,26 @@
         </div>
         <ink-main></ink-main>
     </div>
+@endsection
+
+@section('sc')
+    <script>
+        let follower = {{ $user->follower()->count() }};
+
+        function follow() {
+            axios.post('/api/follow', {
+                'id': {{ $user->id }},
+            }).then((response) => {
+                if (document.getElementById('follow').innerText === "Follow") {
+                    document.getElementById('follow').innerText = "Unfollow";
+                    follower++;
+                    document.getElementById('followers').innerHTML = '<span>Followers</span>' + follower;
+                } else {
+                    document.getElementById('follow').innerText = "Follow";
+                    follower--;
+                    document.getElementById('followers').innerHTML = '<span>Followers</span>' + follower;
+                }
+            })
+        }
+    </script>
 @endsection

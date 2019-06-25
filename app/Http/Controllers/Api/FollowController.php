@@ -23,10 +23,10 @@ class FollowController extends Controller
             $follow->follower_id = $request->id;
             $follow->followed_slug = Auth::user()->slug;
             $follow->save();
-            return response(true, 200);
+            return response(1, 200);
         } else {
             $follow->delete();
-            return response(false, 200);
+            return response(0, 200);
         }
     }
 }

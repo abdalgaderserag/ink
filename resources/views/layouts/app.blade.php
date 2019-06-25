@@ -100,6 +100,8 @@
     </div>
 </div>
 </body>
+@yield('sc')
+
 <script>
     function inkForm(type,media) {
         document.getElementById('pop-main').style.display = "block";

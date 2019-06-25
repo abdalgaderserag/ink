@@ -40,6 +40,9 @@ Route::middleware('auth:api')->group(function () {
 //    Route::post('/like/check', 'Api\LikeController@likeCheck');
 //    Route::post('/share', 'Api\LikeController@share');
 
+    Route::post('/follow', 'Api\FollowController');
+
+
     Route::get('/ink', 'Api\InkController@index');
 
 });
