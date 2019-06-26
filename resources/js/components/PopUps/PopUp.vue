@@ -15,6 +15,25 @@
                 type: '',
                 media: {},
             }
+        }, methods: {
+            apper: function () {
+                let intg;
+                switch (this.type) {
+                    case "ink" :
+                        intg = 0;
+                        break;
+                    case "reply" :
+                        intg = 1;
+                        break;
+                    case "edit-ink" :
+                        intg = 2;
+                        break;
+                    case "edit-comment" :
+                        intg = 4;
+                        break;
+                }
+                document.getElementsByClassName("pop-card")[intg].style.borderTopWidth = "6px";
+            }
         }
     }
 </script>

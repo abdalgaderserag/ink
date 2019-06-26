@@ -35,13 +35,15 @@
                     {{ $user->followed()->count() }}
                 </div>
                 <div>
-                    <button id="follow" onclick="follow()">
-                        @empty(\Illuminate\Support\Facades\Auth::user()->followed()->where('follower_id',$user->id))
-                            Follow
-                        @else
-                            Unfollow
-                        @endempty
-                    </button>
+                    @if($user->slug != \Illuminate\Support\Facades\Auth::user()->slug)
+                        <button id="follow" onclick="follow()">
+                            @empty(\Illuminate\Support\Facades\Auth::user()->followed()->where('follower_id',$user->id))
+                                Follow
+                            @else
+                                Unfollow
+                            @endempty
+                        </button>
+                    @endif
                 </div>
             </div>
             <p class="details">loaslkd;j salj dklwg;kahgsok ;hpgdja;lajg lakgh;kaghklh ;koaglh</p>

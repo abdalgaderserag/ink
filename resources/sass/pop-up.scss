@@ -11,8 +11,14 @@
   position: fixed;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.65);
+
+  //.pop-card:hover{
+  //  border-top-width: 6px;
+  //}
+
   .pop-card {
-    border-top: 6px solid $orange;
+    border-top: 280px solid $orange;
+    transition: border-top-width 0.28s;
     @include widthToPer(950);
     // JS: screen.availHeight - 40
     //height: 548px;

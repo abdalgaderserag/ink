@@ -90,7 +90,7 @@
             showComments: function () {
                 let scrS;
                 this.show = !this.show;
-                if (this.$children[0].comments.length !== 0)
+                if (this.$children[0].comments.length != 0)
                     this.$children[0].line = lineHe(this.number, this.commentId);
                 if (this.show) {
                     scrS = window.scrollY;

@@ -1896,8 +1896,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    animate: function animate() {
+      document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "6px";
+    },
     hide: function hide() {
       var main = document.getElementById('pop-main');
+      document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "280px";
       main.style.display = "none";
     },
     submitInk: function submitInk() {
@@ -1912,6 +1916,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.text = '';
       });
     }
+  },
+  activated: function activated() {
+    document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "6px";
   }
 });
 
@@ -2001,6 +2008,31 @@ __webpack_require__.r(__webpack_exports__);
       type: '',
       media: {}
     };
+  },
+  methods: {
+    apper: function apper() {
+      var intg;
+
+      switch (this.type) {
+        case "ink":
+          intg = 0;
+          break;
+
+        case "reply":
+          intg = 1;
+          break;
+
+        case "edit-ink":
+          intg = 2;
+          break;
+
+        case "edit-comment":
+          intg = 4;
+          break;
+      }
+
+      document.getElementsByClassName("pop-card")[intg].style.borderTopWidth = "6px";
+    }
   }
 });
 
@@ -2143,6 +2175,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2448,7 +2483,7 @@ __webpack_require__.r(__webpack_exports__);
     showComments: function showComments() {
       var scrS;
       this.show = !this.show;
-      if (this.$children[0].comments.length !== 0) this.$children[0].line = lineHe(this.number, this.commentId);
+      if (this.$children[0].comments.length != 0) this.$children[0].line = lineHe(this.number, this.commentId);
 
       if (this.show) {
         scrS = window.scrollY;
@@ -3906,6 +3941,9 @@ var render = function() {
         attrs: { cols: "124", rows: "6" },
         domProps: { value: _vm.text },
         on: {
+          focus: function($event) {
+            return _vm.animate()
+          },
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -4281,6 +4319,8 @@ var render = function() {
       staticClass: "comments-main"
     },
     [
+      _vm._v("1\n    "),
+      _vm._v(" "),
       _c("input", {
         directives: [
           {
@@ -4320,7 +4360,7 @@ var render = function() {
       _vm._v(" "),
       _c("hr", {
         ref: "line",
-        style: { height: _vm.line + "px" },
+        style: { borderBottomWidth: _vm.line + "px" },
         attrs: { id: "comments-line" }
       }),
       _vm._v(" "),
@@ -4328,29 +4368,23 @@ var render = function() {
         return _c(
           "div",
           [
-            _c("comment-card", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: index + 1 !== _vm.comments.length,
-                  expression: "index + 1 !== comments.length"
-                }
-              ],
-              attrs: { comment: comment }
-            }),
-            _vm._v(" "),
-            _c("comment-card", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: index + 1 === _vm.comments.length,
-                  expression: "index + 1 === comments.length"
-                }
-              ],
-              attrs: { id: "comment" + comment.id, comment: comment }
-            }),
+            index + 1 === _vm.comments.length
+              ? _c(
+                  "div",
+                  [
+                    _c("comment-card", {
+                      ref: "end",
+                      refInFor: true,
+                      attrs: { comment: comment }
+                    })
+                  ],
+                  1
+                )
+              : _c(
+                  "div",
+                  [_c("comment-card", { attrs: { comment: comment } })],
+                  1
+                ),
             _vm._v(" "),
             _c("replies-card", {
               directives: [

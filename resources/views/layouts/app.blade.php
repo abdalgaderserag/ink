@@ -11,9 +11,9 @@
 
     <!-- Scripts -->
     <script>
-        function lineHe(number = 0, id = 3) {
+        function lineHe(number = 0) {
             app.$children[2].$children[number].$children[0].$refs.line.parentElement.style.display = "block";
-            return document.getElementById('comment' + id).offsetTop -
+            return app.$children[2].$children[number].$children[0].$refs.end[0].$el.offsetTop -
                 app.$children[2].$children[number].$children[0].$refs.line.offsetTop;
         }
     </script>
@@ -103,10 +103,12 @@
 @yield('sc')
 
 <script>
-    function inkForm(type,media) {
+
+    function inkForm(type, media) {
         document.getElementById('pop-main').style.display = "block";
         app.$children[0].type = type;
         app.$children[0].media = media[0];
+
     }
 
     // let section = ''

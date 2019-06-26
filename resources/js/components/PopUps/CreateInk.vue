@@ -6,7 +6,7 @@
                     Create Ink
                 </span>
         </h3>
-        <textarea v-model="text" cols="124" rows="6" class="text-input"></textarea>
+        <textarea v-model="text" cols="124" rows="6" class="text-input" v-on:focus="animate()"></textarea>
         <file-reader file="image" post="ink"></file-reader>
         <!--<input type="button" value="Ink It !">-->
         <br>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
     export default {
         name: "CreateInk",
         data() {
@@ -23,8 +24,12 @@
             }
         },
         methods: {
+            animate: function () {
+                document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "6px";
+            },
             hide: function () {
                 var main = document.getElementById('pop-main');
+                document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "280px";
                 main.style.display = "none";
             },
             submitInk: function () {
@@ -37,6 +42,9 @@
                         this.text = '';
                     })
             }
+        },
+        activated() {
+            document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "6px";
         }
     }
 </script>
