@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
+            $table->text('details');
+            $table->string('background')->default('/images/profile-image.png');
             $table->string('avatar')->default('/images/profile.jpeg');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

@@ -4319,8 +4319,6 @@ var render = function() {
       staticClass: "comments-main"
     },
     [
-      _vm._v("1\n    "),
-      _vm._v(" "),
       _c("input", {
         directives: [
           {

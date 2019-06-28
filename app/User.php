@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Notifications\DatabaseNotification;
+use App\Traites\UserRelation;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens, UserRelation;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'email', 'password', 'avatar', 'api_token'
+        'name', 'slug', 'background', 'details', 'email', 'password', 'avatar',
     ];
 
     /**
@@ -39,39 +39,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-//    public function notifications()
-//    {
-//        return $this->morphMany(DatabaseNotification::class, 'notifiable')->where('active', true)->orderBy('created_at', 'desc');
-//    }
-
-    public function follow()
-    {
-        return $this->hasMany('App\Follow');
-    }
-
-    public function comment()
-    {
-        return $this->hasMany('App\Comment');
-    }
-
-    public function ink()
-    {
-        return $this->hasMany('App\Ink');
-    }
-
-    public function share()
-    {
-        return $this->hasMany('App\Share');
-    }
-
-    public function followed()
-    {
-        return $this->hasOne('App\Follow', 'followed_slug');
-    }
-
-    public function follower()
-    {
-        return $this->hasMany('App\Follow', 'follower_id');
-    }
 
 }
