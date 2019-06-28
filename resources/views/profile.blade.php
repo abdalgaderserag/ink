@@ -18,12 +18,12 @@
 
         <div>
             <div class="wallpaper">
-                <img src="/images/profile-image.png" alt="">
+                <img src="{{ $user->background }}" alt="">
             </div>
             <div class="w-line">
                 {{ $user->name }}
             </div>
-            <img src="/images/profile.jpeg" class="profile-avatar" alt="">
+            <img src="{{ $user->avatar }}" class="profile-avatar" alt="">
 
             <div class="flew-box profile-details">
                 <div class="flew-box" id="followers">
@@ -46,7 +46,7 @@
                     @endif
                 </div>
             </div>
-            <p class="details">loaslkd;j salj dklwg;kahgsok ;hpgdja;lajg lakgh;kaghklh ;koaglh</p>
+            <p class="details">{{ $user->details }}</p>
         </div>
 
 

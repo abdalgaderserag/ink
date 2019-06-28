@@ -50,7 +50,7 @@
         </div>
         <div class="icon-menu flew-box">
             <a href="/profile" style="width: 58px;height: 58px;">
-                <img src="/images/profile.jpeg" style="width: 58px;height: 58px" class="icon">
+                <img src="{{ \Illuminate\Support\Facades\Auth::user()->avatar }}" style="width: 58px;height: 58px" class="icon">
             </a>
 
             <img src="/images/notification.svg"
@@ -86,7 +86,7 @@
         <span class="follow-card-title">
             Sugested
         </span><br>
-            <img src="/images/profile.jpeg" style="float: left" alt="">
+            <img src="/images/profiles/profile.jpeg" style="float: left" alt="">
             <div class="flew-box">
                 <span>Name Last</span>
                 <span>@name.last</span>

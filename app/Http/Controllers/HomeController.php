@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     private $access;
+
     /**
      * Create a new controller instance.
      *
@@ -20,12 +21,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//
-//        if (!Auth::check()) {
-//            Auth::loginUsingId(1);
-//            $user = Auth::user();
-//            $this->access = $user->createToken('MyTok')->accessToken;
-//        }
         $this->middleware('auth');
     }
 
@@ -36,7 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('access',Auth::user()->createToken('home')->accessToken);
+        return view('home')->with('access', Auth::user()->createToken('home')->accessToken);
     }
 
     public function profile($slug = '')
@@ -44,6 +39,11 @@ class HomeController extends Controller
         if ($slug == '')
             $slug = Auth::user()->slug;
         $inks = Ink::all()->where('user_slug', $slug);
-        return view('profile')->with(['inks' => $inks, 'user' => User::where('slug', $slug)->first(),'access'=>Auth::user()->createToken("profile")->accessToken]);
+        return view('profile')->with(['inks' => $inks, 'user' => User::where('slug', $slug)->first(), 'access' => Auth::user()->createToken("profile")->accessToken]);
+    }
+
+    public function edit()
+    {
+        return view('edit-profile')->with(['access' => Auth::user()->createToken('edit.profile')->accessToken]);
     }
 }

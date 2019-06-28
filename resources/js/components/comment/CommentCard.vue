@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="comment flew-box">
-            <img class="comment-avatar" src="/images/profile.jpeg" alt="">
+            <img class="comment-avatar" :src="comment.user.avatar" alt="">
             <div class="comment-card">
                 <div class="comment-text">
                     <span>{{ comment.user.name }}</span>

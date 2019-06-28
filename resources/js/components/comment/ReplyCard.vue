@@ -1,6 +1,6 @@
 <template>
     <div class="comment reply flew-box">
-        <img class="comment-avatar" src="/images/profile.jpeg" alt="">
+        <img class="comment-avatar" :src="reply.user.avatar" alt="">
         <div class="comment-card">
             <div class="comment-text">
                 <span>{{ reply.user.name }}</span>

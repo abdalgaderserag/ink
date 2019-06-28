@@ -4155,7 +4155,7 @@ var render = function() {
     _c("div", { staticClass: "comment flew-box" }, [
       _c("img", {
         staticClass: "comment-avatar",
-        attrs: { src: "/images/profile.jpeg", alt: "" }
+        attrs: { src: _vm.comment.user.avatar, alt: "" }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "comment-card" }, [
@@ -4466,7 +4466,7 @@ var render = function() {
   return _c("div", { staticClass: "comment reply flew-box" }, [
     _c("img", {
       staticClass: "comment-avatar",
-      attrs: { src: "/images/profile.jpeg", alt: "" }
+      attrs: { src: _vm.reply.user.avatar, alt: "" }
     }),
     _vm._v(" "),
     _c("div", { staticClass: "comment-card" }, [
