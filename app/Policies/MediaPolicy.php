@@ -19,7 +19,7 @@ class MediaPolicy
      */
     public function view(User $user, Media $media)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class MediaPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->id;
     }
 
     /**

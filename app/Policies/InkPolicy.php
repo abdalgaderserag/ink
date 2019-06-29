@@ -19,7 +19,7 @@ class InkPolicy
      */
     public function view(User $user, Ink $ink)
     {
-        //
+        return $user->slug == $ink->user_slug;
     }
 
     /**
@@ -30,7 +30,7 @@ class InkPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->id;
     }
 
     /**
@@ -42,7 +42,7 @@ class InkPolicy
      */
     public function update(User $user, Ink $ink)
     {
-        //
+        return $user->slug == $ink->user_slug;
     }
 
     /**
@@ -54,30 +54,7 @@ class InkPolicy
      */
     public function delete(User $user, Ink $ink)
     {
-        //
+        return $user->slug == $ink->user_slug;
     }
 
-    /**
-     * Determine whether the user can restore the ink.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Ink  $ink
-     * @return mixed
-     */
-    public function restore(User $user, Ink $ink)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the ink.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Ink  $ink
-     * @return mixed
-     */
-    public function forceDelete(User $user, Ink $ink)
-    {
-        //
-    }
 }
