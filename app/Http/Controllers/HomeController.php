@@ -27,4 +27,9 @@ class HomeController extends Controller
     {
         return view('home')->with('access', Auth::user()->createToken('home')->accessToken);
     }
+
+    public function search()
+    {
+        return view('search')->with('access', Auth::user()->createToken('search')->accessToken);
+    }
 }
