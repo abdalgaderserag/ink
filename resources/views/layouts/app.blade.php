@@ -99,6 +99,10 @@
         </div>
     </div>
 </div>
+
+<div style="width: 100%;background-color: #404040;height: 120px;margin-top: 70px">
+
+</div>
 </body>
 @yield('sc')
 
