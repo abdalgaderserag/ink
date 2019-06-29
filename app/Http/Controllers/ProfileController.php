@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Ink;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param $slug = ''
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug = '')
     {
-        //
+        if ($slug == '')
+            $slug = Auth::user()->slug;
+        $inks = Ink::all()->where('user_slug', $slug);
+        return view('profile')->with(['inks' => $inks, 'user' => User::where('slug', $slug)->first(), 'access' => Auth::user()->createToken("profile")->accessToken]);
+
     }
 
     /**
@@ -52,12 +59,11 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
-        //
+        return view('edit-profile')->with(['access' => Auth::user()->createToken('edit.profile')->accessToken]);
     }
 
     /**
