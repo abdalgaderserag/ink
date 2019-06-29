@@ -37,6 +37,7 @@ Route::post('register','Auth\RegisterController@register')->name('register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/profile/edit', 'HomeController@edit')->name('edit.profile');
+Route::get('/profile/edit', 'HomeController@edit')->name('profile.edit');
+Route::put('/profile', 'HomeController@update')->name('profile.update');
 
 Route::get('/profile/{slug?}', 'HomeController@profile')->name('profile');
