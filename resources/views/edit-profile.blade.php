@@ -82,7 +82,7 @@
                     <hr>
                     <span>{{ \Illuminate\Support\Facades\Auth::user()->details }}</span>
                 </div>
-                <form action="{{ route('profile.update') }}">
+                <form method="post" action="{{ route('profile.update',\Illuminate\Support\Facades\Auth::id()) }}">
                     @csrf
                     @method('PUT')
                     <input type="text" class="text-input" name="name" placeholder="name"
@@ -91,7 +91,7 @@
                            value="{{ \Illuminate\Support\Facades\Auth::user()->slug }}" placeholder="user.name">
                     <textarea name="details" class="text-input" cols="30" rows="10"
                               placeholder="details about the user">{{ \Illuminate\Support\Facades\Auth::user()->details }}</textarea><br>
-                    <input type="submit" class="input-text" value="Submit">
+                    <button type="submit" class="input-bottom">Submit</button>
                 </form>
             </div>
         </div>

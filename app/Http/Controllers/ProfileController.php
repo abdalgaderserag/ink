@@ -37,7 +37,7 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,16 +48,17 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
-        //
+        return view('profile')->with(['user' => $user]);
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
      *
      * @return \Illuminate\Http\Response
      */
@@ -69,23 +70,30 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->avatar = $request->avatar;
+        $user->background = $request->background;
+        $user->slug = $request->slug;
+        $user->details = $request->details;
+        $user->save();
+        return redirect()->route('profile');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('profile');
     }
 }
