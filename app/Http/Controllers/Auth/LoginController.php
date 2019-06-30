@@ -37,8 +37,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        Auth::loginUsingId(1);
-        Auth::user()->createToken('log');
+//        Auth::loginUsingId(1);
+//        Auth::user()->createToken('log');
     }
 
     public function login(Request $request)

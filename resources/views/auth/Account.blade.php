@@ -65,17 +65,15 @@
                     Sign Up
                 </div>
 
-                <input id="text" type="text" name="text" placeholder="name" required>
+                <input id="text" type="text" name="name" placeholder="name" required>
 
+                <input id="text" type="text" name="slug" placeholder="slug" required>
 
                 <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="email" required>
 
-
                 <input id="password" type="password" name="password" placeholder="password" required>
 
-
                 <input id="password" type="password" name="password" placeholder="confirm password" required>
-
 
                 <button type="submit" class="btn btn-primary">
                     {{ __('Register') }}
