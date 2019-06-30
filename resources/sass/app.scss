@@ -46,13 +46,16 @@ body {
       margin-left: 8px;
     }
 
-    input {
-      height: 58px;
+    form {
       width: 88%;
-      //@include marginToPer(0,540,0,20);
-      padding: $padd-20;
-      border: 2px solid $orange;
-      margin-left: 38px;
+      input {
+        height: 58px;
+        width: 100%;
+        //@include marginToPer(0,540,0,20);
+        padding: $padd-20;
+        border: 2px solid $orange;
+        margin-left: 38px;
+      }
     }
   }
 
@@ -161,7 +164,7 @@ body {
 //  border-radius: $r-2;
 //}
 
-.input-text{
+.input-text {
   width: 70%;
   margin-bottom: 32px;
   font-size: 16px;
@@ -169,7 +172,8 @@ body {
   border: 2px solid #d2d2d2;
   border-radius: 4px;
 }
-.input-bottom{
+
+.input-bottom {
   height: 46px;
   color: #FFFFFF;
   padding: 10px 34px;

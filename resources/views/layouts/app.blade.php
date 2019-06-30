@@ -46,11 +46,16 @@
             <div class="title">
                 <a href="/home">Ink.</a>
             </div>
-            <input type="search" placeholder="S e a r c h">
+            <form action="{{ url('/search') }}" method="get">
+                @csrf
+                <input type="search" placeholder="S e a r c h">
+                <input type="submit" style="display: none">
+            </form>
         </div>
         <div class="icon-menu flew-box">
             <a href="/profile" style="width: 58px;height: 58px;">
-                <img src="{{ \Illuminate\Support\Facades\Auth::user()->avatar }}" style="width: 58px;height: 58px" class="icon">
+                <img src="{{ \Illuminate\Support\Facades\Auth::user()->avatar }}" style="width: 58px;height: 58px"
+                     class="icon">
             </a>
 
             <img src="/images/notification.svg"
@@ -77,6 +82,7 @@
             </form>
         </div>
     </div>
+    @yield('header')
     <div class="container flew-box">
         <div class="main-body">
             @yield('content')
@@ -98,6 +104,7 @@
 
         </div>
     </div>
+    @yield('footer')
 </div>
 
 <div style="width: 100%;background-color: #404040;height: 120px;margin-top: 70px">

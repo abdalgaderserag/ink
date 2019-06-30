@@ -50,9 +50,13 @@ body {
   margin-left: 8px;
 }
 
-.nav-bar .nav-bar-l input {
-  height: 58px;
+.nav-bar .nav-bar-l form {
   width: 88%;
+}
+
+.nav-bar .nav-bar-l form input {
+  height: 58px;
+  width: 100%;
   padding: 20px;
   border: 2px solid #f98835;
   margin-left: 38px;

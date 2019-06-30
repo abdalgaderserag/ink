@@ -1,11 +1,77 @@
 @import "variables";
 
+.search-section {
+  margin-left: ((120/1366)*100%);
+
+  .input-text {
+    width: 79.5461200586%;
+  }
+
+  .filters {
+    width: 79.5461200586%;
+    margin-top: 12px;
+    display: none;
+    font-size: 22px;
+    font-weight: bolder;
+    .tag{
+      cursor: pointer;
+    }
+    a{
+      font-size: 16px;
+      font-weight: normal;
+      padding: 4px 12px;
+    }
+    .active-tag{
+      color: $white;
+      border-radius: 14px;
+      background: $bg-rtl;
+      margin-right: 6px;
+    }
+    .title {
+      color: $orange;
+    }
+  }
+
+  .config-line {
+    width: 79.5461200586%;
+    border-width: 2px 0 0 0;
+    margin: 0;
+    float: left;
+  }
+
+  .config-text {
+    width: 10%;
+    text-align: center;
+    background-color: #eaeaea;
+    position: absolute;
+    left: 582px;
+    top: 210px;
+  }
+}
+
 .main-body {
-  color: #000;
-  background-color: unset;
-  padding: 0;
-  margin: 0;
+  clear: both;
+  margin-top: 12px;
+}
+
+.media-view{
+  margin-left: ((120/1366)*100%);
   width: 69.5461200586%;
-  margin-left: 8.78477306%;
-  box-shadow: unset;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  img{
+    width: 25%;
+    //float: left;
+  }
+  video{
+    width: 25%;
+    //float: left;
+  }
+}
+
+.users-view{
+  margin-left: ((120/1366)*100%);
+  width: 69.5461200586%;
+  padding: 20px;
 }
