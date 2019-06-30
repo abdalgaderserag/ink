@@ -8,6 +8,7 @@ use App\Ink;
 use App\Media;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class InkController extends Controller
 {
@@ -62,8 +63,26 @@ class InkController extends Controller
         $ink->save();
         $media = new Media();
         $media->ink_id = $ink->id;
-        $media->text = $request->text;
+        if ($request->filled('text'))
+            $media->text = $request->text;
+        if ($request->filled('images')) {
+            $images = '"[';
+            foreach ($request->images as $image) {
+                $images = $images . '"' . $image . '",';
+            }
+            $images = $images . ']"';
+            $media->images = $images;
+        }
+        if ($request->filled('videos')){
+            $videos = '"[';
+            foreach ($request->videos as $video) {
+                $videos = $videos . '"' . $video . '",';
+            }
+            $videos = $videos . ']"';
+            $media->videos = $videos;
+        }
         $media->save();
+
         $ink['media'] = $media;
         return response()->json($ink, 200);
     }

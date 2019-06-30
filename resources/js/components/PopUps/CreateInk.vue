@@ -7,21 +7,22 @@
                 </span>
         </h3>
         <textarea v-model="text" cols="124" rows="6" class="text-input" v-on:focus="animate()"></textarea>
-        <file-reader file="image" post="ink"></file-reader>
-        <!--<input type="button" value="Ink It !">-->
+        <input type="file" v-on:change="upload" id="uploader">
         <br>
         <button role="button" @click="submitInk()">Ink it!</button>
     </div>
 </template>
 
 <script>
-
+    let images = [];
     export default {
         name: "CreateInk",
         data() {
             return {
                 text: '',
-            }
+                images: [],
+                videos: [],
+        }
         },
         methods: {
             animate: function () {
@@ -33,19 +34,38 @@
                 main.style.display = "none";
             },
             submitInk: function () {
-                if (this.text !== "")
+                if (this.text !== "" || this.images !== [] || this.videos !== [])
                     axios.post('/api/create-ink', {
                         'text': this.text,
-                        'file': '',
+                        'images': this.images,
+                        'videos': this.videos,
                     }).then((response) => {
                         this.hide();
                         this.text = '';
                     })
+            },
+            addFile: function (data, type) {
+                if (type === 'image') {
+                    this.images.push(data)
+                } else if (type === 'video') {
+                    this.videos.push(data)
+                }
+
+            },
+            upload: function (e) {
+                let reader = new FileReader();
+                reader.readAsDataURL(e.target.files[0]);
+                reader.onload = function () {
+                    axios.post('/api/upload', {
+                        'file': reader.result,
+                    }).then((response) => {
+                        app.$children[0].$children[0].addFile(response.data.path, response.data.type);
+                    }).catch((error) => {
+                        console.log("error while uploading file :" + error)
+                    })
+                };
             }
         },
-        activated() {
-            document.getElementsByClassName("pop-card")[0].style.borderTopWidth = "6px";
-        }
     }
 </script>
 
