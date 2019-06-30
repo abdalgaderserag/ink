@@ -8,7 +8,6 @@ use App\Ink;
 use App\Media;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 
 class InkController extends Controller
 {
@@ -66,11 +65,13 @@ class InkController extends Controller
         if ($request->filled('text'))
             $media->text = $request->text;
         if ($request->filled('images')) {
-            $images = '"[';
+            $images = "{";
+            $i=0;
             foreach ($request->images as $image) {
                 $images = $images . '"' . $image . '",';
+                $i++;
             }
-            $images = $images . ']"';
+            $images = $images . "}";
             $media->images = $images;
         }
         if ($request->filled('videos')){
