@@ -128,6 +128,11 @@
     //     document.getElementById('reply-section').innerHTML = section;
     // });
 
+    window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;
+
+    axios.get('/api/notification').then((response) => {
+        console.log(response.data)
+    })
 
     let app = new Vue({
         el: "#app",
@@ -139,7 +144,6 @@
             slug: '{{ \Illuminate\Support\Facades\Auth::user()->slug }}'
         },
         mounted() {
-            window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;
             // axios.get('/oauth/personal-access-tokens')
             //     .then((response) => {
             //         this.access_token = response.data[0].id

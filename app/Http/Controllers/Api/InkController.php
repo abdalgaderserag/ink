@@ -68,7 +68,7 @@ class InkController extends Controller
             $images = "{";
             $i=0;
             foreach ($request->images as $image) {
-                $images = $images . '"' . $image . '",';
+                $images = $images .'"'. $i .'":' . '"' . $image . '",';
                 $i++;
             }
             $images = $images . "}";

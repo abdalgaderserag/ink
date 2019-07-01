@@ -2593,12 +2593,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NotificationMain",
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
   methods: {
     showNotification: function showNotification() {}
   },
-  mounted: function mounted() {// axios.get()
+  mounted: function mounted() {// axios.get('/api/notification').then((response) => {
+    //     console.log(response.data)
+    // })
   }
 });
 
@@ -2635,7 +2645,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.notification[data-v-a5157866]{\r\n    width: 18%;\r\n    height: 60px;\r\n    display: none;\r\n    background-color: #ffffff;\r\n    position: absolute;\r\n    left: 1080px;\r\n    top: 72px;\n}\r\n", ""]);
+exports.push([module.i, "\n.notification[data-v-a5157866] {\n    width: 18%;\n    border-radius: 2px;\n    height: 60px;\n    display: none;\n    background-color: #ffffff;\n    position: absolute;\n    left: 1080px;\n    top: 72px;\n}\n", ""]);
 
 // exports
 
@@ -4772,7 +4782,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "notification" })
+  return _c(
+    "div",
+    { staticClass: "notification" },
+    _vm._l(_vm.notifications, function(notification) {
+      return _c("div", [
+        _c("a", [_vm._v(_vm._s(notification))]),
+        _vm._v(" "),
+        _c("hr")
+      ])
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
