@@ -45,6 +45,12 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/ink', 'Api\InkController@index');
 
+
+    Route::get('/notification','Api\NotificationController@index');
+    Route::get('/notification/mark-all-as-read','Api\NotificationController@markAllAsRead');
+    Route::post('/notification/mark-as-read','Api\NotificationController@markAsRead');
+    Route::get('/notification/delete','Api\NotificationController@deleteAllRead');
+
 });
 
 
