@@ -2133,7 +2133,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.text !== '') axios.post('api/create-comment', {
         'text': this.text,
-        'comment_id': this.comment.id
+        'comment_id': this.comment.id,
+        'user_id': this.$parent.$parent.ink.user.id
       }).then(function (response) {
         _this2.comment.replies.push(response.data);
 
@@ -2234,7 +2235,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.text !== '') axios.post('api/create-comment', {
         'text': this.text,
-        'ink_id': this.id
+        'ink_id': this.id,
+        'user_id': this.$parent.ink.user.id
       }).then(function (response) {
         _this2.comments.push(response.data);
 

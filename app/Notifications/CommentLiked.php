@@ -27,7 +27,7 @@ class CommentLiked extends Notification
         $this->user_name = $user->name;
         $media = Media::where('comment_id', $comment_id)->first();
         $this->comment_id = $comment_id;
-        $this->ink_text = $media->text;
+        $this->comment_text = $media->text;
     }
 
     /**

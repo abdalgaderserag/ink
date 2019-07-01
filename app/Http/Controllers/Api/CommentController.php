@@ -6,6 +6,8 @@ use App\Comment;
 use App\Http\Requests\CommentRequest;
 use App\Media;
 use App\Http\Controllers\Controller;
+use App\Notifications\CommentLiked;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -19,10 +21,9 @@ class CommentController extends Controller
     public function store(CommentRequest $request)
     {
         $comment = new Comment();
-        if (empty($request->comment_id)){
-        $comment->ink_id = $request->ink_id;
-        }else
-            {
+        if (empty($request->comment_id)) {
+            $comment->ink_id = $request->ink_id;
+        } else {
             $comment->comment_id = $request->comment_id;
         }
         $comment->user_id = Auth::id();
@@ -31,6 +32,8 @@ class CommentController extends Controller
         $media->text = $request->text;
         $media->comment_id = $comment->id;
         $media->save();
+        $user = User::find($request->user_id);
+        $user->notify(new CommentLiked(Auth::id(), empty($request->comment_id) ? $request->ink_id : $request->comment_id));
         $re = Comment::with('user', 'replies.media', 'replies.like', 'replies.user', 'media', 'like')->find($comment->id);
 
         return response()->json($re, 200);

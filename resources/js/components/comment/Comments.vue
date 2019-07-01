@@ -55,7 +55,8 @@
                 if (this.text !== '')
                     axios.post('api/create-comment', {
                         'text': this.text,
-                        'ink_id': this.id
+                        'ink_id': this.id,
+                        'user_id': this.$parent.ink.user.id,
                     }).then((response) => {
                         this.comments.push(response.data);
                         this.$parent.commentCount++;
