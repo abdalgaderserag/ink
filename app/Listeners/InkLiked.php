@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\Like;
+use App\Media;
+use App\User;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -13,9 +15,9 @@ class InkLiked
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($ink_id,$user_id)
     {
-        //
+
     }
 
     /**
