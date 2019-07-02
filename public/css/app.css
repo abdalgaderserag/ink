@@ -154,6 +154,7 @@ body {
 .ink {
   height: 58px;
   width: 58px;
+  background-image: url("");
   background: linear-gradient(to right, #FC4027, #f98835);
   position: fixed;
   top: 574px;

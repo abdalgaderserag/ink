@@ -100,14 +100,15 @@
             </div>
         </div>
 
-        <div class="ink" onclick="inkForm('ink')">
+        <div class="ink" style="background: url('images/ink.png'),linear-gradient(to right, #FC4027, #f98835)"
+             onclick="inkForm('ink')">
 
         </div>
     </div>
     @yield('footer')
 </div>
 
-<div style="width: 100%;background-color: #404040;height: 120px;margin-top: 70px">
+<div style="width: 100%;background-color: #404040;height: 116px;margin-top: 70px">
 
 </div>
 </body>

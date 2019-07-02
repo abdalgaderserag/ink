@@ -19,7 +19,8 @@
             <div v-show="ink.media[0].images != null || ink.media[0].videos != null"
                  class="media">
                 <div class="images">
-                    <img src="" alt="">
+                    <img :src="ink.media[0].images" alt="">
+                    {{ ink.media[0].images}}
                 </div>
                 <div class="videos">
                     <video src=""></video>

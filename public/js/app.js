@@ -2429,6 +2429,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -4662,7 +4663,18 @@ var render = function() {
             ],
             staticClass: "media"
           },
-          [_vm._m(0), _vm._v(" "), _vm._m(1)]
+          [
+            _c("div", { staticClass: "images" }, [
+              _c("img", { attrs: { src: _vm.ink.media[0].images, alt: "" } }),
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.ink.media[0].images) +
+                  "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card-footer" }, [
@@ -4701,14 +4713,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "images" }, [
-      _c("img", { attrs: { src: "", alt: "" } })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
