@@ -15,9 +15,11 @@ class CreateShowsTable extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
             $table->boolean('see_first')->default(false);
             $table->integer('score');
             $table->integer('rank');
+            $table->boolean('viewed')->default(false);
             $table->timestamps();
         });
     }

@@ -1,6 +1,8 @@
 /node_modules
 /public/css/*.css
 /public/js/*
+/public/images/backgrounds/*
+/public/images/profiles/*
 /public/storage
 /storage/*.key
 /vendor

@@ -27,6 +27,7 @@ class FollowController extends Controller
             $follow->followed_slug = Auth::user()->slug;
             $follow->save();
             $user->notify(new NewFollower(Auth::user()->slug));
+
             return response(1, 200);
         } else {
             $follow->delete();
