@@ -18,21 +18,23 @@ class InterestController extends Controller
     public function __invoke(Request $request)
     {
         $id = $request->id;
-        if ($id === '1' or $id === '2' or $id === '3') {
-            $show = Show::where('owner_id', Auth::id())->where('user_id', $request->user_id)->first();
+        $show = Show::where('owner_id', Auth::id())->where('user_id', $request->user_id)->first();
+        if ($id === 1 or $id === 2 or $id === 3) {
             if (empty($show)) {
                 $show = new  Show();
                 $show->owner_id = Auth::id();
                 $show->user_id = $request->user_id;
+                if ($id === 1)
+                    $show->see_first = '1';
                 $show->save();
-            } else if ($id === '1') {
-                $show->see_first = true;
+            } else if ($id === 1) {
+                $show->see_first = '1';
                 $show->save();
-            } else if ($id === '3') {
+            } else if ($id === 3) {
                 $show->delete();
             }
         }
-
+        return response()->json($show, 200);
         return response()->json('returned with status' . $request->id, 200);
     }
 }
