@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    use LikeNotification;
 
     public function __invoke(Request $request)
     {
@@ -22,12 +21,10 @@ class LikeController extends Controller
                 $like->user_id = Auth::id();
                 $like->ink_id = $request->ink_id;
                 $like->save();
-                $this->notifyInkLiked($request->ink_id);
                 return response(['like' => $like, 'type' => true], 200);
             } else {
                 $like->delete();
                 $like = Like::where('ink_id', $request->ink_id);
-                $this->notifyInkDisliked($request->ink_id);
                 return response(['like' => $like->get(), 'type' => false], 200);
             }
         } else {
