@@ -15,7 +15,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  CommentRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(CommentRequest $request)
@@ -32,22 +32,11 @@ class CommentController extends Controller
         $media->text = $request->text;
         $media->comment_id = $comment->id;
         $media->save();
-        $user = User::find($request->user_id);
-        $user->notify(new CommentLiked(Auth::id(), empty($request->comment_id) ? $request->ink_id : $request->comment_id));
         $re = Comment::with('user', 'replies.media', 'replies.like', 'replies.user', 'media', 'like')->find($comment->id);
 
         return response()->json($re, 200);
     }
 
-//
-//    public function storeReply(Request $request)
-//    {
-//        $comment = new Comment();
-//        $comment->comment_id = $request->comment_id;
-//        $comment->media()->text = $request->text;
-//        $comment->save();
-//        return response()->json($comment);
-//    }
 
     /**
      * Display the specified resource.
@@ -63,7 +52,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  CommentRequest $request
      * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
@@ -77,6 +66,8 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     *
+     * @throws
      * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
