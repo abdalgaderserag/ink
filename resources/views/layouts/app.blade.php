@@ -131,9 +131,6 @@
 
     window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;
 
-    axios.get('/api/notification').then((response) => {
-        console.log(response.data)
-    })
 
     let app = new Vue({
         el: "#app",

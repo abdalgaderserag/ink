@@ -1,8 +1,10 @@
 <template>
     <div class="notification">
-        <div v-for="notification in notifications">
-            <a>{{ notification }}</a>
-            <hr>
+        <div>
+            <a v-for="notification in notifications">
+                {{ displayNotification(notification) }}
+                <hr>
+            </a>
         </div>
     </div>
 </template>
@@ -18,12 +20,19 @@
         methods: {
             showNotification: function () {
 
+            },
+            displayNotification: function (notification) {
+                let text = '';
+                if (notification.type === "App\\Notifications\\CommentLiked") {
+                    // text = "new comment by  <a href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a> in your ink"
+                    text = "new comment by " + notification.data.name + "in your ink."
+                } else if (notification.type === "App\\Notifications\\InkLiked") {
+                    // text = "your ink has been liked by <a href='/profile/'>" + notification.data.slug + "'>" + notification.data.name + "</a>"
+                    text = "your ink has been liked by " + notification.data.name + "."
+                }
+                return text;
             }
-        }, mounted() {
-            // axios.get('/api/notification').then((response) => {
-            //     console.log(response.data)
-            // })
-        }
+        },
     }
 </script>
 
@@ -31,7 +40,8 @@
     .notification {
         width: 18%;
         border-radius: 2px;
-        height: 60px;
+        /*height: 60px;*/
+        padding: 8px;
         display: none;
         background-color: #ffffff;
         position: absolute;

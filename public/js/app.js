@@ -2599,6 +2599,10 @@ __webpack_require__.r(__webpack_exports__);
 
     window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.$root.access_token;
     var link = document.location.pathname;
+    axios.get('/api/notification').then(function (response) {
+      _this.$root.$children[1].notifications = response.data;
+    });
+    if (link === '/') link = '/home';
 
     if (link.indexOf('/', 1) !== -1) {
       link = link.slice(link.indexOf('/', 1), link.length);
@@ -2650,6 +2654,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NotificationMain",
   data: function data() {
@@ -2658,11 +2664,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    showNotification: function showNotification() {}
-  },
-  mounted: function mounted() {// axios.get('/api/notification').then((response) => {
-    //     console.log(response.data)
-    // })
+    showNotification: function showNotification() {},
+    displayNotification: function displayNotification(notification) {
+      var text = '';
+
+      if (notification.type === "App\\Notifications\\CommentLiked") {
+        // text = "new comment by  <a href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a> in your ink"
+        text = "new comment by " + notification.data.name + "in your ink.";
+      } else if (notification.type === "App\\Notifications\\InkLiked") {
+        // text = "your ink has been liked by <a href='/profile/'>" + notification.data.slug + "'>" + notification.data.name + "</a>"
+        text = "your ink has been liked by " + notification.data.name + ".";
+      }
+
+      return text;
+    }
   }
 });
 
@@ -2718,7 +2733,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.notification[data-v-a5157866] {\n    width: 18%;\n    border-radius: 2px;\n    height: 60px;\n    display: none;\n    background-color: #ffffff;\n    position: absolute;\n    left: 1080px;\n    top: 72px;\n}\n", ""]);
+exports.push([module.i, "\n.notification[data-v-a5157866] {\n    width: 18%;\n    border-radius: 2px;\n    /*height: 60px;*/\n    padding: 8px;\n    display: none;\n    background-color: #ffffff;\n    position: absolute;\n    left: 1080px;\n    top: 72px;\n}\n", ""]);
 
 // exports
 
@@ -4870,18 +4885,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "notification" },
-    _vm._l(_vm.notifications, function(notification) {
-      return _c("div", [
-        _c("a", [_vm._v(_vm._s(notification))]),
-        _vm._v(" "),
-        _c("hr")
-      ])
-    }),
-    0
-  )
+  return _c("div", { staticClass: "notification" }, [
+    _c(
+      "div",
+      _vm._l(_vm.notifications, function(notification) {
+        return _c("a", [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.displayNotification(notification)) +
+              "\n            "
+          ),
+          _c("hr")
+        ])
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

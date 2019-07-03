@@ -17,8 +17,17 @@
             }
         },
         mounted() {
+
+
             window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.$root.access_token;
-            var link = document.location.pathname;
+            let link = document.location.pathname;
+
+            axios.get('/api/notification').then((response) => {
+                this.$root.$children[1].notifications = response.data;
+            });
+
+            if (link === '/')
+                link = '/home';
             if (link.indexOf('/', 1) !== -1) {
                 link = link.slice(link.indexOf('/', 1), link.length)
             }
