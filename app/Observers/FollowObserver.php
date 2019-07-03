@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Follow;
+use App\Show;
+use Illuminate\Support\Facades\Auth;
 
 class FollowObserver
 {
@@ -14,7 +16,10 @@ class FollowObserver
      */
     public function created(Follow $follow)
     {
-        //
+        $show = new Show();
+        $show->owner_id = Auth::id();
+        $show->user_id = $follow->follower_id;
+        $show->save();
     }
 
     /**
@@ -36,7 +41,8 @@ class FollowObserver
      */
     public function deleted(Follow $follow)
     {
-        //
+        $show = Show::where('owner_id',Auth::id())->where('user_id',$follow->follower_id)->first();
+        $show->delete();
     }
 
 }

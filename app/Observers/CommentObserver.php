@@ -18,18 +18,20 @@ class CommentObserver extends NotificationHandle
      */
     public function created(Comment $comment)
     {
-        $userGrabber = $comment->ink();
+        $userGrabber = $comment->ink;
         $type = 'comment';
         if (empty($userGrabber)) {
-            $userGrabber = $comment->comment();
+            $userGrabber = $comment->comment;
             $type = 'reply';
         }
 
-        $user = $userGrabber->user();
+        $user = $userGrabber->user;
 
-        $show = Show::where('owner_id',Auth::id())->where('user_id',$user->id)->first();
-        $show->score = $show->score + config('ink.rank.scores.'.$type);
-        $show->save();
+        $show = Show::where('owner_id', Auth::id())->where('user_id', $user->id)->first();
+        if (!empty($show)) {
+            $show->score = $show->score + config('ink.rank.scores.' . $type);
+            $show->save();
+        }
 
 
         $user->notify(new NewComment($comment->id, $user->id));
@@ -56,7 +58,6 @@ class CommentObserver extends NotificationHandle
     {
 
 
-
         $userGrabber = $comment->ink;
         $typed = 'ink_id';
         $id = $comment->ink->id;
@@ -66,18 +67,24 @@ class CommentObserver extends NotificationHandle
             $typed = 'comment_id';
             $id = $comment->comment->id;
         }
+
+
+        $show = Show::where('owner_id', Auth::id())->where('user_id', $userGrabber->user->id)->first();
+        if (!empty($show)) {
+            $show->score = $show->score - config('ink.rank.scores.like');
+            $show->save();
+        }
+
         $this->deleteNotification($userGrabber->user, 'InkLiked', $typed, $id);
 
 
+        $comment->media->delete();
 
-
-        $comment->media()->delete();
-
-        foreach ($comment->like() as $like) {
+        foreach ($comment->like as $like) {
             $like->delete();
         }
 
-        foreach ($comment->replies() as $reply) {
+        foreach ($comment->replies as $reply) {
             $reply->delete();
         }
     }
