@@ -104,10 +104,10 @@ class InkController extends Controller
      */
     public function show(Ink $ink)
     {
-        $show = Show::where('owner_id',Auth::id())->where('user_id',$ink->user->id)->first();
-        $show->score = $show->score + config('ink.rank.scores.view');
-        $show->save();
-
+//        TODO unComment this
+//        $show = Show::where('owner_id',Auth::id())->where('user_id',$ink->user->id)->first();
+//        $show->score = $show->score + config('ink.rank.scores.view');
+//        $show->save();
         return response($ink->comment()->with('user', 'replies.media', 'replies.like', 'replies.user', 'media', 'like')->get(), 200);
     }
 
