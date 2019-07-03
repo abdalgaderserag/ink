@@ -4,8 +4,9 @@ namespace App\Observers;
 
 use App\Comment;
 use App\Notifications\NewComment;
+use App\Observers\Extendable\NotificationHandle;
 
-class CommentObserver
+class CommentObserver extends NotificationHandle
 {
     /**
      * Handle the comment "created" event.
@@ -24,7 +25,6 @@ class CommentObserver
         $user = $userGrabber->user();
 
         $user->notify(new NewComment($comment->id, $user->id));
-
     }
 
     /**
@@ -46,6 +46,23 @@ class CommentObserver
      */
     public function deleted(Comment $comment)
     {
+
+
+
+        $userGrabber = $comment->ink;
+        $typed = 'ink_id';
+        $id = $comment->ink->id;
+
+        if (empty($userGrabber)) {
+            $userGrabber = $comment->comment;
+            $typed = 'comment_id';
+            $id = $comment->comment->id;
+        }
+        $this->deleteNotification($userGrabber->user, 'InkLiked', $typed, $id);
+
+
+
+
         $comment->media()->delete();
 
         foreach ($comment->like() as $like) {

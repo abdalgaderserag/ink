@@ -4,9 +4,10 @@ namespace App\Observers;
 
 use App\Like;
 use App\Notifications\InkLiked;
+use App\Observers\Extendable\NotificationHandle;
 use Illuminate\Support\Facades\Auth;
 
-class LikeObserver
+class LikeObserver extends NotificationHandle
 {
     /**
      * Handle the like "created" event.
@@ -36,15 +37,14 @@ class LikeObserver
     public function deleted(Like $like)
     {
         $userGrabber = $like->ink;
+        $typed = 'ink_id';
+        $id = $like->ink->id;
 
-        if (empty($userGrabber))
+        if (empty($userGrabber)) {
             $userGrabber = $like->comment;
-
-        $user = $userGrabber->user;
-        foreach ($user->notifications as $note) {
-            if ($note->data['user_id'] == Auth::id() && $note->data['ink_id'] == $like->ink_id) {
-                $note->delete();
-            }
+            $typed = 'comment_id';
+            $id = $like->comment->id;
         }
+        $this->deleteNotification($userGrabber->user, 'InkLiked', $typed, $id);
     }
 }
