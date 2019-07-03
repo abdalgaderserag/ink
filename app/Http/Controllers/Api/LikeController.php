@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Like;
-use App\Share;
-use App\Traites\LikeNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
