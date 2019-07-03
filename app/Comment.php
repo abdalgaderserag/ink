@@ -37,6 +37,6 @@ class Comment extends Model
 
     public function media()
     {
-        return $this->hasMany('App\Media');
+        return $this->hasOne('App\Media');
     }
 }

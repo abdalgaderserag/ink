@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Media;
+use Illuminate\Support\Facades\Storage;
 
 class MediaObserver
 {
@@ -36,7 +37,13 @@ class MediaObserver
      */
     public function deleted(Media $media)
     {
-        //
+        foreach ($media->images as $image){
+            Storage::disk('local')->delete($image);
+        }
+
+        foreach ($media->videos as $video){
+            Storage::disk('local')->delete($video);
+        }
     }
 
 }

@@ -36,7 +36,15 @@ class CommentObserver
      */
     public function deleted(Comment $comment)
     {
-        //
+        $comment->media()->delete();
+
+        foreach ($comment->like() as $like){
+            $like->delete();
+        }
+
+        foreach ($comment->replies() as $reply){
+            $reply->delete();
+        }
     }
 
 }

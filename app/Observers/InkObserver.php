@@ -36,7 +36,15 @@ class InkObserver
      */
     public function deleted(Ink $ink)
     {
-        //
+        $ink->media()->delete();
+
+        foreach ($ink->comment() as $comment){
+            $comment->delete();
+        }
+
+        foreach ($ink->like() as $like){
+            $like->delete();
+        }
     }
 
 }
