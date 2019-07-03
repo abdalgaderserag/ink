@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div v-for="(ink,index) in inks">
-            <ink-card :ink="ink" :number="index"></ink-card>
+            <ink-card :ink="getInk(ink)" :number="index"></ink-card>
         </div>
         <div v-if="inks === []">
             <h2>You didnt follow any one yet search know!</h2>
@@ -28,6 +28,23 @@
                 }).catch((error) => {
                 console.log('error:\n'.error)
             })
+        },
+        methods: {
+            getInk: function (ink) {
+                let temp = ink.media.images;
+                if (ink.media.images !== null) {
+                    let num = temp.length - 1;
+                    try {
+
+                        temp = temp.split(',');
+                        temp[0] = temp[0].slice(1, temp[0].length);
+                        temp.pop();
+                    } catch (e) {
+                    }
+                }
+                ink.media.images = temp;
+                return ink;
+            }
         }
     }
 </script>

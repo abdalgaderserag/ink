@@ -15,17 +15,20 @@
         </div>
 
         <div class="card-body">
-            <p @click="showComments()">{{ ink.media[0].text }}</p>
-            <div v-show="ink.media[0].images != null || ink.media[0].videos != null"
-                 class="media">
-                <div class="images">
-                    <img :src="ink.media[0].images" alt="">
-                    {{ ink.media[0].images}}
-                </div>
-                <div class="videos">
-                    <video src=""></video>
-                </div>
+            <div v-if="ink.media.text != null">
+                <p @click="showComments()">{{ ink.media.text }}</p>
             </div>
+
+
+            <!--<div v-if="ink.media.images != null || ink.media.videos != null"-->
+            <!--class="media">-->
+            <div class="media">
+                <img v-for="(image,index) in images" v-if="ink.media.images != null || ink.media.videos != null"
+                     :src="image" :width="imgWidth(images.length,index)" alt="">
+                <!--{{ (index + 1) > 3}}-->
+            </div>
+
+
             <div class="card-footer">
                 <img :src="'/images/' + image" @click="like()" width="28px" height="24px" alt="">
                 <span>{{ ink.like.length }}</span>
@@ -48,6 +51,13 @@
                 commentId: 0,
                 deleteAble: this.$root.slug == this.ink.user.slug,
                 editAble: this.$root.slug == this.ink.user.slug,
+                images: [
+                    'images/profiles/20190511_235056.jpg',
+                    'images/profiles/20190511_235056.jpg',
+                    'images/profiles/20190511_235056.jpg',
+                    'images/profiles/20190511_235056.jpg',
+
+                ],
             }
         },
         props: {
@@ -64,8 +74,37 @@
             for (var i = 0; i < this.ink.like.length; i++)
                 if (this.ink.like[i].user_id + '' === this.$root.id)
                     this.image = "hard-fill-color.svg";
+
+            let media = document.getElementsByClassName('media')[this.number].children;
+            if (media.length) {
+                if (media.length > 3) {
+                    for (let i = 3; i < media.length; i++) {
+                        media[i].height = media[0].height;
+                    }
+                }
+            }
         },
         methods: {
+            imgWidth: function (length, firstLine) {
+                let width = 100;
+                if (length <= 3) {
+                    width = width / length;
+                } else if (length > 3) {
+                    if (firstLine < 3) {
+                        width = width / 3;
+                    } else {
+                        if (length === 4) {
+                            return width + '%';
+                        } else if (length === 5) {
+                            return width / 2 + '%';
+                        } else if (length === 6) {
+                            return width / 3 + '%';
+                        }
+                    }
+
+                }
+                return width + '%';
+            },
             like: function () {
                 var temp = this.image;
                 if (this.image === "hard-fill-color.svg") {
@@ -104,7 +143,7 @@
                 } else {
                     let inks = document.getElementsByClassName('ink-card');
                     window.scrollY = scrS;
-                    for (var i = 0; i < inks.length; i++) {
+                    for (let i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
                             inks[i].style.display = "block"
                         }
@@ -119,16 +158,35 @@
                     })
             },
             showEdit: function () {
-                inkForm('edit-ink',this.ink.media)
+                inkForm('edit-ink', this.ink.media)
             },
             editInk: function () {
-                axios.put('/api/edit-ink/' + this.ink.id,{
-
-                })
+                axios.put('/api/edit-ink/' + this.ink.id, {})
                     .then((response) => {
                         this.$el.innerHTML = ""
                     })
-            }
+            },
         }
     }
 </script>
+
+<style scoped>
+    .media {
+        width: 100%;
+        margin-top: 34px;
+    }
+
+    .media img {
+        float: left;
+        max-height: 800px;
+    }
+
+    .media img:first-child {
+        border-top-left-radius: 14px;
+    }
+
+    .media img:last-child {
+        float: unset;
+        border-bottom-right-radius: 14px;
+    }
+</style>

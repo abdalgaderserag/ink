@@ -56,7 +56,6 @@ class InkController extends Controller
      */
     public function store(InkRequest $request)
     {
-        //
         $ink = new Ink();
         $ink->user_slug = Auth::user()->slug;
         $ink->save();
@@ -67,8 +66,16 @@ class InkController extends Controller
         if ($request->filled('images')) {
             $images = "{";
             $i=0;
+
+            $path = explode('\\', storage_path());
+            $string = '';
+            foreach ($path as $str){
+                $string = $string . $str .'/';
+            }
+            $string .= 'app/';
+
             foreach ($request->images as $image) {
-                $images = $images .'"'. $i .'":' . '"' . $image . '",';
+                $images = $images . $string .$image . ',';
                 $i++;
             }
             $images = $images . "}";
