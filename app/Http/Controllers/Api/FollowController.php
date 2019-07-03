@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Follow;
 use App\Http\Controllers\Controller;
 use App\Notifications\NewFollower;
+use App\Show;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,11 +28,14 @@ class FollowController extends Controller
             $follow->followed_slug = Auth::user()->slug;
             $follow->save();
             $user->notify(new NewFollower(Auth::user()->slug));
-
+            $show = new Show();
+            $show->owner_id = Auth::id();
+            $show->user_id = $follow->follower_id;
+            $show->save();
             return response(1, 200);
         } else {
             $follow->delete();
-            $note = $user->notifications->where('type','App\Notifications\NewFollower')->where('notifiable_id',$user->id)->first();
+            $note = $user->notifications->where('type', 'App\Notifications\NewFollower')->where('notifiable_id', $user->id)->first();
             $note->delete();
             return response(0, 200);
         }

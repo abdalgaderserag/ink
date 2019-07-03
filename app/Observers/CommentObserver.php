@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Comment;
 use App\Notifications\NewComment;
 use App\Observers\Extendable\NotificationHandle;
+use App\Show;
+use Illuminate\Support\Facades\Auth;
 
 class CommentObserver extends NotificationHandle
 {
@@ -17,12 +19,18 @@ class CommentObserver extends NotificationHandle
     public function created(Comment $comment)
     {
         $userGrabber = $comment->ink();
-
+        $type = 'comment';
         if (empty($userGrabber)) {
             $userGrabber = $comment->comment();
+            $type = 'reply';
         }
 
         $user = $userGrabber->user();
+
+        $show = Show::where('owner_id',Auth::id())->where('user_id',$user->id)->first();
+        $show->score = $show->score + config('ink.rank.scores.'.$type);
+        $show->save();
+
 
         $user->notify(new NewComment($comment->id, $user->id));
     }

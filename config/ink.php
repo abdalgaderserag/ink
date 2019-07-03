@@ -1,12 +1,16 @@
 <?php
 return [
-    'rank_base' => 1000,
+    'rank' => [
+        'rank_base' => 240,
 
-    'scores' => [
-        'like' => 20,
-        'comment' => 40,
-        'reply' => 30,
-        'view' => 10,
-        'day' => 100,
+        'full_rank' => 500,
+
+        'scores' => [
+            'like' => 20,
+            'comment' => 40,
+            'reply' => 30,
+            'view' => 10,
+            'day' => 100, // TODO : Task Schedule
+        ]
     ]
 ];
