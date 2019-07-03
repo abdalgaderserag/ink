@@ -34,6 +34,16 @@
                     <span>Followed</span>
                     {{ $user->followed()->count() }}
                 </div>
+                <div class="notify-button">
+                    <img id="notify-icon" onclick="showNotify()" src="/images/notify.svg" alt="">
+                    <div id="notify-menu">
+                        <a onclick="sendNotify(1)">See first</a><br>
+                        <hr>
+                        <a onclick="sendNotify(2)">View</a><br>
+                        <hr>
+                        <a onclick="sendNotify(3)">Not interested</a>
+                    </div>
+                </div>
                 <div>
                     @if($user->slug != \Illuminate\Support\Facades\Auth::user()->slug)
                         <button id="follow" onclick="follow()">
@@ -65,6 +75,25 @@
 @section('sc')
     <script>
         let follower = {{ $user->follower()->count() }};
+
+        document.getElementById('notify-menu').style.display = "none";
+
+        function showNotify() {
+            let notify = document.getElementById('notify-menu');
+            if (notify.style.display === "none") {
+                notify.style.display = "block"
+            } else
+                notify.style.display = "none"
+        }
+
+        function sendNotify(number) {
+            axios.post('/api/interest', {
+                'id': number,
+                'user_id': '{{ $user->id }}'
+            }).then((response)=>{
+                showNotify();
+            });
+        }
 
         function follow() {
             axios.post('/api/follow', {

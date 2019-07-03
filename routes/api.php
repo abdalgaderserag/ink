@@ -35,6 +35,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/upload', 'Api\UploadController@upload');
 
+    Route::post('/interest','Api\InterestController');
+
 
     Route::post('/like', 'Api\LikeController');
 //    Route::post('/like/check', 'Api\LikeController@likeCheck');

@@ -37,6 +37,35 @@
     height: 60px;
     margin-left: 210px;
     justify-content: left;
+
+    .notify-button{
+      height: 36px;
+      width: 36px;
+      #notify-icon{
+        height: 28px;
+        width: 28px;
+        padding: 8px 0 0 8px;
+      }
+      #notify-menu{
+        position: absolute;
+        background-color: $white;
+        width: 172px;
+        top: 472px;
+        left: 712px;
+        padding: 4px 0;
+        border-radius: 4px;
+        box-shadow: 1px 1px 4px $gray;
+      }
+      #notify-menu hr{
+        border-width: 0 0 1px 0;
+        margin: 4px 0;
+      }
+      #notify-menu a{
+        cursor: pointer;
+        padding: 0 8px;
+      }
+    }
+
     div{
       flex-direction: column;
       margin-right: 100px;

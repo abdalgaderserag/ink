@@ -31,6 +31,38 @@
   justify-content: left;
 }
 
+.main-container .profile-details .notify-button {
+  height: 36px;
+  width: 36px;
+}
+
+.main-container .profile-details .notify-button #notify-icon {
+  height: 28px;
+  width: 28px;
+  padding: 8px 0 0 8px;
+}
+
+.main-container .profile-details .notify-button #notify-menu {
+  position: absolute;
+  background-color: #fff;
+  width: 172px;
+  top: 472px;
+  left: 712px;
+  padding: 4px 0;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px #b2b2b2;
+}
+
+.main-container .profile-details .notify-button #notify-menu hr {
+  border-width: 0 0 1px 0;
+  margin: 4px 0;
+}
+
+.main-container .profile-details .notify-button #notify-menu a {
+  cursor: pointer;
+  padding: 0 8px;
+}
+
 .main-container .profile-details div {
   flex-direction: column;
   margin-right: 100px;

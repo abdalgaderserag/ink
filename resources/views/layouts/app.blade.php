@@ -16,6 +16,7 @@
             return app.$children[2].$children[number].$children[0].$refs.end[0].$el.offsetTop -
                 app.$children[2].$children[number].$children[0].$refs.line.offsetTop;
         }
+
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 
