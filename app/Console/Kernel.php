@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Jobs\DatabaseClearJob;
+use App\Jobs\UserDeleted;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('inspire')
                   ->everyMinute();
-        $schedule->job(new DatabaseClearJob(),'Database')->daily();
+//        $schedule->job(new UserDeleted(),'Database')->daily();
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DatabaseClearJob implements ShouldQueue
+class UserDeleted implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,10 +34,6 @@ class DatabaseClearJob implements ShouldQueue
     public function handle()
     {
         $user = User::find($this->user_id);
-        foreach ($user->notifications as $notification) {
-            $notification->delete();
-        }
 
-        foreach ($user->)
     }
 }
