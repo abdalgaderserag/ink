@@ -37,6 +37,10 @@ Vue.component('replies-card', require('./components/comment/RepliesCard.vue').de
 Vue.component('file-reader', require('./components/FileReader.vue').default);
 
 
+Vue.component('search-filter', require('./components/search/searchFilter.vue').default);
+
+
+
 Vue.component('pop-up', require('./components/PopUps/PopUp.vue').default);
 Vue.component('create-ink', require('./components/PopUps/CreateInk.vue').default);
 Vue.component('add-comment', require('./components/PopUps/AddComment.vue').default);
