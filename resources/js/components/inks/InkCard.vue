@@ -51,13 +51,14 @@
                 commentId: 0,
                 deleteAble: this.$root.slug == this.ink.user.slug,
                 editAble: this.$root.slug == this.ink.user.slug,
-                images: [
-                    'images/profiles/20190511_235056.jpg',
-                    'images/profiles/20190511_235056.jpg',
-                    'images/profiles/20190511_235056.jpg',
-                    'images/profiles/20190511_235056.jpg',
+                images:
+                    [
+                        'images/profiles/20190511_235056.jpg',
+                        'images/profiles/20190511_235056.jpg',
+                        'images/profiles/20190511_235056.jpg',
+                        'images/profiles/20190511_235056.jpg',
 
-                ],
+                    ],
             }
         },
         props: {
@@ -140,7 +141,6 @@
                 this.show = !this.show;
 
                 if (this.show) {
-                    scrS = window.scrollY;
                     let inks = document.getElementsByClassName('ink-card');
                     for (var i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
@@ -149,7 +149,6 @@
                     }
                 } else {
                     let inks = document.getElementsByClassName('ink-card');
-                    window.scrollY = scrS;
                     for (let i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
                             inks[i].style.display = "block"
@@ -165,7 +164,7 @@
                     })
             },
             showEdit: function () {
-                inkForm('edit-ink', this.ink.media,this.number)
+                inkForm('edit-ink', this.ink.media, this.number)
             },
             editInk: function () {
                 axios.put('/api/edit-ink/' + this.ink.id, {})

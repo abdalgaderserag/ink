@@ -2378,6 +2378,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2399,13 +2401,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_defineProperty({
   name: "ReplyCard",
   data: function data() {
     return {
-      image: 'hard-fill.svg'
+      image: 'hard-fill.svg',
+      last: false
     };
   },
   props: {
@@ -2417,6 +2418,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: true
     }
+  },
+  mounted: function mounted() {
+    this.last = this.$parent.replies.length - 1 === this.id;
+    console.log(this.last + "\n");
   },
   methods: {
     like: function like() {
@@ -2457,15 +2462,14 @@ __webpack_require__.r(__webpack_exports__);
     showEdit: function showEdit() {
       inkForm('edit-comment', this.reply.media, this.$parent.$parent.$parent.number, this.$parent.$parent.number, this.id);
     }
-  },
-  mounted: function mounted() {
-    if (this.reply.like) for (var i = 0; i < this.reply.like.length; i++) {
-      if (this.reply.like[i].user_id === 1) {
-        this.image = "hard-fill-color.svg";
-      }
+  }
+}, "mounted", function mounted() {
+  if (this.reply.like) for (var i = 0; i < this.reply.like.length; i++) {
+    if (this.reply.like[i].user_id === 1) {
+      this.image = "hard-fill-color.svg";
     }
   }
-});
+}));
 
 /***/ }),
 
@@ -2618,7 +2622,6 @@ __webpack_require__.r(__webpack_exports__);
       this.show = !this.show;
 
       if (this.show) {
-        scrS = window.scrollY;
         var inks = document.getElementsByClassName('ink-card');
 
         for (var i = 0; i < inks.length; i++) {
@@ -2628,8 +2631,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       } else {
         var _inks = document.getElementsByClassName('ink-card');
-
-        window.scrollY = scrS;
 
         for (var _i2 = 0; _i2 < _inks.length; _i2++) {
           if (_i2 !== this.number) {
@@ -4373,56 +4374,24 @@ var render = function() {
     "div",
     { attrs: { id: "pop-main" } },
     [
-      _c("create-ink", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "ink",
-            expression: "type === 'ink'"
-          }
-        ]
-      }),
+      _vm.type === "ink" ? _c("create-ink") : _vm._e(),
       _vm._v(" "),
-      _c("add-comment", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "reply",
-            expression: "type === 'reply'"
-          }
-        ]
-      }),
+      _vm.type === "reply" ? _c("add-comment") : _vm._e(),
       _vm._v(" "),
-      _c("edit-ink", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "edit-ink",
-            expression: "type === 'edit-ink'"
-          }
-        ],
-        attrs: { media: _vm.media, number: _vm.number }
-      }),
+      _vm.type === "edit-ink"
+        ? _c("edit-ink", { attrs: { media: _vm.media, number: _vm.number } })
+        : _vm._e(),
       _vm._v(" "),
-      _c("edit-comment", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.type === "edit-comment",
-            expression: "type === 'edit-comment'"
-          }
-        ],
-        attrs: {
-          media: _vm.media,
-          number: _vm.number,
-          commentNumber: _vm.commentNumber,
-          replyId: _vm.replyId
-        }
-      })
+      _vm.type === "edit-comment"
+        ? _c("edit-comment", {
+            attrs: {
+              media: _vm.media,
+              number: _vm.number,
+              commentNumber: _vm.commentNumber,
+              replyId: _vm.replyId
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -4663,6 +4632,7 @@ var render = function() {
       _vm._l(_vm.comments, function(comment, index) {
         return _c(
           "div",
+          { staticClass: "com" },
           [
             index + 1 === _vm.comments.length
               ? _c(
@@ -4776,64 +4746,68 @@ var render = function() {
     }),
     _vm._v(" "),
     _c("div", { staticClass: "comment-card" }, [
-      _c("div", { staticClass: "comment-text reply-text" }, [
-        _c("span", [_vm._v(_vm._s(_vm.reply.user.name))]),
-        _vm._v(" "),
-        _vm.reply.media
-          ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.reply.media.text))])])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "comment-footer" }, [
-          _c("img", {
-            attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
-            on: { click: _vm.like }
-          }),
+      _c(
+        "div",
+        { staticClass: "comment-text", class: { "reply-text": _vm.last } },
+        [
+          _c("span", [_vm._v(_vm._s(_vm.reply.user.name))]),
           _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.reply.like.length))]),
+          _vm.reply.media
+            ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.reply.media.text))])])
+            : _vm._e(),
           _vm._v(" "),
-          _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.reply.user.slug == _vm.$root.slug,
-                  expression: "reply.user.slug == $root.slug"
+          _c("div", { staticClass: "comment-footer" }, [
+            _c("img", {
+              attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
+              on: { click: _vm.like }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.reply.like.length))]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.reply.user.slug == _vm.$root.slug,
+                    expression: "reply.user.slug == $root.slug"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.deleteReply()
+                  }
                 }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.deleteReply()
+              },
+              [_vm._v("delete")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.reply.user.slug == _vm.$root.slug,
+                    expression: "reply.user.slug == $root.slug"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.showEdit()
+                  }
                 }
-              }
-            },
-            [_vm._v("delete")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.reply.user.slug == _vm.$root.slug,
-                  expression: "reply.user.slug == $root.slug"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.showEdit()
-                }
-              }
-            },
-            [_vm._v("edit")]
-          )
-        ])
-      ])
+              },
+              [_vm._v("edit")]
+            )
+          ])
+        ]
+      )
     ])
   ])
 }

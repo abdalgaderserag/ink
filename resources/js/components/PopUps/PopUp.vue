@@ -1,9 +1,9 @@
 <template>
     <div id="pop-main">
-        <create-ink v-show="type === 'ink'"></create-ink>
-        <add-comment v-show="type === 'reply'"></add-comment>
-        <edit-ink v-show="type === 'edit-ink'" :media="media" :number="number"></edit-ink>
-        <edit-comment v-show="type === 'edit-comment'" :media="media" :number="number"
+        <create-ink v-if="type === 'ink'"></create-ink>
+        <add-comment v-if="type === 'reply'"></add-comment>
+        <edit-ink v-if="type === 'edit-ink'" :media="media" :number="number"></edit-ink>
+        <edit-comment v-if="type === 'edit-comment'" :media="media" :number="number"
                       :commentNumber="commentNumber" :replyId="replyId"></edit-comment>
     </div>
 </template>
@@ -17,7 +17,7 @@
                 media: {},
                 number: 0,
                 commentNumber: 0,
-                replyId:null,
+                replyId: null,
             }
         },
         updated() {

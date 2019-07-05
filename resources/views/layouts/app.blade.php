@@ -127,7 +127,6 @@
     }
 
 
-    window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;
 
 
     let app = new Vue({
@@ -139,12 +138,8 @@
             id: '{{ \Illuminate\Support\Facades\Auth::id() }}',
             slug: '{{ \Illuminate\Support\Facades\Auth::user()->slug }}'
         },
-        mounted() {
-            // axios.get('/oauth/personal-access-tokens')
-            //     .then((response) => {
-            //         this.access_token = response.data[0].id
-            //     })
-        }
     });
+    window.axios.defaults.headers.common["Authorization"] = "Bearer " + app.access_token;
+
 </script>
 </html>

@@ -25,7 +25,6 @@ $g: #9a9a9a;
     }
 
     .reply-text{
-      padding-left: 36px;
     }
     .comment-text {
       flex-direction: column;
@@ -69,4 +68,8 @@ $g: #9a9a9a;
       left: 214px;
     }
   }
+}
+
+.comments-main .com:last-child div div .reply .comment-card .comment-text{
+  padding-left: 36px;
 }

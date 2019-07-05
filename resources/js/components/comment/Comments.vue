@@ -4,7 +4,7 @@
         <button class="input-bottom" @click="reply()">Reply</button>
         <br>
         <hr id="comments-line" ref="line" :style="{borderBottomWidth:line + 'px'}">
-        <div v-for="(comment, index) in comments">
+        <div v-for="(comment, index) in comments"  class="com">
             <div v-if="index + 1 === comments.length">
                 <comment-card :comment="comment" ref="end" :number="index"></comment-card>
             </div>

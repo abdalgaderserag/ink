@@ -26,10 +26,6 @@
   left: 134px;
 }
 
-.comments-main .comment .reply-text {
-  padding-left: 36px;
-}
-
 .comments-main .comment .comment-text {
   flex-direction: column;
   justify-content: left;
@@ -69,5 +65,9 @@
 
 .comments-main .reply .comment-avatar {
   left: 214px;
+}
+
+.comments-main .com:last-child div div .reply .comment-card .comment-text {
+  padding-left: 36px;
 }
 

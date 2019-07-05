@@ -2,7 +2,7 @@
     <div class="comment reply flew-box">
         <img class="comment-avatar" :src="reply.user.avatar" alt="">
         <div class="comment-card">
-            <div class="comment-text reply-text">
+            <div class="comment-text" :class="{'reply-text' : last}">
                 <span>{{ reply.user.name }}</span>
                 <div v-if="reply.media">
                     <p>{{ reply.media.text }}</p>
@@ -10,8 +10,6 @@
                 <div class="comment-footer">
                     <img :src="'/images/' + image" @click="like" width="24px" alt="">
                     <span>{{ reply.like.length }}</span>
-                    <!--<img src="/images/comment.svg" width="36px" height="30px" alt="">-->
-                    <!--<span>12</span>-->
                     <a href="/share">Share</a>
                     <a v-show="reply.user.slug == $root.slug" @click="deleteReply()">delete</a>
                     <a v-show="reply.user.slug == $root.slug" @click="showEdit()">edit</a>
@@ -27,6 +25,7 @@
         data() {
             return {
                 image: 'hard-fill.svg',
+                last: false,
             }
         },
         props: {
@@ -38,6 +37,10 @@
                 type: Number,
                 required: true
             }
+        },
+        mounted() {
+            this.last = this.$parent.replies.length - 1 === this.id;
+            console.log(this.last + "\n")
         },
         methods: {
             like: function () {
