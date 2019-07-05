@@ -41,6 +41,7 @@ Vue.component('pop-up', require('./components/PopUps/PopUp.vue').default);
 Vue.component('create-ink', require('./components/PopUps/CreateInk.vue').default);
 Vue.component('add-comment', require('./components/PopUps/AddComment.vue').default);
 Vue.component('edit-ink', require('./components/PopUps/EditInk.vue').default);
+Vue.component('edit-comment', require('./components/PopUps/EditComment.vue').default);
 
 
 

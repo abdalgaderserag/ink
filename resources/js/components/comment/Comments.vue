@@ -6,10 +6,10 @@
         <hr id="comments-line" ref="line" :style="{borderBottomWidth:line + 'px'}">
         <div v-for="(comment, index) in comments">
             <div v-if="index + 1 === comments.length">
-                <comment-card :comment="comment" ref="end"></comment-card>
+                <comment-card :comment="comment" ref="end" :number="index"></comment-card>
             </div>
             <div v-else>
-                <comment-card :comment="comment"></comment-card>
+                <comment-card :comment="comment" :number="index"></comment-card>
             </div>
             <replies-card v-show="comment.replies" :replies="comment.replies"></replies-card>
         </div>

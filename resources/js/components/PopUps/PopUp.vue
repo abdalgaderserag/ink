@@ -3,7 +3,8 @@
         <create-ink v-show="type === 'ink'"></create-ink>
         <add-comment v-show="type === 'reply'"></add-comment>
         <edit-ink v-show="type === 'edit-ink'" :media="media" :number="number"></edit-ink>
-        <edit-ink v-show="type === 'edit-comment'" :media="media"></edit-ink>
+        <edit-comment v-show="type === 'edit-comment'" :media="media" :number="number"
+                      :commentNumber="commentNumber" :replyId="replyId"></edit-comment>
     </div>
 </template>
 
@@ -15,8 +16,14 @@
                 type: '',
                 media: {},
                 number: 0,
+                commentNumber: 0,
+                replyId:null,
             }
-        }, methods: {
+        },
+        updated() {
+            this.apper();
+        },
+        methods: {
             apper: function () {
                 let intg;
                 switch (this.type) {

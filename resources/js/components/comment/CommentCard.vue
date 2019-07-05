@@ -41,6 +41,9 @@
             comment: {
                 type: Object,
                 required: true,
+            },
+            number:{
+                type:Number,
             }
         },
         methods: {
@@ -102,7 +105,7 @@
                     })
             },
             showEdit: function () {
-                inkForm('edit-comment', this.comment.media);
+                inkForm('edit-comment', this.comment.media,this.$parent.$parent.number,this.number);
             },
         },
         mounted() {

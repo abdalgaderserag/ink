@@ -117,19 +117,15 @@
 
 <script>
 
-    function inkForm(type, ink = {},number = 0) {
+    function inkForm(type, ink = {}, number = 0, commentNumber = 0, replyId = 0) {
         document.getElementById('pop-main').style.display = "block";
         app.$children[0].number = number;
+        app.$children[0].commentNumber = (commentNumber * 2);
+        app.$children[0].replyId = replyId;
         app.$children[0].type = type;
         app.$children[0].media = ink;
-
     }
 
-    // let section = ''
-    // document.addEventListener('click',function (event) {
-    //     section = event.target.parentElement.parentElement.parentElement.innerHTML
-    //     document.getElementById('reply-section').innerHTML = section;
-    // });
 
     window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.access_token;
 

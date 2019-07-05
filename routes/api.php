@@ -28,7 +28,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/create-comment', 'Api\CommentController@store');
     Route::get('/show-comment/{comment}', 'Api\CommentController@show');
-    Route::put('/edit-comment', 'Api\CommentController@update');
+    Route::put('/edit-comment/{media}', 'Api\CommentController@update');
     Route::delete('/delete-comment/{comment}', 'Api\CommentController@destroy');
 
     Route::get('/download/{path}','Api\DownloadController');

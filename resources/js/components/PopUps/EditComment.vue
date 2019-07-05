@@ -7,9 +7,8 @@
                 </span>
         </h3>
         <textarea v-model="text" cols="124" rows="6" class="text-input">{{ media.text }}</textarea>
-        <file-reader file="image" post="ink"></file-reader>
         <br>
-        <button role="button" @click="submitInk()">Edit</button>
+        <button role="button" @click="editComment()">Edit</button>
     </div>
 </template>
 
@@ -21,24 +20,37 @@
                 text: '',
             }
         },
-        props:{
-            media:{
+        props: {
+            media: {
                 type: Object,
                 required: true,
+            },
+            number: {
+                type: Number,
+            },
+            commentNumber: {
+                type: Number,
+            },
+            replyId: {
+                type: Number,
+                default: null,
             }
         },
         methods: {
             hide: function () {
-                var main = document.getElementById('pop-main');
+                let main = document.getElementById('pop-main');
                 main.style.display = "none";
             },
-            submitInk: function () {
+            editComment: function () {
                 if (this.text !== "")
-                    axios.put('/api/edit-comment', {
-
+                    axios.put('/api/edit-comment/' + this.media.id, {
                         'text': this.text,
                     }).then((response) => {
                         this.hide();
+                        if (this.replyId === null)
+                            app.$children[2].$children[this.number].$children[0].$children[this.commentNumber].comment.media.text = this.text;
+                        else
+                            app.$children[2].$children[this.number].$children[0].$children[this.commentNumber+1].$children[this.replyId].reply.media.text = this.text;
                         this.text = '';
                     })
             }

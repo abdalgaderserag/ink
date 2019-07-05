@@ -18,7 +18,7 @@
 
   .pop-card {
     border-top: 280px solid $orange;
-    transition: border-top-width 0.28s;
+    transition: border-top-width 5.28s;
     @include widthToPer(950);
     // JS: screen.availHeight - 40
     //height: 548px;

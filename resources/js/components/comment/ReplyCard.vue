@@ -33,6 +33,10 @@
             reply: {
                 type: Object,
                 required: true,
+            },
+            id: {
+                type: Number,
+                required: true
             }
         },
         methods: {
@@ -60,13 +64,17 @@
             },
             deleteReply: function () {
                 axios.delete('/api/delete-comment/' + this.reply.id)
-                    .then((response)=>{
+                    .then((response) => {
                         // this.$el = ""
                         this.$el.parentElement.innerHTML = ""
                     })
             },
             showEdit: function () {
-                inkForm('edit-comment',this.reply.media);
+                inkForm('edit-comment',
+                    this.reply.media,
+                    this.$parent.$parent.$parent.number,
+                    this.$parent.$parent.number,
+                    this.id);
             },
         },
         mounted() {

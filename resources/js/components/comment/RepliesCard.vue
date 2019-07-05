@@ -1,8 +1,8 @@
 <template>
     <div>
         <hr class="comments-line replies-line" ref="line" :style="{height:line + 'px'}">
-        <div v-for="reply in replies">
-            <reply-card :reply="reply"></reply-card>
+        <div v-for="(reply, index) in replies">
+            <reply-card :reply="reply" :id="index"></reply-card>
         </div>
     </div>
 </template>
@@ -14,9 +14,6 @@
             return {
                 line: 0,
             }
-        },
-        mounted() {
-            // this.line = this.$refs.last.$el.offsetTop - this.$refs.line.offsetTop;
         },
         props: {
             replies: {

@@ -53,14 +53,14 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  CommentRequest $request
-     * @param  \App\Comment $comment
+     * @param  Media $media
      * @return \Illuminate\Http\Response
      */
-    public function update(CommentRequest $request, Comment $comment)
+    public function update(CommentRequest $request, Media $media)
     {
-        $comment->media()->text = $request->text;
-        $comment->save();
-        return response()->json($comment, 200);
+        $media->text = $request->text;
+        $media->save();
+        return response()->json($media, 200);
     }
 
     /**
