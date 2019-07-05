@@ -6,8 +6,13 @@
         <div class="filters">
             <span class="title">type :</span>
             <br>
-            <a class="tag">person</a> <a class="tag">Ink</a><a class="tag">photo</a><a class="tag">video</a><a
-                class="tag">hash tag</a>
+            <div id="type-filter">
+                <a class="tag" @click="typed(0)">person</a>
+                <a class="tag" @click="typed(1)">Ink</a>
+                <a class="tag" @click="typed(2)">photo</a>
+                <a class="tag" @click="typed(3)">video</a>
+                <a class="tag" @click="typed(4)">hash tag</a>
+            </div>
             <br><br>
             <span class="title">time :</span>
             <br>
@@ -26,6 +31,13 @@
             return {
                 showFilter: true,
                 date: 'all',
+                type: [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                ],
                 dateArray: [
                     'today',
                     'this week',
@@ -35,6 +47,26 @@
             }
         },
         methods: {
+            sendRequest: function () {
+                //TODO :  axios.get
+            },
+            typed: function (index) {
+                let meta = document.getElementById('type-filter');
+                this.type[index] = !this.type[index];
+                for (let i = 0; i < 5; i++) {
+                    if (i == index) {
+                        if (meta.children[index].className == 'tag') {
+                            meta.children[index].className += ' active-tag';
+                            meta.children[index].innerHTML = "&dash; " + meta.children[index].innerHTML;
+                        } else {
+                            meta.children[index].className = 'tag';
+                            meta.children[index].innerHTML =
+                                meta.children[index].innerHTML.slice(2, meta.children[index].innerHTML.length);
+                        }
+                    }
+                }
+                this.sendRequest();
+            },
             filter: function () {
                 this.showFilter = !this.showFilter;
                 if (this.showFilter) {
@@ -64,6 +96,7 @@
                         meta.className = 'tag';
                     }
                 }
+                this.sendRequest();
             }
         }
     }

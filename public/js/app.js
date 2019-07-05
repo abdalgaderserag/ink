@@ -2806,16 +2806,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "searchFilter",
   data: function data() {
     return {
       showFilter: true,
       date: 'all',
+      type: [false, false, false, false, false],
       dateArray: ['today', 'this week', 'this month', 'this year']
     };
   },
   methods: {
+    sendRequest: function sendRequest() {//TODO :  axios.get
+    },
+    typed: function typed(index) {
+      var meta = document.getElementById('type-filter');
+      this.type[index] = !this.type[index];
+
+      for (var i = 0; i < 5; i++) {
+        if (i == index) {
+          if (meta.children[index].className == 'tag') {
+            meta.children[index].className += ' active-tag';
+            meta.children[index].innerHTML = "&dash; " + meta.children[index].innerHTML;
+          } else {
+            meta.children[index].className = 'tag';
+            meta.children[index].innerHTML = meta.children[index].innerHTML.slice(2, meta.children[index].innerHTML.length);
+          }
+        }
+      }
+
+      this.sendRequest();
+    },
     filter: function filter() {
       this.showFilter = !this.showFilter;
 
@@ -2848,6 +2874,8 @@ __webpack_require__.r(__webpack_exports__);
           meta.className = 'tag';
         }
       }
+
+      this.sendRequest();
     }
   }
 });
@@ -5176,12 +5204,72 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("a", { staticClass: "tag" }, [_vm._v("person")]),
-      _vm._v(" "),
-      _c("a", { staticClass: "tag" }, [_vm._v("Ink")]),
-      _c("a", { staticClass: "tag" }, [_vm._v("photo")]),
-      _c("a", { staticClass: "tag" }, [_vm._v("video")]),
-      _c("a", { staticClass: "tag" }, [_vm._v("hash tag")]),
+      _c("div", { attrs: { id: "type-filter" } }, [
+        _c(
+          "a",
+          {
+            staticClass: "tag",
+            on: {
+              click: function($event) {
+                return _vm.typed(0)
+              }
+            }
+          },
+          [_vm._v("person")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "tag",
+            on: {
+              click: function($event) {
+                return _vm.typed(1)
+              }
+            }
+          },
+          [_vm._v("Ink")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "tag",
+            on: {
+              click: function($event) {
+                return _vm.typed(2)
+              }
+            }
+          },
+          [_vm._v("photo")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "tag",
+            on: {
+              click: function($event) {
+                return _vm.typed(3)
+              }
+            }
+          },
+          [_vm._v("video")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "tag",
+            on: {
+              click: function($event) {
+                return _vm.typed(4)
+              }
+            }
+          },
+          [_vm._v("hash tag")]
+        )
+      ]),
       _vm._v(" "),
       _c("br"),
       _c("br"),
