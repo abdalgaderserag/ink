@@ -165,7 +165,7 @@
                     })
             },
             showEdit: function () {
-                inkForm('edit-ink', this.ink.media)
+                inkForm('edit-ink', this.ink.media,this.number)
             },
             editInk: function () {
                 axios.put('/api/edit-ink/' + this.ink.id, {})

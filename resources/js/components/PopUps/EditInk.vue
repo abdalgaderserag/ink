@@ -21,11 +21,14 @@
                 text: '',
             }
         },
-        props:{
-            media:{
+        props: {
+            media: {
                 type: Object,
                 required: true,
-            }
+            },
+            number: {
+                type: Number,
+            },
         },
         methods: {
             hide: function () {
@@ -34,11 +37,11 @@
             },
             submitInk: function () {
                 if (this.text !== "")
-                    axios.post('/api/create-ink', {
+                    axios.put('/api/edit-ink/' + this.media.id, {
                         'text': this.text,
-                        'file': '',
                     }).then((response) => {
                         this.hide();
+                        app.$children[2].inks[this.number].media.text = this.text;
                         this.text = '';
                     })
             }

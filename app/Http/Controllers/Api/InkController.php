@@ -17,7 +17,7 @@ class InkController extends Controller
 //        return response('sad',200);
 //        return response()->json(Ink::with('user','media','like')->get(),200);
         if ($type == "home" || $type == "search") {
-            $inks = Ink::with('user','media','like')->get();
+            $inks = Ink::with('user', 'media', 'like')->get();
             $slugs = Follow::where('follower_id', Auth::id())->get('followed_slug');
 //            $slugs = new SlugsToArray($slugs);
 //            $data = array();
@@ -66,35 +66,42 @@ class InkController extends Controller
             $media->text = $request->text;
         if ($request->filled('images')) {
             $images = "{";
-            $i=0;
+            $i = 0;
 
             $path = explode('\\', storage_path());
             $string = '';
-            foreach ($path as $str){
-                $string = $string . $str .'/';
+            foreach ($path as $str) {
+                $string = $string . $str . '/';
             }
             $string .= 'app/';
 
             foreach ($request->images as $image) {
-                $images = $images . $string .$image . ',';
+                $images = $images . $string . $image . ',';
                 $i++;
             }
             $images = $images . "}";
-            $media->images = $images;
+            if ($images === '{}')
+                $images = null;
+            else
+                $media->images = $images;
         }
-        if ($request->filled('videos')){
+        if ($request->filled('videos')) {
             $videos = '"[';
             foreach ($request->videos as $video) {
                 $videos = $videos . '"' . $video . '",';
             }
             $videos = $videos . ']"';
-            $media->videos = $videos;
+
+            if ($videos === '"[]"')
+                $videos = null;
+            else
+                $media->videos = $videos;
         }
         $media->save();
 
-        $ink = Ink::find($ink->id)->with('user', 'media', 'like')->first();
+        $ink = Ink::find($ink->id)->with('user', 'media', 'like')->get();
 
-        return response()->json($ink, 200);
+        return response()->json($ink->last(), 200);
     }
 
     /**
@@ -116,15 +123,15 @@ class InkController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Ink $ink
+     * @param  \App\Media $media
      * @return \Illuminate\Http\Response
      */
-    public function update(InkRequest $request, Ink $ink)
+    public function update(InkRequest $request, Media $media)
     {
         //
-        $ink->media()->text = $request->text;
-        $ink->save();
-        return response()->json(true, 200);
+        $media->text = $request->text;
+        $media->save();
+        return response()->json($media, 200);
     }
 
     /**

@@ -26,6 +26,10 @@
   left: 134px;
 }
 
+.comments-main .comment .reply-text {
+  padding-left: 36px;
+}
+
 .comments-main .comment .comment-text {
   flex-direction: column;
   justify-content: left;

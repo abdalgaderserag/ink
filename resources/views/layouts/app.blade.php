@@ -117,10 +117,11 @@
 
 <script>
 
-    function inkForm(type, media) {
+    function inkForm(type, ink = {},number = 0) {
         document.getElementById('pop-main').style.display = "block";
+        app.$children[0].number = number;
         app.$children[0].type = type;
-        app.$children[0].media = media[0];
+        app.$children[0].media = ink;
 
     }
 

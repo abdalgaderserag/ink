@@ -142,7 +142,7 @@ body {
   @include card($br: 0);
   @include widthToPer(950);
   margin-left: ((120/1366)*100%);
-  box-shadow: 2px 0px 4px 0px #b2b2b2a6;
+  box-shadow: 2px 1px 4px 0 #b2b2b2a6;
   border-width: 0;
   //padding-bottom: 0;
 

@@ -1897,7 +1897,11 @@ var images = [];
       }).then(function (response) {
         _this.hide();
 
-        _this.text = ''; // this.$root.inks.add(response.data);
+        _this.text = '';
+
+        _this.$root.$children[2].inks.push(response.data);
+
+        console.log(app.$children[2].inks);
       });
     },
     addFile: function addFile(data, type) {
@@ -1961,6 +1965,9 @@ __webpack_require__.r(__webpack_exports__);
     media: {
       type: Object,
       required: true
+    },
+    number: {
+      type: Number
     }
   },
   methods: {
@@ -1971,12 +1978,12 @@ __webpack_require__.r(__webpack_exports__);
     submitInk: function submitInk() {
       var _this = this;
 
-      if (this.text !== "") axios.post('/api/create-ink', {
-        'text': this.text,
-        'file': ''
+      if (this.text !== "") axios.put('/api/edit-ink/' + this.media.id, {
+        'text': this.text
       }).then(function (response) {
         _this.hide();
 
+        app.$children[2].inks[_this.number].media.text = _this.text;
         _this.text = '';
       });
     }
@@ -2008,7 +2015,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       type: '',
-      media: {}
+      media: {},
+      number: 0
     };
   },
   methods: {
@@ -2559,7 +2567,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     showEdit: function showEdit() {
-      inkForm('edit-ink', this.ink.media);
+      inkForm('edit-ink', this.ink.media, this.number);
     },
     editInk: function editInk() {
       var _this3 = this;
@@ -4243,7 +4251,7 @@ var render = function() {
             expression: "type === 'edit-ink'"
           }
         ],
-        attrs: { media: _vm.media }
+        attrs: { media: _vm.media, number: _vm.number }
       }),
       _vm._v(" "),
       _c("edit-ink", {
@@ -4602,7 +4610,7 @@ var render = function() {
     }),
     _vm._v(" "),
     _c("div", { staticClass: "comment-card" }, [
-      _c("div", { staticClass: "comment-text" }, [
+      _c("div", { staticClass: "comment-text reply-text" }, [
         _c("span", [_vm._v(_vm._s(_vm.reply.user.name))]),
         _vm._v(" "),
         _vm.reply.media

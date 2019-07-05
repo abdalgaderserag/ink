@@ -2,7 +2,7 @@
     <div class="comment reply flew-box">
         <img class="comment-avatar" :src="reply.user.avatar" alt="">
         <div class="comment-card">
-            <div class="comment-text">
+            <div class="comment-text reply-text">
                 <span>{{ reply.user.name }}</span>
                 <div v-if="reply.media">
                     <p>{{ reply.media.text }}</p>

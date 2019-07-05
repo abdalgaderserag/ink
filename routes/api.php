@@ -20,7 +20,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/ink/{type}', 'Api\InkController@all');
     Route::post('/create-ink', 'Api\InkController@store');
-    Route::put('/edit-ink', 'Api\InkController@update');
+    Route::put('/edit-ink/{media}', 'Api\InkController@update');
     Route::delete('/delete-ink/{ink}', 'Api\InkController@destroy');
 
     Route::get('/show-ink/{ink}', 'Api\InkController@show');
