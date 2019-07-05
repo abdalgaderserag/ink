@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Show;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('access', Auth::user()->createToken('home')->accessToken);
+        return view('home')->with(['access' => Auth::user()->createToken('home')->accessToken]);
     }
 
     public function search()

@@ -13,6 +13,12 @@ class Show extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_slug','slug');
+    }
+
+
+    public function inks()
+    {
+        return $this->hasMany('App\Ink','user_slug','user_slug');
     }
 }

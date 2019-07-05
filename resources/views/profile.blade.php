@@ -89,7 +89,7 @@
         function sendNotify(number) {
             axios.post('/api/interest', {
                 'id': number,
-                'user_id': '{{ $user->id }}'
+                'user_slug': '{{ $user->slug }}'
             }).then((response)=>{
                 showNotify();
             });

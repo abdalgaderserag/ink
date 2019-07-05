@@ -1897,7 +1897,7 @@ var images = [];
       }).then(function (response) {
         _this.hide();
 
-        _this.text = '';
+        _this.text = ''; // this.$root.inks.add(response.data);
       });
     },
     addFile: function addFile(data, type) {

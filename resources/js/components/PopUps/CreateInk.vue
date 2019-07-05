@@ -42,6 +42,7 @@
                     }).then((response) => {
                         this.hide();
                         this.text = '';
+                        // this.$root.inks.add(response.data);
                     })
             },
             addFile: function (data, type) {

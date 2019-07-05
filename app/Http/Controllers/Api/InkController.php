@@ -17,7 +17,7 @@ class InkController extends Controller
 //        return response('sad',200);
 //        return response()->json(Ink::with('user','media','like')->get(),200);
         if ($type == "home" || $type == "search") {
-//            $inks = Ink::with('user','media')->get();
+            $inks = Ink::with('user','media','like')->get();
             $slugs = Follow::where('follower_id', Auth::id())->get('followed_slug');
 //            $slugs = new SlugsToArray($slugs);
 //            $data = array();
@@ -92,7 +92,8 @@ class InkController extends Controller
         }
         $media->save();
 
-        $ink['media'] = $media;
+        $ink = Ink::find($ink->id)->with('user', 'media', 'like')->first();
+
         return response()->json($ink, 200);
     }
 

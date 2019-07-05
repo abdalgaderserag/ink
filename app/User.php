@@ -39,5 +39,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function show()
+    {
+        return $this->hasMany('App\Show','owner_id','id');
+    }
+
+    public function displayInks()
+    {
+        return $this->show()->with('inks');
+    }
+
+    public function ink()
+    {
+        return $this->hasMany('App\Ink','user_slug','slug');
+    }
 
 }
