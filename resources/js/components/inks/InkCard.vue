@@ -84,7 +84,15 @@
                 }
             }
         },
+        updated() {
+            if (this.show)
+                this.calLine()
+        },
         methods: {
+            calLine: function () {
+                if (this.$children[0].comments.length != 0)
+                    this.$children[0].line = lineHe(this.number, this.commentId);
+            },
             imgWidth: function (length, firstLine) {
                 let width = 100;
                 if (length <= 3) {
@@ -130,8 +138,7 @@
             showComments: function () {
                 let scrS;
                 this.show = !this.show;
-                if (this.$children[0].comments.length != 0)
-                    this.$children[0].line = lineHe(this.number, this.commentId);
+
                 if (this.show) {
                     scrS = window.scrollY;
                     let inks = document.getElementsByClassName('ink-card');

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-    public function Upload(MediaRequest $request)
+    public function __invoke(MediaRequest $request)
     {
         list($type, $data) = explode(';', $request->file);
         list($code, $data) = explode(',', $data);

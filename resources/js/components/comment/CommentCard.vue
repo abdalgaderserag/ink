@@ -5,7 +5,7 @@
             <div class="comment-card">
                 <div class="comment-text">
                     <span>{{ comment.user.name }}</span>
-                    <p>{{ comment.media[0].text }}</p>
+                    <p>{{ comment.media.text }}</p>
                     <div class="comment-footer">
                         <img :src="'/images/' + image" @click="like" width="24px" alt="">
                         <span>{{ comment.like.length }}</span>
@@ -91,16 +91,18 @@
                     })
             },
             deleteComment: function () {
-                // console.log(this.$el.parentElement.children)
                 axios.delete('/api/delete-comment/' + this.comment.id)
                     .then((response) => {
                         this.$parent.$parent.commentCount--;
-                        this.$el.parentElement.children[2].innerHTML = ""
-                        this.$el.innerHTML = ""
+                        this.$el.parentNode.parentElement.outerHTML = "";
+                        let  parent = this.$parent;
+                        parent.line =
+                            parent.$el.children[parent.$el.children.length - 1].offsetTop
+                            - parent.$el.children[3].offsetTop;
                     })
             },
             showEdit: function () {
-                inkForm('edit-comment',this.comment.media);
+                inkForm('edit-comment', this.comment.media);
             },
         },
         mounted() {

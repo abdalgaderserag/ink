@@ -1,10 +1,5 @@
 <template>
     <div class="comments-main" v-show="show">
-        <!--<input v-model="text" type="text" style="border: 1px solid #9a9a9a;width: 80%;height:34px;margin-bottom: 24px;padding: 8px">-->
-        <!--<button style="height: 52px;padding: 8px;width: 10%;background-color: rgba(154,154,154,0.51);border: #636b6f solid 1px">-->
-        <!--file-->
-        <!--</button>-->
-        <!--<span>Ink</span>-->
         <input type="text" class="input-text" v-model="text">
         <button class="input-bottom" @click="reply()">Reply</button>
         <br>
@@ -50,6 +45,12 @@
                 required: true,
             }
         },
+        updated(){
+            // TODO use in delete
+            // this.line =
+            //     this.$el.children[this.$el.children.length - 1].offsetTop
+            //     - this.$el.children[3].offsetTop;
+        },
         methods: {
             reply: function () {
                 if (this.text !== '')
@@ -60,8 +61,9 @@
                     }).then((response) => {
                         this.comments.push(response.data);
                         this.$parent.commentCount++;
-                        this.text = ''
-                    })
+                        this.text = '';
+                    });
+
             }
         }
     }

@@ -2147,11 +2147,11 @@ __webpack_require__.r(__webpack_exports__);
     deleteComment: function deleteComment() {
       var _this3 = this;
 
-      // console.log(this.$el.parentElement.children)
       axios["delete"]('/api/delete-comment/' + this.comment.id).then(function (response) {
         _this3.$parent.$parent.commentCount--;
-        _this3.$el.parentElement.children[2].innerHTML = "";
-        _this3.$el.innerHTML = "";
+        _this3.$el.parentNode.parentElement.outerHTML = "";
+        var parent = _this3.$parent;
+        parent.line = parent.$el.children[parent.$el.children.length - 1].offsetTop - parent.$el.children[3].offsetTop;
       });
     },
     showEdit: function showEdit() {
@@ -2178,11 +2178,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2228,6 +2223,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: true
     }
+  },
+  updated: function updated() {// TODO use in delete
+    // this.line =
+    //     this.$el.children[this.$el.children.length - 1].offsetTop
+    //     - this.$el.children[3].offsetTop;
   },
   methods: {
     reply: function reply() {
@@ -2471,7 +2471,13 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  updated: function updated() {
+    if (this.show) this.calLine();
+  },
   methods: {
+    calLine: function calLine() {
+      if (this.$children[0].comments.length != 0) this.$children[0].line = lineHe(this.number, this.commentId);
+    },
     imgWidth: function imgWidth(length, firstLine) {
       var width = 100;
 
@@ -2523,7 +2529,6 @@ __webpack_require__.r(__webpack_exports__);
     showComments: function showComments() {
       var scrS;
       this.show = !this.show;
-      if (this.$children[0].comments.length != 0) this.$children[0].line = lineHe(this.number, this.commentId);
 
       if (this.show) {
         scrS = window.scrollY;
@@ -4289,7 +4294,7 @@ var render = function() {
         _c("div", { staticClass: "comment-text" }, [
           _c("span", [_vm._v(_vm._s(_vm.comment.user.name))]),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.comment.media[0].text))]),
+          _c("p", [_vm._v(_vm._s(_vm.comment.media.text))]),
           _vm._v(" "),
           _c("div", { staticClass: "comment-footer" }, [
             _c("img", {
@@ -4597,69 +4602,64 @@ var render = function() {
     }),
     _vm._v(" "),
     _c("div", { staticClass: "comment-card" }, [
-      _c(
-        "div",
-        { staticClass: "comment-text" },
-        [
-          _c("span", [_vm._v(_vm._s(_vm.reply.user.name))]),
-          _vm._v(" "),
-          _vm._l(_vm.reply.media, function(media) {
-            return _c("div", [_c("p", [_vm._v(_vm._s(media.text))])])
+      _c("div", { staticClass: "comment-text" }, [
+        _c("span", [_vm._v(_vm._s(_vm.reply.user.name))]),
+        _vm._v(" "),
+        _vm.reply.media
+          ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.reply.media.text))])])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "comment-footer" }, [
+          _c("img", {
+            attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
+            on: { click: _vm.like }
           }),
           _vm._v(" "),
-          _c("div", { staticClass: "comment-footer" }, [
-            _c("img", {
-              attrs: { src: "/images/" + _vm.image, width: "24px", alt: "" },
-              on: { click: _vm.like }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.reply.like.length))]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.reply.user.slug == _vm.$root.slug,
-                    expression: "reply.user.slug == $root.slug"
-                  }
-                ],
-                on: {
-                  click: function($event) {
-                    return _vm.deleteReply()
-                  }
+          _c("span", [_vm._v(_vm._s(_vm.reply.like.length))]),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "/share" } }, [_vm._v("Share")]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.reply.user.slug == _vm.$root.slug,
+                  expression: "reply.user.slug == $root.slug"
                 }
-              },
-              [_vm._v("delete")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.reply.user.slug == _vm.$root.slug,
-                    expression: "reply.user.slug == $root.slug"
-                  }
-                ],
-                on: {
-                  click: function($event) {
-                    return _vm.showEdit()
-                  }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.deleteReply()
                 }
-              },
-              [_vm._v("edit")]
-            )
-          ])
-        ],
-        2
-      )
+              }
+            },
+            [_vm._v("delete")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.reply.user.slug == _vm.$root.slug,
+                  expression: "reply.user.slug == $root.slug"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.showEdit()
+                }
+              }
+            },
+            [_vm._v("edit")]
+          )
+        ])
+      ])
     ])
   ])
 }

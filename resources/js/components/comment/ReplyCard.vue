@@ -4,8 +4,8 @@
         <div class="comment-card">
             <div class="comment-text">
                 <span>{{ reply.user.name }}</span>
-                <div v-for="media in reply.media">
-                    <p>{{ media.text }}</p>
+                <div v-if="reply.media">
+                    <p>{{ reply.media.text }}</p>
                 </div>
                 <div class="comment-footer">
                     <img :src="'/images/' + image" @click="like" width="24px" alt="">

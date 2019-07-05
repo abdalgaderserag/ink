@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->group( function () {
 
 
 
@@ -32,15 +31,13 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/edit-comment', 'Api\CommentController@update');
     Route::delete('/delete-comment/{comment}', 'Api\CommentController@destroy');
 
-
-    Route::post('/upload', 'Api\UploadController@upload');
+    Route::get('/download/{path}','Api\DownloadController');
+    Route::post('/upload', 'Api\UploadController');
 
     Route::post('/interest','Api\InterestController');
 
 
     Route::post('/like', 'Api\LikeController');
-//    Route::post('/like/check', 'Api\LikeController@likeCheck');
-//    Route::post('/share', 'Api\LikeController@share');
 
     Route::post('/follow', 'Api\FollowController');
 
@@ -54,12 +51,3 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/notification/delete','Api\NotificationController@deleteAllRead');
 
 });
-
-
-
-
-
-
-
-//});
-
