@@ -64,7 +64,7 @@ class InkController extends Controller
         $media->ink_id = $ink->id;
         if ($request->filled('text'))
             $media->text = $request->text;
-        if ($request->filled('media')) {
+        if ($request->filled('media') && false) {
             $media = "{";
             $i = 0;
 

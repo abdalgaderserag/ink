@@ -2512,6 +2512,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -4952,45 +4955,45 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.editAble,
-              expression: "editAble"
-            }
-          ],
-          attrs: {
-            src: "/images/" + _vm.image,
-            width: "28px",
-            height: "24px",
-            alt: ""
-          },
-          on: {
-            click: function($event) {
-              return _vm.showEdit()
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("img", {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
               value: _vm.deleteAble,
               expression: "deleteAble"
             }
           ],
+          staticClass: "card-icon",
           staticStyle: { float: "right", "margin-right": "20px" },
-          attrs: {
-            src: "/images/" + _vm.image,
-            width: "28px",
-            height: "24px",
-            alt: ""
-          },
+          attrs: { src: "/images/cross.svg", width: "20px", alt: "" },
           on: {
             click: function($event) {
               return _vm.deleteInk()
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.editAble,
+                expression: "editAble"
+              }
+            ],
+            staticClass: "card-icon",
+            staticStyle: {
+              float: "right",
+              "margin-right": "12px",
+              height: "16.966px"
+            },
+            on: {
+              click: function($event) {
+                return _vm.showEdit()
+              }
+            }
+          },
+          [_vm._v("Edit")]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [

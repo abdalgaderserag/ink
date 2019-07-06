@@ -9,9 +9,12 @@
                 <br>
                 <span>{{ '@' + ink.user.slug }}</span>
             </span>
-            <img v-show="editAble" :src="'/images/' + image" @click="showEdit()" width="28px" height="24px" alt="">
-            <img v-show="deleteAble" :src="'/images/' + image" @click="deleteInk()"
-                 style="float: right;margin-right: 20px" width="28px" height="24px" alt="">
+            <!--<img v-show="editAble" :src="'/images/' + image" @click="showEdit()" width="28px" height="24px" alt="">-->
+            <img v-show="deleteAble" src="/images/cross.svg" @click="deleteInk()"
+                 style="float: right;margin-right: 20px;" class="card-icon" width="20px" alt="">
+            <span v-show="editAble" class="card-icon" style="float: right;margin-right: 12px;height: 16.966px"
+                  @click="showEdit()">Edit</span>
+
         </div>
 
         <div class="card-body">
