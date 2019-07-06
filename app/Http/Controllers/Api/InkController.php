@@ -64,8 +64,8 @@ class InkController extends Controller
         $media->ink_id = $ink->id;
         if ($request->filled('text'))
             $media->text = $request->text;
-        if ($request->filled('images')) {
-            $images = "{";
+        if ($request->filled('media')) {
+            $media = "{";
             $i = 0;
 
             $path = explode('\\', storage_path());
@@ -75,27 +75,15 @@ class InkController extends Controller
             }
             $string .= 'app/';
 
-            foreach ($request->images as $image) {
-                $images = $images . $string . $image . ',';
+            foreach ($request->medias as $med) {
+                $media = $media . $string . $med . ',';
                 $i++;
             }
-            $images = $images . "}";
-            if ($images === '{}')
-                $images = null;
+            $media = $media . "}";
+            if ($media === '{}')
+                $media = null;
             else
-                $media->images = $images;
-        }
-        if ($request->filled('videos')) {
-            $videos = '"[';
-            foreach ($request->videos as $video) {
-                $videos = $videos . '"' . $video . '",';
-            }
-            $videos = $videos . ']"';
-
-            if ($videos === '"[]"')
-                $videos = null;
-            else
-                $media->videos = $videos;
+                $media->media = $media;
         }
         $media->save();
 

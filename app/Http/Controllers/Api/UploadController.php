@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\MediaRequest;
 use App\Http\Controllers\Controller;
-use App\Media;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller

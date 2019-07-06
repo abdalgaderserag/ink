@@ -7,7 +7,6 @@ use App\Notifications\InkLiked;
 use App\Observers\Extendable\NotificationHandle;
 use App\Show;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class LikeObserver extends NotificationHandle
 {

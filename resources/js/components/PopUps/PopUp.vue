@@ -40,7 +40,6 @@
                         intg = 4;
                         break;
                 }
-                document.getElementsByClassName("pop-card")[intg].style.borderTopWidth = "6px";
             }
         }
     }

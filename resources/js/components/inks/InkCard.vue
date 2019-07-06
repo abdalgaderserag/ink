@@ -23,7 +23,7 @@
             <!--<div v-if="ink.media.images != null || ink.media.videos != null"-->
             <!--class="media">-->
             <div class="media">
-                <img v-for="(image,index) in images" v-if="ink.media.images != null || ink.media.videos != null"
+                <img v-for="(image,index) in images" v-if="ink.media.media != null || ink.media.media != null"
                      :src="image" :width="imgWidth(images.length,index)" alt="">
                 <!--{{ (index + 1) > 3}}-->
             </div>

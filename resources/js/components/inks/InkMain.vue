@@ -40,8 +40,8 @@
         },
         methods: {
             getInk: function (ink) {
-                let temp = ink.media.images;
-                if (ink.media.images !== null) {
+                let temp = ink.media.media;
+                if (ink.media.media !== null) {
                     let num = temp.length - 1;
                     try {
 
@@ -51,7 +51,7 @@
                     } catch (e) {
                     }
                 }
-                ink.media.images = temp;
+                ink.media.media = temp;
                 return ink;
             }
         }

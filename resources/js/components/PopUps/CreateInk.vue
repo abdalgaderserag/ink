@@ -20,8 +20,7 @@
         data() {
             return {
                 text: '',
-                images: [],
-                videos: [],
+                media: [],
         }
         },
         methods: {
@@ -37,21 +36,15 @@
                 if (this.text !== "" || this.images !== [] || this.videos !== [])
                     axios.post('/api/create-ink', {
                         'text': this.text,
-                        'images': this.images,
-                        'videos': this.videos,
+                        'media': this.media,
                     }).then((response) => {
                         this.hide();
                         this.text = '';
                         this.$root.$children[2].inks.push(response.data);
-                        console.log(app.$children[2].inks);
                     })
             },
-            addFile: function (data, type) {
-                if (type === 'image') {
-                    this.images.push(data)
-                } else if (type === 'video') {
-                    this.videos.push(data)
-                }
+            addFile: function (data) {
+                    this.media.push(data)
 
             },
             upload: function (e) {
@@ -61,7 +54,7 @@
                     axios.post('/api/upload', {
                         'file': reader.result,
                     }).then((response) => {
-                        app.$children[0].$children[0].addFile(response.data.path, response.data.type);
+                        app.$children[0].$children[0].addFile(response.data.path);
                     }).catch((error) => {
                         console.log("error while uploading file :" + error)
                     })

@@ -37,12 +37,8 @@ class MediaObserver
      */
     public function deleted(Media $media)
     {
-        foreach ($media->images as $image){
-            Storage::disk('local')->delete($image);
-        }
-
-        foreach ($media->videos as $video){
-            Storage::disk('local')->delete($video);
+        foreach ($media->media as $med){
+            Storage::disk('local')->delete($med);
         }
     }
 

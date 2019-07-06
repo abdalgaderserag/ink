@@ -1830,9 +1830,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/api/create-ink', {
-        'api_token': this.$data.api_token,
-        'text': this.text,
-        'file': ''
+        'text': this.text
       }).then(function (response) {
         _this.hide();
 
@@ -1874,8 +1872,7 @@ var images = [];
   data: function data() {
     return {
       text: '',
-      images: [],
-      videos: []
+      media: []
     };
   },
   methods: {
@@ -1892,24 +1889,17 @@ var images = [];
 
       if (this.text !== "" || this.images !== [] || this.videos !== []) axios.post('/api/create-ink', {
         'text': this.text,
-        'images': this.images,
-        'videos': this.videos
+        'media': this.media
       }).then(function (response) {
         _this.hide();
 
         _this.text = '';
 
         _this.$root.$children[2].inks.push(response.data);
-
-        console.log(app.$children[2].inks);
       });
     },
-    addFile: function addFile(data, type) {
-      if (type === 'image') {
-        this.images.push(data);
-      } else if (type === 'video') {
-        this.videos.push(data);
-      }
+    addFile: function addFile(data) {
+      this.media.push(data);
     },
     upload: function upload(e) {
       var reader = new FileReader();
@@ -1919,7 +1909,7 @@ var images = [];
         axios.post('/api/upload', {
           'file': reader.result
         }).then(function (response) {
-          app.$children[0].$children[0].addFile(response.data.path, response.data.type);
+          app.$children[0].$children[0].addFile(response.data.path);
         })["catch"](function (error) {
           console.log("error while uploading file :" + error);
         });
@@ -2114,8 +2104,6 @@ __webpack_require__.r(__webpack_exports__);
           intg = 4;
           break;
       }
-
-      document.getElementsByClassName("pop-card")[intg].style.borderTopWidth = "6px";
     }
   }
 });
@@ -2709,9 +2697,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getInk: function getInk(ink) {
-      var temp = ink.media.images;
+      var temp = ink.media.media;
 
-      if (ink.media.images !== null) {
+      if (ink.media.media !== null) {
         var num = temp.length - 1;
 
         try {
@@ -2721,7 +2709,7 @@ __webpack_require__.r(__webpack_exports__);
         } catch (e) {}
       }
 
-      ink.media.images = temp;
+      ink.media.media = temp;
       return ink;
     }
   }
@@ -5026,7 +5014,7 @@ var render = function() {
           "div",
           { staticClass: "media" },
           _vm._l(_vm.images, function(image, index) {
-            return _vm.ink.media.images != null || _vm.ink.media.videos != null
+            return _vm.ink.media.media != null || _vm.ink.media.media != null
               ? _c("img", {
                   attrs: {
                     src: image,
