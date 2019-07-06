@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follow;
 use App\Show;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+//        $fo = Follow::find(10);
+//        return $fo->follower->slug;
+//        return $shows = Auth::user()->show()->with('inks.media')->get();
         return view('home')->with(['access' => Auth::user()->createToken('home')->accessToken]);
     }
 

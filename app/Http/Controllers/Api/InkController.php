@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Follow;
 use App\Http\Requests\InkRequest;
 use App\Ink;
+use App\Follow;
 use App\Media;
 use App\Http\Controllers\Controller;
-use App\Show;
 use Illuminate\Support\Facades\Auth;
 
 class InkController extends Controller

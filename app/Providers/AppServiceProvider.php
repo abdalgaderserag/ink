@@ -38,10 +38,10 @@ class AppServiceProvider extends ServiceProvider
         schema::defaultStringLength(191);
 
 //        Comment::observe(CommentObserver::class);
-//        Follow::observe(FollowObserver::class);
+        Follow::observe(FollowObserver::class);
 //        Ink::observe(FollowObserver::class);
         Like::observe(LikeObserver::class);
 //        Media::observe(MediaObserver::class);
-//        User::observe(UserObserver::class);
+//        User::observe(UserObserver::class);111
     }
 }

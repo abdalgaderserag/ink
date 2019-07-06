@@ -30,7 +30,7 @@ class FollowController extends Controller
             $user->notify(new NewFollower(Auth::user()->slug));
             $show = new Show();
             $show->owner_id = Auth::id();
-            $show->user_slug = $follow->follower()->slug;
+            $show->user_slug = $follow->follower->slug;
             $show->save();
             return response(1, 200);
         } else {

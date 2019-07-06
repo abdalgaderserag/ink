@@ -18,7 +18,7 @@
 
         <div>
             <div class="wallpaper">
-                <div style="background: url('{{ $user->background }}');background-position: top;"></div>
+                <div style="background: url('{{ $user->background }}');background-position: center;"></div>
                 {{--<img src="{{ $user->background }}" alt="">--}}
             </div>
             <div class="w-line">

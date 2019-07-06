@@ -16,7 +16,7 @@ class CreateShowsTable extends Migration
         Schema::create('shows', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('owner_id');
-            $table->integer('user_slug');
+            $table->string('user_slug');
             $table->boolean('see_first')->default(false);
             $table->integer('score')->default(config('ink.rank.rank_base'));
 //            $table->integer('rank');

@@ -51,6 +51,7 @@
   width: 172px;
   top: 472px;
   left: 712px;
+  padding: 2px 0;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 1px 1px 4px #b2b2b2;
@@ -62,13 +63,13 @@
 }
 
 .main-container .profile-details .notify-button #notify-menu div {
-  padding: 2px 6px;
+  padding: 2px 0;
   cursor: pointer;
   width: inherit;
 }
 
 .main-container .profile-details .notify-button #notify-menu div:hover {
-  font-weight: bold;
+  background-color: rgba(178, 178, 178, 0.19);
 }
 
 .main-container .profile-details div {

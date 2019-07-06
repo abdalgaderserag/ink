@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <div class="ink" style="background: url('images/ink.png'),linear-gradient(to right, #FC4027, #f98835)"
+        <div class="ink" style="background: url('/images/ink.png'),linear-gradient(to right, #FC4027, #f98835)"
              onclick="inkForm('ink')">
 
         </div>
