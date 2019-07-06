@@ -3,6 +3,10 @@
   background-color: inherit;
 }
 
+.main-container .wallpaper div {
+  height: 240px;
+}
+
 .main-container .wallpaper img {
   width: 100%;
   height: 240px;
@@ -44,23 +48,27 @@
 
 .main-container .profile-details .notify-button #notify-menu {
   position: absolute;
-  background-color: #fff;
   width: 172px;
   top: 472px;
   left: 712px;
-  padding: 4px 0;
   border-radius: 4px;
+  background-color: #fff;
   box-shadow: 1px 1px 4px #b2b2b2;
 }
 
 .main-container .profile-details .notify-button #notify-menu hr {
   border-width: 0 0 1px 0;
-  margin: 4px 0;
+  margin: 0;
 }
 
-.main-container .profile-details .notify-button #notify-menu a {
+.main-container .profile-details .notify-button #notify-menu div {
+  padding: 2px 6px;
   cursor: pointer;
-  padding: 0 8px;
+  width: inherit;
+}
+
+.main-container .profile-details .notify-button #notify-menu div:hover {
+  font-weight: bold;
 }
 
 .main-container .profile-details div {
@@ -79,7 +87,7 @@
   padding: 8px 20px 8px 20px;
   border: 1px solid #f98835;
   background-color: #fff;
-  margin-left: 168px;
+  margin-left: 76px;
 }
 
 .main-container .details {

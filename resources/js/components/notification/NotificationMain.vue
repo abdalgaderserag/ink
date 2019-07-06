@@ -2,7 +2,7 @@
     <div class="notification">
         <div>
             <a v-for="notification in notifications">
-                {{ displayNotification(notification) }}
+                <div v-html="displayNotification(notification)"></div>
                 <hr>
             </a>
         </div>
@@ -24,11 +24,11 @@
             displayNotification: function (notification) {
                 let text = '';
                 if (notification.type === "App\\Notifications\\CommentLiked") {
-                    // text = "new comment by  <a href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a> in your ink"
-                    text = "new comment by " + notification.data.name + "in your ink."
+                    text = "new comment by  <a href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a> in your ink"
+                    // text = "new comment by " + notification.data.name + "in your ink."
                 } else if (notification.type === "App\\Notifications\\InkLiked") {
-                    // text = "your ink has been liked by <a href='/profile/'>" + notification.data.slug + "'>" + notification.data.name + "</a>"
-                    text = "your ink has been liked by " + notification.data.name + "."
+                    text = "your ink has been liked by <a style='color:#f98835;' href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a>"
+                    // text = "your ink has been liked by " + notification.data.name + "."
                 }
                 return text;
             }

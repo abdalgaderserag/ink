@@ -18,7 +18,8 @@
 
         <div>
             <div class="wallpaper">
-                <img src="{{ $user->background }}" alt="">
+                <div style="background: url('{{ $user->background }}');background-position: top;"></div>
+                {{--<img src="{{ $user->background }}" alt="">--}}
             </div>
             <div class="w-line">
                 {{ $user->name }}
@@ -37,11 +38,11 @@
                 <div class="notify-button">
                     <img id="notify-icon" onclick="showNotify()" src="/images/notify.svg" alt="">
                     <div id="notify-menu">
-                        <a onclick="sendNotify(1)">See first</a><br>
+                        <div onclick="sendNotify(1)">See first</div>
                         <hr>
-                        <a onclick="sendNotify(2)">View</a><br>
+                        <div onclick="sendNotify(2)">View</div>
                         <hr>
-                        <a onclick="sendNotify(3)">Not interested</a>
+                        <div onclick="sendNotify(3)">Not interested</div>
                     </div>
                 </div>
                 <div>

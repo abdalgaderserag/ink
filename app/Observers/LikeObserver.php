@@ -24,11 +24,11 @@ class LikeObserver extends NotificationHandle
         $user = $userGrabber->user;
         if ($user->id != Auth::id())
             $user->notify(new InkLiked($like->ink_id, Auth::id()));
-        $show = Show::where('owner_id', Auth::id())->where('user_id', $user->id)->first();
-        if (!empty($show)) {
-            $show->score = $show->score + config('ink.rank.scores.like');
-            $show->save();
-        }
+//        $show = Show::where('owner_id', Auth::id())->where('user_id', $user->id)->first();
+//        if (!empty($show)) {
+//            $show->score = $show->score + config('ink.rank.scores.like');
+//            $show->save();
+//        }
     }
 
 
@@ -50,11 +50,11 @@ class LikeObserver extends NotificationHandle
             $id = $like->comment->id;
         }
 
-        $show = Show::where('owner_id', Auth::id())->where('user_id', $userGrabber->user->id)->first();
-        if (!empty($show)) {
-            $show->score = $show->score - config('ink.rank.scores.like');
-            $show->save();
-        }
+//        $show = Show::where('owner_id', Auth::id())->where('user_id', $userGrabber->user->id)->first();
+//        if (!empty($show)) {
+//            $show->score = $show->score - config('ink.rank.scores.like');
+//            $show->save();
+//        }
 
         $this->deleteNotification($userGrabber->user, 'InkLiked', $typed, $id);
     }

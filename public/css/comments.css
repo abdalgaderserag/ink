@@ -52,6 +52,7 @@
 
 .comments-main .comment .comment-text .comment-footer a {
   margin-left: 40px;
+  cursor: pointer;
 }
 
 .comments-main .replies-line {

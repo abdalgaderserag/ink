@@ -2753,11 +2753,9 @@ __webpack_require__.r(__webpack_exports__);
       var text = '';
 
       if (notification.type === "App\\Notifications\\CommentLiked") {
-        // text = "new comment by  <a href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a> in your ink"
-        text = "new comment by " + notification.data.name + "in your ink.";
+        text = "new comment by  <a href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a> in your ink"; // text = "new comment by " + notification.data.name + "in your ink."
       } else if (notification.type === "App\\Notifications\\InkLiked") {
-        // text = "your ink has been liked by <a href='/profile/'>" + notification.data.slug + "'>" + notification.data.name + "</a>"
-        text = "your ink has been liked by " + notification.data.name + ".";
+        text = "your ink has been liked by <a style='color:#f98835;' href='/profile/" + notification.data.slug + "'>" + notification.data.name + "</a>"; // text = "your ink has been liked by " + notification.data.name + "."
       }
 
       return text;
@@ -5135,11 +5133,12 @@ var render = function() {
       "div",
       _vm._l(_vm.notifications, function(notification) {
         return _c("a", [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.displayNotification(notification)) +
-              "\n            "
-          ),
+          _c("div", {
+            domProps: {
+              innerHTML: _vm._s(_vm.displayNotification(notification))
+            }
+          }),
+          _vm._v(" "),
           _c("hr")
         ])
       }),
