@@ -7,7 +7,7 @@
                 </span>
         </h3>
         <textarea v-model="text" cols="124" rows="6" class="text-input" v-on:focus="animate()"></textarea>
-        <input type="file" v-on:change="upload" id="uploader">
+        <file-reader></file-reader>
         <br>
         <button role="button" @click="submitInk()">Ink it!</button>
     </div>
@@ -41,25 +41,13 @@
                         this.hide();
                         this.text = '';
                         this.$root.$children[2].inks.push(response.data);
+                        this.media = [];
                     })
             },
             addFile: function (data) {
                     this.media.push(data)
 
             },
-            upload: function (e) {
-                let reader = new FileReader();
-                reader.readAsDataURL(e.target.files[0]);
-                reader.onload = function () {
-                    axios.post('/api/upload', {
-                        'file': reader.result,
-                    }).then((response) => {
-                        app.$children[0].$children[0].addFile(response.data.path);
-                    }).catch((error) => {
-                        console.log("error while uploading file :" + error)
-                    })
-                };
-            }
         },
     }
 </script>

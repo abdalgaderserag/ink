@@ -20,4 +20,9 @@ class Media extends Model
     {
         return $this->belongsTo('App\Comment');
     }
+
+    public function getTextAttribute($key)
+    {
+        return nl2br($key);
+    }
 }

@@ -8,6 +8,7 @@ use App\Observers\Extendable\NotificationHandle;
 use App\Show;
 use Illuminate\Support\Facades\Auth;
 
+
 class CommentObserver extends NotificationHandle
 {
     /**
@@ -27,7 +28,8 @@ class CommentObserver extends NotificationHandle
 
         $user = $userGrabber->user;
 
-        $show = Show::where('owner_id', Auth::id())->where('user_id', $user->id)->first();
+
+        $show = Show::where('owner_id', Auth::id())->where('user_slug', $user->slug)->first();
         if (!empty($show)) {
             $show->score = $show->score + config('ink.rank.scores.' . $type);
             $show->save();

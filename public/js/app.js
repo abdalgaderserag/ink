@@ -1766,24 +1766,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FileReader",
-  data: function data() {
-    return {
-      images: []
-    };
-  },
-  props: {
-    file: {
-      type: String,
-      required: true
-    },
-    post: {
-      type: String,
-      required: true
+  methods: {
+    upload: function upload(e) {
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+
+      reader.onload = function () {
+        axios.post('/api/upload', {
+          'file': reader.result
+        }).then(function (response) {
+          app.$children[0].$children[0].addFile(response.data.path);
+        })["catch"](function (error) {
+          console.log("error while uploading file :" + error);
+        });
+      };
     }
-  },
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -1896,24 +1897,12 @@ var images = [];
         _this.text = '';
 
         _this.$root.$children[2].inks.push(response.data);
+
+        _this.media = [];
       });
     },
     addFile: function addFile(data) {
       this.media.push(data);
-    },
-    upload: function upload(e) {
-      var reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-
-      reader.onload = function () {
-        axios.post('/api/upload', {
-          'file': reader.result
-        }).then(function (response) {
-          app.$children[0].$children[0].addFile(response.data.path);
-        })["catch"](function (error) {
-          console.log("error while uploading file :" + error);
-        });
-      };
     }
   }
 });
@@ -2693,7 +2682,7 @@ __webpack_require__.r(__webpack_exports__);
     } //TODO : change the link to '/api/inks'
 
 
-    axios.get('/api/ink' + link).then(function (response) {
+    axios.get('/api/inks' + link).then(function (response) {
       _this.inks = response.data;
       _this.ready = !_this.ready;
     })["catch"](function (error) {
@@ -4131,7 +4120,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("input", {
+    attrs: { type: "file", id: "uploader" },
+    on: { change: _vm.upload }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4234,61 +4226,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "pop-card" }, [
-    _c("h3", [
-      _c("img", {
-        attrs: { src: "/images/back.png", alt: "" },
-        on: { click: _vm.hide }
+  return _c(
+    "div",
+    { staticClass: "pop-card" },
+    [
+      _c("h3", [
+        _c("img", {
+          attrs: { src: "/images/back.png", alt: "" },
+          on: { click: _vm.hide }
+        }),
+        _vm._v(" "),
+        _c("span", [_vm._v("\n                Create Ink\n            ")])
+      ]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.text,
+            expression: "text"
+          }
+        ],
+        staticClass: "text-input",
+        attrs: { cols: "124", rows: "6" },
+        domProps: { value: _vm.text },
+        on: {
+          focus: function($event) {
+            return _vm.animate()
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.text = $event.target.value
+          }
+        }
       }),
       _vm._v(" "),
-      _c("span", [_vm._v("\n                Create Ink\n            ")])
-    ]),
-    _vm._v(" "),
-    _c("textarea", {
-      directives: [
+      _c("file-reader"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "button",
         {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.text,
-          expression: "text"
-        }
-      ],
-      staticClass: "text-input",
-      attrs: { cols: "124", rows: "6" },
-      domProps: { value: _vm.text },
-      on: {
-        focus: function($event) {
-          return _vm.animate()
+          attrs: { role: "button" },
+          on: {
+            click: function($event) {
+              return _vm.submitInk()
+            }
+          }
         },
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.text = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "file", id: "uploader" },
-      on: { change: _vm.upload }
-    }),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        attrs: { role: "button" },
-        on: {
-          click: function($event) {
-            return _vm.submitInk()
-          }
-        }
-      },
-      [_vm._v("Ink it!")]
-    )
-  ])
+        [_vm._v("Ink it!")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -5003,17 +4997,14 @@ var render = function() {
         _vm._v(" "),
         _vm.ink.media.text != null
           ? _c("div", [
-              _c(
-                "p",
-                {
-                  on: {
-                    click: function($event) {
-                      return _vm.showComments()
-                    }
+              _c("p", {
+                domProps: { innerHTML: _vm._s(_vm.ink.media.text) },
+                on: {
+                  click: function($event) {
+                    return _vm.showComments()
                   }
-                },
-                [_vm._v(_vm._s(_vm.ink.media.text))]
-              )
+                }
+              })
             ])
           : _vm._e(),
         _vm._v(" "),

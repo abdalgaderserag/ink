@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
     {
 
         factory(App\User::class, 5)->create()->each(function ($u) {
-            $fo = factory(App\Follow::class)->make();
-            $fo->follower_id = 1;
-            $fo->followed_slug = $u->slug;
-            $fo->save();
+//            $fo = factory(App\Follow::class)->make();
+//            $fo->follower_id = 1;
+//            $fo->followed_slug = $u->slug;
+//            $fo->save();
             $i = factory(App\Ink::class)->make();
             $i->user_slug = $u->slug;
             $i->save();

@@ -20,7 +20,7 @@
             <!--TODO : remove the if (false)-->
             <span v-if="false" class="time">{{ ink.created_at }}</span>
             <div v-if="ink.media.text != null">
-                <p @click="showComments()">{{ ink.media.text }}</p>
+                <p v-html="ink.media.text" @click="showComments()"></p>
             </div>
 
 

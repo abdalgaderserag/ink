@@ -45,7 +45,7 @@
     <div class="nav-bar flew-box">
         <div class="nav-bar-l flew-box">
             <div class="title">
-                <a href="/home">Ink.</a>
+                <a href="/">Ink.</a>
             </div>
             <form action="{{ url('/search') }}" method="get">
                 @csrf
@@ -60,7 +60,7 @@
             </a>
 
             <img src="/images/notification.svg"
-                 onclick="var notification =
+                 onclick="let notification =
                  document.getElementsByClassName('notification')[0];
                  notification.style.display == 'none'?
                  notification.style.display = 'block'
@@ -93,12 +93,27 @@
         <span class="follow-card-title">
             Sugested
         </span><br>
-            <img src="/images/profiles/profile.jpeg" style="float: left" alt="">
-            <div class="flew-box">
-                <span>Name Last</span>
-                <span>@name.last</span>
-                <button>Follow</button>
-            </div>
+            @foreach(\App\User::all() as $user)
+                <a href="/profile/{{ $user->slug }}">
+                    <img src="{{ $user->avatar }}" style="float: left" alt="">
+                </a>
+                <div class="flew-box">
+                    @if(strlen($user->name) < 14)
+                        <span><a href="/profile/{{ $user->slug }}">{{ $user->name }}</a></span>
+                    @else
+                        <span><a href="/profile/{{ $user->slug }}">{{ '...' }}</a></span>
+                    @endif
+
+                    @if(strlen($user->slug) < 14)
+                        <span>{{ '@'.$user->slug }}</span>
+                    @else
+                        <span>{{ '...' }}</span>
+                    @endif
+                    <button>Follow</button>
+                </div>
+                <br>
+                <br>
+            @endforeach
         </div>
 
         <div class="ink" style="background: url('/images/ink.png'),linear-gradient(to right, #FC4027, #f98835)"
@@ -125,8 +140,6 @@
         app.$children[0].type = type;
         app.$children[0].media = ink;
     }
-
-
 
 
     let app = new Vue({

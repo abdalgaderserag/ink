@@ -8,37 +8,41 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Auth;
 
 class NewComment extends Notification
 {
     use Queueable;
 
-    protected $user_name;
-    protected $user_slug;
-    protected $comment_text;
-    protected $comment_id;
+    private $user_name, $user_slug, $init_text, $init_id;
 
     /**
      * Create a new notification instance.
      *
-     * @param $comment_id
+     * @param $init_id
      * @param $user_id
      * @return void
      */
-    public function __construct($comment_id,$user_id)
+    public function __construct($init_id, $user_id)
     {
         $user = User::find($user_id);
         $this->user_slug = $user->slug;
         $this->user_name = $user->name;
-        $media = Media::where('comment_id',$comment_id)->first();
-        $this->comment_id = $comment_id;
-        $this->comment_text = $media->text;
+        /*$media = Media::where('comment_id', $init_id)->first();
+        if (empty($media)) {
+            $media = Media::where('ink_id', $init_id)->first();
+            $this->init_id = $init_id;
+            $this->init_text = $media->text;
+        } else {
+            $this->init_id = $init_id;
+            $this->init_text = $media->text;
+        }*/
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -50,13 +54,17 @@ class NewComment extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
     {
         return [
-            //
+            'user_id' => Auth::id(),
+//            'comment_id' => $this->init_id,
+//            'ink' => $this->init_text,
+            'name' => $this->user_name,
+            'slug' => $this->user_slug,
         ];
     }
 }

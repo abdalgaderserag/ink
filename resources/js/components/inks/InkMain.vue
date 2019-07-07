@@ -31,7 +31,7 @@
                 link = link.slice(link.indexOf('/', 1), link.length)
             }
             //TODO : change the link to '/api/inks'
-            axios.get('/api/ink' + link)
+            axios.get('/api/inks' + link)
                 .then((response) => {
                     this.inks = response.data;
                     this.ready = !this.ready;
