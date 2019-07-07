@@ -14,9 +14,10 @@ use Illuminate\Http\Request;
 */
 
 
-
-
 Route::middleware('auth:api')->group(function () {
+
+
+    Route::get('/inks/{type}', 'Api\Inks');
 
     Route::get('/ink/{type}', 'Api\InkController@all');
     Route::post('/create-ink', 'Api\InkController@store');
@@ -31,10 +32,10 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/edit-comment/{media}', 'Api\CommentController@update');
     Route::delete('/delete-comment/{comment}', 'Api\CommentController@destroy');
 
-    Route::get('/download/{path}','Api\DownloadController');
+    Route::get('/download/{path}', 'Api\DownloadController');
     Route::post('/upload', 'Api\UploadController');
 
-    Route::post('/interest','Api\InterestController');
+    Route::post('/interest', 'Api\InterestController');
 
 
     Route::post('/like', 'Api\LikeController');
@@ -45,9 +46,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/ink', 'Api\InkController@index');
 
 
-    Route::get('/notification','Api\NotificationController@index');
-    Route::get('/notification/mark-all-as-read','Api\NotificationController@markAllAsRead');
-    Route::get('/notification/{id}/mark-as-read','Api\NotificationController@markAsRead');
-    Route::get('/notification/delete','Api\NotificationController@deleteAllRead');
-
+    Route::get('/notification', 'Api\NotificationController@index');
+    Route::get('/notification/mark-all-as-read', 'Api\NotificationController@markAllAsRead');
+    Route::get('/notification/{id}/mark-as-read', 'Api\NotificationController@markAsRead');
+    Route::get('/notification/delete', 'Api\NotificationController@deleteAllRead');
 });

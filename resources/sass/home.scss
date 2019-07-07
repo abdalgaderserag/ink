@@ -12,6 +12,7 @@
 
   .ink-card {
     margin-top: 20px;
+
     .card-avatar {
       width: 100px;
       border-radius: $r-round;
@@ -48,6 +49,15 @@
       padding: 36px 20px 12px 20px;
       border-radius: 4px;
       margin-top: 12px;
+
+      .time {
+        //position: absolute;
+        color: #B2B2B2;
+        float: left;
+        position: absolute;
+        left: 266px;
+        //left: 942px;
+      }
 
       p {
         margin: 20px 0 0 0;

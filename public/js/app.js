@@ -2297,11 +2297,6 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  updated: function updated() {// TODO use in delete
-    // this.line =
-    //     this.$el.children[this.$el.children.length - 1].offsetTop
-    //     - this.$el.children[3].offsetTop;
-  },
   methods: {
     reply: function reply() {
       var _this2 = this;
@@ -2513,8 +2508,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2551,6 +2544,12 @@ __webpack_require__.r(__webpack_exports__);
           media[_i].height = media[0].height;
         }
       }
+    }
+
+    var timer = document.getElementsByClassName('time');
+
+    for (var j = 0; j < timer.length; j++) {
+      timer[j].style.top = timer[j].offsetTop - 5 + 'px';
     }
   },
   updated: function updated() {
@@ -2675,7 +2674,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      inks: []
+      inks: [],
+      ready: false
     };
   },
   mounted: function mounted() {
@@ -2690,10 +2690,12 @@ __webpack_require__.r(__webpack_exports__);
 
     if (link.indexOf('/', 1) !== -1) {
       link = link.slice(link.indexOf('/', 1), link.length);
-    }
+    } //TODO : change the link to '/api/inks'
+
 
     axios.get('/api/ink' + link).then(function (response) {
       _this.inks = response.data;
+      _this.ready = !_this.ready;
     })["catch"](function (error) {
       console.log('error:\n'.error);
     });
@@ -4995,6 +4997,10 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
+        false
+          ? undefined
+          : _vm._e(),
+        _vm._v(" "),
         _vm.ink.media.text != null
           ? _c("div", [
               _c(
@@ -5090,14 +5096,20 @@ var render = function() {
     { staticClass: "main" },
     [
       _vm._l(_vm.inks, function(ink, index) {
-        return _c(
-          "div",
-          [_c("ink-card", { attrs: { ink: _vm.getInk(ink), number: index } })],
-          1
-        )
+        return _vm.inks.length !== 0
+          ? _c(
+              "div",
+              [
+                _c("ink-card", {
+                  attrs: { ink: _vm.getInk(ink), number: index }
+                })
+              ],
+              1
+            )
+          : _vm._e()
       }),
       _vm._v(" "),
-      _vm.inks === []
+      _vm.inks.length === 0 && _vm.ready
         ? _c("div", [
             _c("h2", [_vm._v("You didnt follow any one yet search know!")])
           ])

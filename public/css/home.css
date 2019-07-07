@@ -45,6 +45,13 @@
   margin-top: 12px;
 }
 
+.main .ink-card .card-body .time {
+  color: #B2B2B2;
+  float: left;
+  position: absolute;
+  left: 266px;
+}
+
 .main .ink-card .card-body p {
   margin: 20px 0 0 0;
 }

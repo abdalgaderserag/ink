@@ -10,7 +10,7 @@ return [
             'comment' => 40,
             'reply' => 30,
             'view' => 10,
-            'day' => 100, // TODO : Task Schedule
+            //'day' => 100, // TODO : Task Schedule
         ]
     ]
 ];

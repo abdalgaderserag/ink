@@ -51,7 +51,8 @@ class User extends Authenticatable
 
     public function ink()
     {
-        return $this->hasMany('App\Ink','user_slug','slug');
+        $ink = $this->hasMany('App\Ink','user_slug','slug');
+        return $ink->with('user','media','like');
     }
 
 }

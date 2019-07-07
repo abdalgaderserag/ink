@@ -9,7 +9,6 @@
                 <br>
                 <span>{{ '@' + ink.user.slug }}</span>
             </span>
-            <!--<img v-show="editAble" :src="'/images/' + image" @click="showEdit()" width="28px" height="24px" alt="">-->
             <img v-show="deleteAble" src="/images/cross.svg" @click="deleteInk()"
                  style="float: right;margin-right: 20px;" class="card-icon" width="20px" alt="">
             <span v-show="editAble" class="card-icon" style="float: right;margin-right: 12px;height: 16.966px"
@@ -18,17 +17,16 @@
         </div>
 
         <div class="card-body">
+            <!--TODO : remove the if (false)-->
+            <span v-if="false" class="time">{{ ink.created_at }}</span>
             <div v-if="ink.media.text != null">
                 <p @click="showComments()">{{ ink.media.text }}</p>
             </div>
 
 
-            <!--<div v-if="ink.media.images != null || ink.media.videos != null"-->
-            <!--class="media">-->
             <div class="media">
                 <img v-for="(image,index) in images" v-if="ink.media.media != null || ink.media.media != null"
                      :src="image" :width="imgWidth(images.length,index)" alt="">
-                <!--{{ (index + 1) > 3}}-->
             </div>
 
 
@@ -87,6 +85,14 @@
                     }
                 }
             }
+
+            let timer = document.getElementsByClassName('time');
+
+            for (let j = 0; j < timer.length; j++) {
+                timer[j].style.top = (timer[j].offsetTop - 5) + 'px';
+            }
+
+
         },
         updated() {
             if (this.show)

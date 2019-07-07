@@ -29,4 +29,9 @@ class Ink extends Model
     {
         return $this->hasOne('App\Media');
     }
+
+    public function getCreatedAtAttribute($key)
+    {
+        return $key;
+    }
 }

@@ -7,24 +7,14 @@ use App\Ink;
 use App\Follow;
 use App\Media;
 use App\Http\Controllers\Controller;
+use App\Show;
 use Illuminate\Support\Facades\Auth;
 
 class InkController extends Controller
 {
     public function all($type = "home")
     {
-//        return response('sad',200);
-//        return response()->json(Ink::with('user','media','like')->get(),200);
         if ($type == "home" || $type == "search") {
-            $inks = Ink::with('user', 'media', 'like')->get();
-            $slugs = Follow::where('follower_id', Auth::id())->get('followed_slug');
-//            $slugs = new SlugsToArray($slugs);
-//            $data = array();
-//            $i = 0;
-//            foreach ($slugs as $slug) {
-//                $data[$i] = $slug['followed_slug'];
-//                $i++;
-//            }
             $inks = Ink::with('user', 'media', 'like')->get();
         } else if ($type == "profile") {
             $inks = Ink::where('user_slug', Auth::user()->slug)->with('user', 'media', 'like')->get();
@@ -32,9 +22,7 @@ class InkController extends Controller
             $slug = $type;
             $inks = Ink::where('user_slug', $slug)->with('user', 'media', 'like')->get();
         }
-//        $inks = Ink::with('user','media')->get();
         return $inks->toJson();
-        return response()->json($inks, 200);
     }
 
     /**
@@ -100,7 +88,7 @@ class InkController extends Controller
     public function show(Ink $ink)
     {
 //        TODO unComment this
-//        $show = Show::where('owner_id',Auth::id())->where('user_id',$ink->user->id)->first();
+//        $show = Show::where('owner_id',Auth::id())->where('user_slug',$ink->user->slug)->first();
 //        $show->score = $show->score + config('ink.rank.scores.view');
 //        $show->save();
         return response($ink->comment()->with('user', 'replies.media', 'replies.like', 'replies.user', 'media', 'like')->get(), 200);

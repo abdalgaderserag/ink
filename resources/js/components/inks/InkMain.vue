@@ -1,9 +1,9 @@
 <template>
     <div class="main">
-        <div v-for="(ink,index) in inks">
+        <div v-if="inks.length !== 0" v-for="(ink,index) in inks">
             <ink-card :ink="getInk(ink)" :number="index"></ink-card>
         </div>
-        <div v-if="inks === []">
+        <div v-if="inks.length === 0 && ready">
             <h2>You didnt follow any one yet search know!</h2>
         </div>
     </div>
@@ -14,11 +14,10 @@
         data() {
             return {
                 inks: [],
+                ready: false,
             }
         },
         mounted() {
-
-
             window.axios.defaults.headers.common["Authorization"] = "Bearer " + this.$root.access_token;
             let link = document.location.pathname;
 
@@ -31,9 +30,11 @@
             if (link.indexOf('/', 1) !== -1) {
                 link = link.slice(link.indexOf('/', 1), link.length)
             }
+            //TODO : change the link to '/api/inks'
             axios.get('/api/ink' + link)
                 .then((response) => {
-                    this.inks = response.data
+                    this.inks = response.data;
+                    this.ready = !this.ready;
                 }).catch((error) => {
                 console.log('error:\n'.error)
             })

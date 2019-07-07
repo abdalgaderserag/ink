@@ -45,12 +45,6 @@
                 required: true,
             }
         },
-        updated(){
-            // TODO use in delete
-            // this.line =
-            //     this.$el.children[this.$el.children.length - 1].offsetTop
-            //     - this.$el.children[3].offsetTop;
-        },
         methods: {
             reply: function () {
                 if (this.text !== '')
