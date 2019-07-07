@@ -111,8 +111,6 @@
                     @endif
                     <button>Follow</button>
                 </div>
-                <br>
-                <br>
             @endforeach
         </div>
 

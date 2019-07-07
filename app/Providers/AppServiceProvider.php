@@ -9,6 +9,7 @@ use App\Like;
 use App\Media;
 use App\Observers\CommentObserver;
 use App\Observers\FollowObserver;
+use App\Observers\InkObserver;
 use App\Observers\LikeObserver;
 use App\Observers\MediaObserver;
 use App\Observers\UserObserver;
@@ -38,10 +39,10 @@ class AppServiceProvider extends ServiceProvider
         schema::defaultStringLength(191);
 
         Comment::observe(CommentObserver::class);
-//        Follow::observe(FollowObserver::class);
-//        Ink::observe(FollowObserver::class);
-//        Like::observe(LikeObserver::class);
-//        Media::observe(MediaObserver::class);
-//        User::observe(UserObserver::class);111
+        Follow::observe(FollowObserver::class);
+        Ink::observe(InkObserver::class);
+        Like::observe(LikeObserver::class);
+        Media::observe(MediaObserver::class);
+//        User::observe(UserObserver::class);
     }
 }

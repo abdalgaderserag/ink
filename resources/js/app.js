@@ -21,6 +21,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // Vue.component('file-upload', require("vue-upload-component").default);
+Vue.component('authorized-clients', require('./components/passport/AuthorizedClients.vue').default);
 
 
 Vue.component('ink-main', require('./components/inks/InkMain.vue').default);

@@ -68,6 +68,7 @@ body {
 
 .nav-bar .icon-menu .icon {
   width: 34px;
+  cursor: pointer;
 }
 
 .nav-bar .icon-menu .icon .line {
@@ -149,6 +150,9 @@ body {
   margin-left: 8.78477306%;
   box-shadow: 2px 1px 4px 0 #b2b2b2a6;
   border-width: 0;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .ink {
@@ -184,6 +188,7 @@ body {
 .card-icon {
   padding: 4px 10px;
   color: #b2b2b2;
+  cursor: pointer;
   background-color: #fff;
   box-shadow: 0 1px 4px #b2b2b2;
   border-radius: 14px;

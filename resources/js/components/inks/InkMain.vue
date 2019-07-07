@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div v-if="inks.length !== 0" v-for="(ink,index) in inks">
+        <div v-if="inks.length !== 0" v-for="(ink,index) in inks" id="yws">
             <ink-card :ink="getInk(ink)" :number="index"></ink-card>
         </div>
         <div v-if="inks.length === 0 && ready">
@@ -30,7 +30,7 @@
             if (link.indexOf('/', 1) !== -1) {
                 link = link.slice(link.indexOf('/', 1), link.length)
             }
-            //TODO : change the link to '/api/inks'
+            // TODO : change the link to '/api/inks'
             axios.get('/api/inks' + link)
                 .then((response) => {
                     this.inks = response.data;

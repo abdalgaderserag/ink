@@ -55,4 +55,9 @@ class User extends Authenticatable
         return $ink->with('user','media','like');
     }
 
+    public function follow()
+    {
+        return $this->hasMany('App\Follow','follower_id','id');
+    }
+
 }

@@ -95,12 +95,11 @@
 
         },
         updated() {
-            if (this.show)
-                this.calLine()
+            this.calLine()
         },
         methods: {
             calLine: function () {
-                if (this.$children[0].comments.length != 0)
+                if (this.$children[0].comments.length != 0 && this.show)
                     this.$children[0].line = lineHe(this.number, this.commentId);
             },
             imgWidth: function (length, firstLine) {

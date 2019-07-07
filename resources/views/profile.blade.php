@@ -18,7 +18,7 @@
 
         <div>
             <div class="wallpaper">
-                <div style="background: url('{{ $user->background }}');background-position: center;"></div>
+                <div style="background: url('{{ $user->background }}') center;background-size: cover;"></div>
                 {{--<img src="{{ $user->background }}" alt="">--}}
             </div>
             <div class="w-line">
@@ -48,10 +48,13 @@
                 <div>
                     @if($user->slug != \Illuminate\Support\Facades\Auth::user()->slug)
                         <button id="follow" onclick="follow()">
-                            @empty(\Illuminate\Support\Facades\Auth::user()->followed()->where('follower_id',$user->id))
-                                Follow
-                            @else
+                            <?php
+                            $follower = $user->follow->where('followed_slug',\Illuminate\Support\Facades\Auth::user()->slug);
+                            ?>
+                            @empty(! $follower->first())
                                 Unfollow
+                            @else
+                                Follow
                             @endempty
                         </button>
                     @endif
@@ -91,7 +94,7 @@
             axios.post('/api/interest', {
                 'id': number,
                 'user_slug': '{{ $user->slug }}'
-            }).then((response)=>{
+            }).then((response) => {
                 showNotify();
             });
         }

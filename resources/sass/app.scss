@@ -68,6 +68,8 @@ body {
       //@include widthToPer(42);
       width: 34px;
 
+      cursor: pointer;
+
       .line {
         width: $f;
         border: #FFFFFF solid 0;
@@ -144,6 +146,7 @@ body {
   margin-left: ((120/1366)*100%);
   box-shadow: 2px 1px 4px 0 #b2b2b2a6;
   border-width: 0;
+  height: fit-content;
   //padding-bottom: 0;
 
 }
@@ -187,6 +190,7 @@ body {
 .card-icon {
   padding: 4px 10px;
   color: $gray;
+  cursor: pointer;
   background-color: $white;
   box-shadow: 0 1px 4px $gray;
   border-radius: 14px;

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class ShowCollection extends ResourceCollection
 {
@@ -21,8 +22,13 @@ class ShowCollection extends ResourceCollection
                 $inks[$index] = $ink;
                 $index++;
             }
+
+            foreach (Auth::user()->ink as $ink) {
+                $inks[$index] = $ink;
+                $index++;
+            }
         }
         $inks = collect($inks);
-        return $inks->sortBy('created_at');
+        return $inks->sortBy('score')->sortBy('created_at')->sortBy('see_first');
     }
 }

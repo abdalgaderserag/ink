@@ -7,6 +7,7 @@ use App\Notifications\NewComment;
 use App\Observers\Extendable\NotificationHandle;
 use App\Show;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class CommentObserver extends NotificationHandle
@@ -61,26 +62,22 @@ class CommentObserver extends NotificationHandle
 
 
         $userGrabber = $comment->ink;
-        $typed = 'ink_id';
-        $id = $comment->ink->id;
-
-        if (empty($userGrabber)) {
+        if (empty($comment->ink)) {
             $userGrabber = $comment->comment;
-            $typed = 'comment_id';
-            $id = $comment->comment->id;
         }
 
+        $user = $userGrabber->user;
 
-        $show = Show::where('owner_id', Auth::id())->where('user_id', $userGrabber->user->id)->first();
+        $show = Show::where('owner_id', Auth::id())->where('user_slug', $user->slug)->first();
         if (!empty($show)) {
             $show->score = $show->score - config('ink.rank.scores.like');
             $show->save();
         }
 
-        $this->deleteNotification($userGrabber->user, 'InkLiked', $typed, $id);
 
 
-        $comment->media->delete();
+
+        $comment->media()->delete();
 
         foreach ($comment->like as $like) {
             $like->delete();

@@ -5,13 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Follow;
 use App\Http\Controllers\Controller;
 use App\Notifications\NewFollower;
-use App\Show;
+use App\Observers\FollowObserver;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
+
+    public function __construct()
+    {
+        Follow::observe(FollowObserver::class);
+    }
+
     /**
      * Handle the incoming request.
      *
