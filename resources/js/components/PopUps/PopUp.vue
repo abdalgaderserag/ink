@@ -5,6 +5,7 @@
         <edit-ink v-if="type === 'edit-ink'" :media="media" :number="number"></edit-ink>
         <edit-comment v-if="type === 'edit-comment'" :media="media" :number="number"
                       :commentNumber="commentNumber" :replyId="replyId"></edit-comment>
+        <media-display v-else :media="type"></media-display>
     </div>
 </template>
 

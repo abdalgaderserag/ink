@@ -180,8 +180,11 @@
             },
             showComments: function (e) {
 
-                if (e.path[0].className === 'ink-media' && this.show)
+                if (e.path[0].className === 'ink-media' && this.show) {
+                    document.getElementById('pop-main').style.display = "block";
+                    app.$children[0].type = e.path[0].style.backgroundImage.split('"')[1];
                     return;
+                }
 
                 this.show = !this.show;
 
