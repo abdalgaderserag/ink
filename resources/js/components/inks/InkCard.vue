@@ -2,6 +2,9 @@
     <div class="ink-card">
         <img v-bind:src="ink.user.avatar" class="card-avatar">
         <div class="card-title">
+            <div>
+                <img src="/images/back.png" v-show="show" class="back" @click="showComments" alt="">
+            </div>
             <span class="name-slug">
                 <a v-bind:href="'/profile/' + ink.user.slug">
                     <span>{{ ink.user.name }}</span>
@@ -17,16 +20,25 @@
         </div>
 
         <div class="card-body">
-            <!--TODO : remove the if (false)-->
-            <span v-if="false" class="time">{{ ink.created_at }}</span>
             <div v-if="ink.media.text != null">
-                <p v-html="ink.media.text" @click="showComments()"></p>
+                <p v-html="ink.media.text" @click="showComments"></p>
             </div>
 
 
             <div class="media">
-                <img v-for="(image,index) in images" v-if="ink.media.media != null || ink.media.media != null"
-                     :src="image" :width="imgWidth(images.length,index)" alt="">
+                <div v-if="ink.media.media.length <= 3">
+                    <div @click="showComments" v-for="media in ink.media.media" :style="'float: left;background: url('+ media +') center / cover;width: '+
+                    (100/ink.media.media.length)+'%;'" class="ink-media"></div>
+                </div>
+                <div v-else v-for="(media,index) in ink.media.media">
+                    <div v-if="index < 3" @click="showComments" :style="'float: left;background: url('+ media +') center / cover;width: '+
+                    (100/3)+'%;'" class="ink-media"></div>
+                    <div v-else @click="showComments" :style="'float: left;background: url('+ media +') center / cover;width: '+
+                    (100/(ink.media.media.length - 3))+'%;'" class="ink-media"></div>
+                </div>
+
+                <!--<img v-for="(media,index) in ink.media.media" v-if="ink.media.media != null || ink.media.media != null"-->
+                <!--:src="media" :width="imgWidth(media.length,index)" alt="">-->
             </div>
 
 
@@ -35,6 +47,7 @@
                 <span>{{ ink.like.length }}</span>
                 <img src="/images/comment.svg" width="36px" height="30px" alt="">
                 <span>{{ commentCount }}</span>
+                <span class="time">{{ ink.created_at }}</span>
             </div>
         </div>
         <comments :id="ink.id" :show="show"></comments>
@@ -52,14 +65,7 @@
                 commentId: 0,
                 deleteAble: this.$root.slug == this.ink.user.slug,
                 editAble: this.$root.slug == this.ink.user.slug,
-                images:
-                    [
-                        'images/profiles/20190511_235056.jpg',
-                        'images/profiles/20190511_235056.jpg',
-                        'images/profiles/20190511_235056.jpg',
-                        'images/profiles/20190511_235056.jpg',
-
-                    ],
+                widthArray: [],
             }
         },
         props: {
@@ -73,7 +79,7 @@
             }
         },
         mounted() {
-            for (var i = 0; i < this.ink.like.length; i++)
+            for (let i = 0; i < this.ink.like.length; i++)
                 if (this.ink.like[i].user_id + '' === this.$root.id)
                     this.image = "hard-fill-color.svg";
 
@@ -92,35 +98,56 @@
                 timer[j].style.top = (timer[j].offsetTop - 5) + 'px';
             }
 
+            this.widthMedia();
 
         },
         updated() {
             this.calLine()
         },
         methods: {
+            widthMedia: function () {
+                let mediaHTML = this.$el.getElementsByClassName('ink-media');
+
+                let radius = "16px";
+                mediaHTML[0].style.borderTopLeftRadius = radius;
+                let number = this.ink.media.media.length;
+                let height = 302;
+                if (number === 1) {
+                    mediaHTML[0].style.borderTopRightRadius = radius;
+                    mediaHTML[0].style.borderBottomLeftRadius = radius;
+                    height = mediaHTML[0].offsetWidth / 2;
+                } else if (number === 2) {
+                    mediaHTML[1].style.borderTopRightRadius = radius;
+                    mediaHTML[0].style.borderBottomLeftRadius = radius;
+                    height = mediaHTML[0].offsetWidth;
+                } else if (number === 3) {
+                    mediaHTML[2].style.borderTopRightRadius = radius;
+                    mediaHTML[0].style.borderBottomLeftRadius = radius;
+                    height = (mediaHTML[0].offsetWidth * 3) / 2;
+                } else if (number === 4) {
+                    mediaHTML[2].style.borderTopRightRadius = radius;
+                    mediaHTML[3].style.borderBottomLeftRadius = radius;
+                    height = mediaHTML[3].offsetWidth / 3;
+                } else if (number === 5) {
+                    mediaHTML[2].style.borderTopRightRadius = radius;
+                    mediaHTML[3].style.borderBottomLeftRadius = radius;
+                    height = (mediaHTML[3].offsetWidth * 2) / 3;
+                } else if (number === 6) {
+                    mediaHTML[2].style.borderTopRightRadius = radius;
+                    mediaHTML[3].style.borderBottomLeftRadius = radius;
+                    height = (mediaHTML[3].offsetWidth * 3) / 5;
+                } else if (number > 6) {
+                    mediaHTML[5].className += 'more-media'
+                }
+                mediaHTML[mediaHTML.length - 1].style.borderBottomRightRadius = radius;
+
+                for (let i = 0; i < mediaHTML.length; i++) {
+                    mediaHTML[i].style.height = height + 'px';
+                }
+            },
             calLine: function () {
                 if (this.$children[0].comments.length != 0 && this.show)
                     this.$children[0].line = lineHe(this.number, this.commentId);
-            },
-            imgWidth: function (length, firstLine) {
-                let width = 100;
-                if (length <= 3) {
-                    width = width / length;
-                } else if (length > 3) {
-                    if (firstLine < 3) {
-                        width = width / 3;
-                    } else {
-                        if (length === 4) {
-                            return width + '%';
-                        } else if (length === 5) {
-                            return width / 2 + '%';
-                        } else if (length === 6) {
-                            return width / 3 + '%';
-                        }
-                    }
-
-                }
-                return width + '%';
             },
             like: function () {
                 var temp = this.image;
@@ -144,24 +171,59 @@
                     this.image = temp;
                 })
             },
-            showComments: function () {
-                let scrS;
+            sharpBorder: function (media) {
+                media.style.borderBottomLeftRadius = "";
+                media.style.borderBottomRightRadius = "";
+                media.style.borderTopLeftRadius = "";
+                media.style.borderTopRightRadius = "";
+
+            },
+            showComments: function (e) {
+
+                if (e.path[0].className === 'ink-media' && this.show)
+                    return;
+
                 this.show = !this.show;
+
 
                 if (this.show) {
                     let inks = document.getElementsByClassName('ink-card');
-                    for (var i = 0; i < inks.length; i++) {
+                    for (let i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
                             inks[i].style.display = "none"
                         }
                     }
+
+                    let mediaHTML = this.$el.getElementsByClassName('ink-media');
+                    for (let i = 0; i < mediaHTML.length; i++) {
+                        this.widthArray[i] = mediaHTML[i].offsetWidth;
+                        mediaHTML[i].style.width = "100%";
+                        this.sharpBorder(mediaHTML[i]);
+                    }
+
+
                 } else {
+
+
                     let inks = document.getElementsByClassName('ink-card');
+                    let mediaHTML = this.$el.getElementsByClassName('ink-media');
+                    for (let i = 0; i < mediaHTML.length; i++) {
+                        // mediaHTML[i].style.borderBottomLeftRadius = "";
+                        // mediaHTML[i].style.borderBottomRightRadius = "";
+                        // mediaHTML[i].style.borderTopLeftRadius = "";
+                        // mediaHTML[i].style.borderTopRightRadius = "";
+                        mediaHTML[i].style.width = this.widthArray[i] + "px";
+                    }
+
+
                     for (let i = 0; i < inks.length; i++) {
                         if (i !== this.number) {
                             inks[i].style.display = "block"
                         }
                     }
+
+
+                    this.widthMedia();
                 }
 
             },
@@ -185,22 +247,21 @@
 </script>
 
 <style scoped>
-    .media {
-        width: 100%;
-        margin-top: 34px;
+    /*.ink-image:first-child{*/
+    /*border-top-right-radius: 20px;*/
+    /*}*/
+
+    .more-media {
+        background-color: rgba(13, 9, 27, 0.3);
     }
 
-    .media img {
-        float: left;
-        max-height: 800px;
-    }
-
-    .media img:first-child {
-        border-top-left-radius: 14px;
-    }
-
-    .media img:last-child {
-        float: unset;
-        border-bottom-right-radius: 14px;
+    .back {
+        background-color: white;
+        position: fixed;
+        left: 40px;
+        top: 150px;
+        padding: 0 6px;
+        border-radius: 18px;
+        box-shadow: 0 1px 4px #b2b2b2;
     }
 </style>

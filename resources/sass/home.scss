@@ -53,11 +53,15 @@
       .time {
         //position: absolute;
         color: #B2B2B2;
-        float: left;
-        position: absolute;
-        left: 266px;
+        float: right;
+        padding-right: 32px;
         //left: 942px;
       }
+
+      .media {
+        padding: 24px 20px 42px 42px;
+      }
+
 
       p {
         margin: 20px 0 0 0;
@@ -89,6 +93,8 @@
 
 
       .card-footer {
+        clear: both;
+        padding-top: 30px;
         color: #b2b2b2;
         font-size: 20px;
         margin-top: 12px;

@@ -41,6 +41,7 @@
 }
 
 .main-container .profile-details .notify-button #notify-icon {
+  cursor: pointer;
   height: 28px;
   width: 28px;
   padding: 8px 0 0 8px;

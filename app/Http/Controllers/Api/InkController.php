@@ -49,28 +49,30 @@ class InkController extends Controller
         $ink->save();
         $media = new Media();
         $media->ink_id = $ink->id;
-        if ($request->filled('text'))
+        if (!empty($request->text))
             $media->text = $request->text;
-        if ($request->filled('media') && false) {
+        /*
+        if (!empty($request->media)) {
             $media = "{";
             $i = 0;
+//
 
-            $path = explode('\\', storage_path());
-            $string = '';
-            foreach ($path as $str) {
-                $string = $string . $str . '/';
-            }
-            $string .= 'app/';
 
-            foreach ($request->medias as $med) {
-                $media = $media . $string . $med . ',';
+            foreach ($request->media as $med) {
+                $media = $media .'"'. $med . '",';
                 $i++;
             }
             $media = $media . "}";
-            if ($media === '{}')
-                $media = null;
-            else
-                $media->media = $media;
+
+
+//            if ($media)
+//                $media = null;
+            $media->media = $media;
+
+        }
+        */
+        foreach ($request->media as $g) {
+            $media->media = $media->media . $g . ',';
         }
         $media->save();
 

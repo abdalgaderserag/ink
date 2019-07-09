@@ -72,9 +72,10 @@
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                    <hr class="line">
-                    <hr class="line">
-                    <hr class="line">
+                    {{--<hr class="line">--}}
+                    {{--<hr class="line">--}}
+                    {{--<hr class="line">--}}
+                    <img src="/images/menu.svg" width="32px" alt="">
                 </a>
             </div>
 

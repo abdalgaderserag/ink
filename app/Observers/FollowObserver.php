@@ -41,8 +41,8 @@ class FollowObserver
      */
     public function deleted(Follow $follow)
     {
-        $show = Show::where('owner_id',Auth::id())->where('user_slug',$follow->follower->slug)->first();
-        $show->delete();
+        $show = Show::where('owner_id',Auth::id())->where('user_slug',$follow->follower->slug);
+        $show->first()->delete();
     }
 
 }

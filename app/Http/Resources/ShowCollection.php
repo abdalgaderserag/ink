@@ -22,13 +22,13 @@ class ShowCollection extends ResourceCollection
                 $inks[$index] = $ink;
                 $index++;
             }
+        }
 
-            foreach (Auth::user()->ink as $ink) {
-                $inks[$index] = $ink;
-                $index++;
-            }
+        foreach (Auth::user()->ink as $ink) {
+            $inks[$index] = $ink;
+            $index++;
         }
         $inks = collect($inks);
-        return $inks->sortBy('score')->sortBy('created_at')->sortBy('see_first');
+        return $inks;
     }
 }

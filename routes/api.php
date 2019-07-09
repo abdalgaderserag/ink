@@ -32,7 +32,6 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/edit-comment/{media}', 'Api\CommentController@update');
     Route::delete('/delete-comment/{comment}', 'Api\CommentController@destroy');
 
-    Route::get('/download/{path}', 'Api\DownloadController');
     Route::post('/upload', 'Api\UploadController');
 
     Route::post('/interest', 'Api\InterestController');

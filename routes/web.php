@@ -31,6 +31,8 @@ Route::get('/search', 'HomeController@search')->name('search');
 
 
 
+//Route::get('/download/{path}', 'Api\DownloadController');
+
 
 
 

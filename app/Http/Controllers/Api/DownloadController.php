@@ -15,7 +15,8 @@ class DownloadController extends Controller
      */
     public function __invoke($path)
     {
-        $data = Storage::disk('local')->get("app/image/dr-julius-williamson/32236.jpeg");
-        return response()->json($data, 200);
+//        $s = Storage::disk('local')->get('public/image/mr-carlos-schmitt-iii/26215.jpeg');
+//        $data = Storage::disk('local')->get("app/image/dr-julius-williamson/32236.jpeg");
+//        return response()->json($data, 200);
     }
 }

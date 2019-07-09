@@ -47,9 +47,12 @@
 
 .main .ink-card .card-body .time {
   color: #B2B2B2;
-  float: left;
-  position: absolute;
-  left: 266px;
+  float: right;
+  padding-right: 32px;
+}
+
+.main .ink-card .card-body .media {
+  padding: 24px 20px 42px 42px;
 }
 
 .main .ink-card .card-body p {
@@ -81,6 +84,8 @@
 }
 
 .main .ink-card .card-body .card-footer {
+  clear: both;
+  padding-top: 30px;
   color: #b2b2b2;
   font-size: 20px;
   margin-top: 12px;

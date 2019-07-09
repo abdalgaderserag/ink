@@ -20,9 +20,9 @@ class UploadController extends Controller
             if ($code == "base64") {
                 $data = base64_decode($data);
             }
-            $path = $file_type . '/' . Auth::user()->slug . '/' . decoct(random_int(1000, 20000)) . '.' . $type;
+            $path = 'storage/'.$file_type . '/' . Auth::user()->slug . '/' . decoct(random_int(1000, 20000)) . '.' . $type;
 
-            Storage::disk('local')->put($path, $data);
+            Storage::disk('public')->put($path, $data);
         } else
             return response()->json('unknown file type', 800);
 

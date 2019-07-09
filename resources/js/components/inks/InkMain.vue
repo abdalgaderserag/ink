@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div v-if="inks.length !== 0" v-for="(ink,index) in inks" id="yws">
+        <div v-if="inks.length !== 0" v-for="(ink,index) in inks">
             <ink-card :ink="getInk(ink)" :number="index"></ink-card>
         </div>
         <div v-if="inks.length === 0 && ready">
@@ -47,12 +47,14 @@
                     try {
 
                         temp = temp.split(',');
-                        temp[0] = temp[0].slice(1, temp[0].length);
-                        temp.pop();
+                        temp.pop()
                     } catch (e) {
                     }
                 }
                 ink.media.media = temp;
+
+                ink.created_at = ink.created_at.slice(0,10);
+
                 return ink;
             }
         }

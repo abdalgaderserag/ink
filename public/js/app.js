@@ -2497,6 +2497,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2507,7 +2520,7 @@ __webpack_require__.r(__webpack_exports__);
       commentId: 0,
       deleteAble: this.$root.slug == this.ink.user.slug,
       editAble: this.$root.slug == this.ink.user.slug,
-      images: ['images/profiles/20190511_235056.jpg', 'images/profiles/20190511_235056.jpg', 'images/profiles/20190511_235056.jpg', 'images/profiles/20190511_235056.jpg']
+      widthArray: []
     };
   },
   props: {
@@ -2540,34 +2553,56 @@ __webpack_require__.r(__webpack_exports__);
     for (var j = 0; j < timer.length; j++) {
       timer[j].style.top = timer[j].offsetTop - 5 + 'px';
     }
+
+    this.widthMedia();
   },
   updated: function updated() {
     this.calLine();
   },
   methods: {
-    calLine: function calLine() {
-      if (this.$children[0].comments.length != 0 && this.show) this.$children[0].line = lineHe(this.number, this.commentId);
-    },
-    imgWidth: function imgWidth(length, firstLine) {
-      var width = 100;
+    widthMedia: function widthMedia() {
+      var mediaHTML = this.$el.getElementsByClassName('ink-media');
+      var radius = "16px";
+      mediaHTML[0].style.borderTopLeftRadius = radius;
+      var number = this.ink.media.media.length;
+      var height = 302;
 
-      if (length <= 3) {
-        width = width / length;
-      } else if (length > 3) {
-        if (firstLine < 3) {
-          width = width / 3;
-        } else {
-          if (length === 4) {
-            return width + '%';
-          } else if (length === 5) {
-            return width / 2 + '%';
-          } else if (length === 6) {
-            return width / 3 + '%';
-          }
-        }
+      if (number === 1) {
+        mediaHTML[0].style.borderTopRightRadius = radius;
+        mediaHTML[0].style.borderBottomLeftRadius = radius;
+        height = mediaHTML[0].offsetWidth / 2;
+      } else if (number === 2) {
+        mediaHTML[1].style.borderTopRightRadius = radius;
+        mediaHTML[0].style.borderBottomLeftRadius = radius;
+        height = mediaHTML[0].offsetWidth;
+      } else if (number === 3) {
+        mediaHTML[2].style.borderTopRightRadius = radius;
+        mediaHTML[0].style.borderBottomLeftRadius = radius;
+        height = mediaHTML[0].offsetWidth * 3 / 2;
+      } else if (number === 4) {
+        mediaHTML[2].style.borderTopRightRadius = radius;
+        mediaHTML[3].style.borderBottomLeftRadius = radius;
+        height = mediaHTML[3].offsetWidth / 3;
+      } else if (number === 5) {
+        mediaHTML[2].style.borderTopRightRadius = radius;
+        mediaHTML[3].style.borderBottomLeftRadius = radius;
+        height = mediaHTML[3].offsetWidth * 2 / 3;
+      } else if (number === 6) {
+        mediaHTML[2].style.borderTopRightRadius = radius;
+        mediaHTML[3].style.borderBottomLeftRadius = radius;
+        height = mediaHTML[3].offsetWidth * 3 / 5;
+      } else if (number > 6) {
+        mediaHTML[5].className += 'more-media';
       }
 
-      return width + '%';
+      mediaHTML[mediaHTML.length - 1].style.borderBottomRightRadius = radius;
+
+      for (var i = 0; i < mediaHTML.length; i++) {
+        mediaHTML[i].style.height = height + 'px';
+      }
+    },
+    calLine: function calLine() {
+      if (this.$children[0].comments.length != 0 && this.show) this.$children[0].line = lineHe(this.number, this.commentId);
     },
     like: function like() {
       var _this = this;
@@ -2596,8 +2631,14 @@ __webpack_require__.r(__webpack_exports__);
         _this.image = temp;
       });
     },
-    showComments: function showComments() {
-      var scrS;
+    sharpBorder: function sharpBorder(media) {
+      media.style.borderBottomLeftRadius = "";
+      media.style.borderBottomRightRadius = "";
+      media.style.borderTopLeftRadius = "";
+      media.style.borderTopRightRadius = "";
+    },
+    showComments: function showComments(e) {
+      if (e.path[0].className === 'ink-media' && this.show) return;
       this.show = !this.show;
 
       if (this.show) {
@@ -2608,14 +2649,34 @@ __webpack_require__.r(__webpack_exports__);
             inks[i].style.display = "none";
           }
         }
+
+        var mediaHTML = this.$el.getElementsByClassName('ink-media');
+
+        for (var _i2 = 0; _i2 < mediaHTML.length; _i2++) {
+          this.widthArray[_i2] = mediaHTML[_i2].offsetWidth;
+          mediaHTML[_i2].style.width = "100%";
+          this.sharpBorder(mediaHTML[_i2]);
+        }
       } else {
         var _inks = document.getElementsByClassName('ink-card');
 
-        for (var _i2 = 0; _i2 < _inks.length; _i2++) {
-          if (_i2 !== this.number) {
-            _inks[_i2].style.display = "block";
+        var _mediaHTML = this.$el.getElementsByClassName('ink-media');
+
+        for (var _i3 = 0; _i3 < _mediaHTML.length; _i3++) {
+          // mediaHTML[i].style.borderBottomLeftRadius = "";
+          // mediaHTML[i].style.borderBottomRightRadius = "";
+          // mediaHTML[i].style.borderTopLeftRadius = "";
+          // mediaHTML[i].style.borderTopRightRadius = "";
+          _mediaHTML[_i3].style.width = this.widthArray[_i3] + "px";
+        }
+
+        for (var _i4 = 0; _i4 < _inks.length; _i4++) {
+          if (_i4 !== this.number) {
+            _inks[_i4].style.display = "block";
           }
         }
+
+        this.widthMedia();
       }
     },
     deleteInk: function deleteInk() {
@@ -2698,12 +2759,12 @@ __webpack_require__.r(__webpack_exports__);
 
         try {
           temp = temp.split(',');
-          temp[0] = temp[0].slice(1, temp[0].length);
           temp.pop();
         } catch (e) {}
       }
 
       ink.media.media = temp;
+      ink.created_at = ink.created_at.slice(0, 10);
       return ink;
     }
   }
@@ -2992,7 +3053,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.media[data-v-1d0c36ff] {\n    width: 100%;\n    margin-top: 34px;\n}\n.media img[data-v-1d0c36ff] {\n    float: left;\n    max-height: 800px;\n}\n.media img[data-v-1d0c36ff]:first-child {\n    border-top-left-radius: 14px;\n}\n.media img[data-v-1d0c36ff]:last-child {\n    float: unset;\n    border-bottom-right-radius: 14px;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.ink-image:first-child{*/\n/*border-top-right-radius: 20px;*/\n/*}*/\n.more-media[data-v-1d0c36ff] {\n    background-color: rgba(13, 9, 27, 0.3);\n}\n.back[data-v-1d0c36ff] {\n    background-color: white;\n    position: fixed;\n    left: 40px;\n    top: 150px;\n    padding: 0 6px;\n    border-radius: 18px;\n    box-shadow: 0 1px 4px #b2b2b2;\n}\n", ""]);
 
 // exports
 
@@ -5101,6 +5162,22 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("div", { staticClass: "card-title" }, [
+        _c("div", [
+          _c("img", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.show,
+                expression: "show"
+              }
+            ],
+            staticClass: "back",
+            attrs: { src: "/images/back.png", alt: "" },
+            on: { click: _vm.showComments }
+          })
+        ]),
+        _vm._v(" "),
         _c("span", { staticClass: "name-slug" }, [
           _c("a", { attrs: { href: "/profile/" + _vm.ink.user.slug } }, [
             _c("span", [_vm._v(_vm._s(_vm.ink.user.name))])
@@ -5158,19 +5235,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
-        false
-          ? undefined
-          : _vm._e(),
-        _vm._v(" "),
         _vm.ink.media.text != null
           ? _c("div", [
               _c("p", {
                 domProps: { innerHTML: _vm._s(_vm.ink.media.text) },
-                on: {
-                  click: function($event) {
-                    return _vm.showComments()
-                  }
-                }
+                on: { click: _vm.showComments }
               })
             ])
           : _vm._e(),
@@ -5178,18 +5247,51 @@ var render = function() {
         _c(
           "div",
           { staticClass: "media" },
-          _vm._l(_vm.images, function(image, index) {
-            return _vm.ink.media.media != null || _vm.ink.media.media != null
-              ? _c("img", {
-                  attrs: {
-                    src: image,
-                    width: _vm.imgWidth(_vm.images.length, index),
-                    alt: ""
-                  }
+          [
+            _vm.ink.media.media.length <= 3
+              ? _c(
+                  "div",
+                  _vm._l(_vm.ink.media.media, function(media) {
+                    return _c("div", {
+                      staticClass: "ink-media",
+                      style:
+                        "float: left;background: url(" +
+                        media +
+                        ") center / cover;width: " +
+                        100 / _vm.ink.media.media.length +
+                        "%;",
+                      on: { click: _vm.showComments }
+                    })
+                  }),
+                  0
+                )
+              : _vm._l(_vm.ink.media.media, function(media, index) {
+                  return _c("div", [
+                    index < 3
+                      ? _c("div", {
+                          staticClass: "ink-media",
+                          style:
+                            "float: left;background: url(" +
+                            media +
+                            ") center / cover;width: " +
+                            100 / 3 +
+                            "%;",
+                          on: { click: _vm.showComments }
+                        })
+                      : _c("div", {
+                          staticClass: "ink-media",
+                          style:
+                            "float: left;background: url(" +
+                            media +
+                            ") center / cover;width: " +
+                            100 / (_vm.ink.media.media.length - 3) +
+                            "%;",
+                          on: { click: _vm.showComments }
+                        })
+                  ])
                 })
-              : _vm._e()
-          }),
-          0
+          ],
+          2
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card-footer" }, [
@@ -5218,7 +5320,11 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.commentCount))])
+          _c("span", [_vm._v(_vm._s(_vm.commentCount))]),
+          _vm._v(" "),
+          _c("span", { staticClass: "time" }, [
+            _vm._v(_vm._s(_vm.ink.created_at))
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -5257,7 +5363,6 @@ var render = function() {
         return _vm.inks.length !== 0
           ? _c(
               "div",
-              { attrs: { id: "yws" } },
               [
                 _c("ink-card", {
                   attrs: { ink: _vm.getInk(ink), number: index }
