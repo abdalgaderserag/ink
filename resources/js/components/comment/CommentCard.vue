@@ -21,7 +21,7 @@
         </div>
         <div style="margin-left: 120px" v-show="showReply">
             <input v-model="text" type="text" class="input-text">
-            <button class="input-bottom" @click="createReply()">Reply</button>
+            <button class="input-bottom" @submit="createReply()" @click="createReply()">Reply</button>
         </div>
     </div>
 </template>

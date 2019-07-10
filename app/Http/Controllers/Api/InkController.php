@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Auth;
 
 class InkController extends Controller
 {
-    public function all($type = "home")
-    {
-        if ($type == "home" || $type == "search") {
-            $inks = Ink::with('user', 'media', 'like')->get();
-        } else if ($type == "profile") {
-            $inks = Ink::where('user_slug', Auth::user()->slug)->with('user', 'media', 'like')->get();
-        } else {
-            $slug = $type;
-            $inks = Ink::where('user_slug', $slug)->with('user', 'media', 'like')->get();
-        }
-        return $inks->toJson();
-    }
+//    public function all($type = "home")
+//    {
+//        if ($type == "home" || $type == "search") {
+//            $inks = Ink::with('user', 'media', 'like')->get();
+//        } else if ($type == "profile") {
+//            $inks = Ink::where('user_slug', Auth::user()->slug)->with('user', 'media', 'like')->get();
+//        } else {
+//            $slug = $type;
+//            $inks = Ink::where('user_slug', $slug)->with('user', 'media', 'like')->get();
+//        }
+//        return $inks->toJson();
+//    }
 
     /**
      * Display a listing of the resource.

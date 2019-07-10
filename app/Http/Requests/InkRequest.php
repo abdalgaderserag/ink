@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class InkRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class InkRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,10 @@ class InkRequest extends FormRequest
     public function rules()
     {
         return [
-//            'user_slug' => 'required|exists:mysql.users,slug|String'
+//            'user_slug' => 'required|exists:mysql.users,slug|String',
+//            'ink_id' => 'required|exists:mysql.inks,id|Numeric',
+            'text' => 'required_if:media,null|String|Nullable|min:1|max:255',
+            'media' => 'required_if:text,null|Array|Nullable|max:64',
         ];
     }
 }

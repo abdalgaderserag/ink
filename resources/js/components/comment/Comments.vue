@@ -1,7 +1,7 @@
 <template>
     <div class="comments-main" v-show="show">
         <input type="text" class="input-text" v-model="text">
-        <button class="input-bottom" @click="reply()">Reply</button>
+        <button class="input-bottom" @submit="reply()" @click="reply()">Reply</button>
         <br>
         <hr id="comments-line" ref="line" :style="{borderBottomWidth:line + 'px'}">
         <div v-for="(comment, index) in comments"  class="com">

@@ -2536,9 +2536,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InkCard",
   data: function data() {
@@ -2565,17 +2562,15 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     for (var i = 0; i < this.ink.like.length; i++) {
       if (this.ink.like[i].user_id + '' === this.$root.id) this.image = "hard-fill-color.svg";
-    }
+    } // let media = document.getElementsByClassName('media')[this.number].children;
+    // if (media.length) {
+    //     if (media.length > 3) {
+    //         for (let i = 3; i < media.length; i++) {
+    //             media[i].height = media[0].height;
+    //         }
+    //     }
+    // }
 
-    var media = document.getElementsByClassName('media')[this.number].children;
-
-    if (media.length) {
-      if (media.length > 3) {
-        for (var _i = 3; _i < media.length; _i++) {
-          media[_i].height = media[0].height;
-        }
-      }
-    }
 
     var timer = document.getElementsByClassName('time');
 
@@ -2583,7 +2578,8 @@ __webpack_require__.r(__webpack_exports__);
       timer[j].style.top = timer[j].offsetTop - 5 + 'px';
     }
 
-    this.widthMedia();
+    var mediaHTML = this.$el.getElementsByClassName('ink-media');
+    if (mediaHTML.length !== 0) this.widthMedia();
   },
   updated: function updated() {
     this.calLine();
@@ -2686,27 +2682,23 @@ __webpack_require__.r(__webpack_exports__);
 
         var mediaHTML = this.$el.getElementsByClassName('ink-media');
 
-        for (var _i2 = 0; _i2 < mediaHTML.length; _i2++) {
-          this.widthArray[_i2] = mediaHTML[_i2].offsetWidth;
-          mediaHTML[_i2].style.width = "100%";
-          this.sharpBorder(mediaHTML[_i2]);
+        for (var _i = 0; _i < mediaHTML.length; _i++) {
+          this.widthArray[_i] = mediaHTML[_i].offsetWidth;
+          mediaHTML[_i].style.width = "100%";
+          this.sharpBorder(mediaHTML[_i]);
         }
       } else {
         var _inks = document.getElementsByClassName('ink-card');
 
         var _mediaHTML = this.$el.getElementsByClassName('ink-media');
 
-        for (var _i3 = 0; _i3 < _mediaHTML.length; _i3++) {
-          // mediaHTML[i].style.borderBottomLeftRadius = "";
-          // mediaHTML[i].style.borderBottomRightRadius = "";
-          // mediaHTML[i].style.borderTopLeftRadius = "";
-          // mediaHTML[i].style.borderTopRightRadius = "";
-          _mediaHTML[_i3].style.width = this.widthArray[_i3] + "px";
+        for (var _i2 = 0; _i2 < _mediaHTML.length; _i2++) {
+          _mediaHTML[_i2].style.width = this.widthArray[_i2] + "px";
         }
 
-        for (var _i4 = 0; _i4 < _inks.length; _i4++) {
-          if (_i4 !== this.number) {
-            _inks[_i4].style.display = "block";
+        for (var _i3 = 0; _i3 < _inks.length; _i3++) {
+          if (_i3 !== this.number) {
+            _inks[_i3].style.display = "block";
           }
         }
 
@@ -2717,6 +2709,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios["delete"]('/api/delete-ink/' + this.ink.id).then(function (response) {
+        _this2.showComments(12);
+
         _this2.$el.innerHTML = "";
       });
     },
@@ -3087,7 +3081,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.ink-image:first-child{*/\n/*border-top-right-radius: 20px;*/\n/*}*/\n.more-media[data-v-1d0c36ff] {\n    background-color: rgba(13, 9, 27, 0.3);\n}\n.back[data-v-1d0c36ff] {\n    background-color: white;\n    position: fixed;\n    left: 40px;\n    top: 150px;\n    padding: 0 6px;\n    border-radius: 18px;\n    box-shadow: 0 1px 4px #b2b2b2;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.ink-image:first-child{*/\n/*border-top-right-radius: 20px;*/\n/*}*/\n.more-media[data-v-1d0c36ff] {\n    background-color: rgba(13, 9, 27, 0.3);\n}\n.back[data-v-1d0c36ff] {\n    background-color: white;\n    position: fixed;\n    left: 40px;\n    top: 150px;\n    padding: 0 6px;\n    border-radius: 18px;\n    box-shadow: 0 1px 4px #b2b2b2;\n}\n", ""]);
 
 // exports
 
@@ -4936,6 +4930,9 @@ var render = function() {
           {
             staticClass: "input-bottom",
             on: {
+              submit: function($event) {
+                return _vm.createReply()
+              },
               click: function($event) {
                 return _vm.createReply()
               }
@@ -5005,6 +5002,9 @@ var render = function() {
         {
           staticClass: "input-bottom",
           on: {
+            submit: function($event) {
+              return _vm.reply()
+            },
             click: function($event) {
               return _vm.reply()
             }
@@ -5317,55 +5317,57 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "media" },
-          [
-            _vm.ink.media.media.length <= 3
-              ? _c(
-                  "div",
-                  _vm._l(_vm.ink.media.media, function(media) {
-                    return _c("div", {
-                      staticClass: "ink-media",
-                      style:
-                        "float: left;background: url(" +
-                        media +
-                        ") center / cover;width: " +
-                        100 / _vm.ink.media.media.length +
-                        "%;",
-                      on: { click: _vm.showComments }
+        _vm.ink.media.media !== null
+          ? _c(
+              "div",
+              { staticClass: "media" },
+              [
+                _vm.ink.media.media.length <= 3
+                  ? _c(
+                      "div",
+                      _vm._l(_vm.ink.media.media, function(media) {
+                        return _c("div", {
+                          staticClass: "ink-media",
+                          style:
+                            "float: left;background: url(" +
+                            media +
+                            ") center / cover;width: " +
+                            100 / _vm.ink.media.media.length +
+                            "%;",
+                          on: { click: _vm.showComments }
+                        })
+                      }),
+                      0
+                    )
+                  : _vm._l(_vm.ink.media.media, function(media, index) {
+                      return _c("div", [
+                        index < 3
+                          ? _c("div", {
+                              staticClass: "ink-media",
+                              style:
+                                "float: left;background: url(" +
+                                media +
+                                ") center / cover;width: " +
+                                100 / 3 +
+                                "%;",
+                              on: { click: _vm.showComments }
+                            })
+                          : _c("div", {
+                              staticClass: "ink-media",
+                              style:
+                                "float: left;background: url(" +
+                                media +
+                                ") center / cover;width: " +
+                                100 / (_vm.ink.media.media.length - 3) +
+                                "%;",
+                              on: { click: _vm.showComments }
+                            })
+                      ])
                     })
-                  }),
-                  0
-                )
-              : _vm._l(_vm.ink.media.media, function(media, index) {
-                  return _c("div", [
-                    index < 3
-                      ? _c("div", {
-                          staticClass: "ink-media",
-                          style:
-                            "float: left;background: url(" +
-                            media +
-                            ") center / cover;width: " +
-                            100 / 3 +
-                            "%;",
-                          on: { click: _vm.showComments }
-                        })
-                      : _c("div", {
-                          staticClass: "ink-media",
-                          style:
-                            "float: left;background: url(" +
-                            media +
-                            ") center / cover;width: " +
-                            100 / (_vm.ink.media.media.length - 3) +
-                            "%;",
-                          on: { click: _vm.showComments }
-                        })
-                  ])
-                })
-          ],
-          2
-        ),
+              ],
+              2
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "card-footer" }, [
           _c("img", {

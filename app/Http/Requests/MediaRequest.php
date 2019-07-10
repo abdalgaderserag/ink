@@ -24,9 +24,10 @@ class MediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'ink_id' => 'required_if:comment_id,null|exists:mysql.inks,id|Numeric',
-            'comment_id' => 'required_if:ink_id,null|exists:mysql.comments,id|Numeric',
+//            'ink_id' => 'required_if:comment_id,null|exists:mysql.inks,id|Numeric',
+//            'comment_id' => 'required_if:ink_id,null|exists:mysql.comments,id|Numeric',
             'text' => 'String|Nullable|min:1|max:255',
+            'media' => 'Array|Nullable|min:1|max:255',
         ];
     }
 }

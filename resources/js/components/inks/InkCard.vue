@@ -25,7 +25,7 @@
             </div>
 
 
-            <div class="media">
+            <div class="media" v-if="ink.media.media !== null">
                 <div v-if="ink.media.media.length <= 3">
                     <div @click="showComments" v-for="media in ink.media.media" :style="'float: left;background: url('+ media +') center / cover;width: '+
                     (100/ink.media.media.length)+'%;'" class="ink-media"></div>
@@ -36,9 +36,6 @@
                     <div v-else @click="showComments" :style="'float: left;background: url('+ media +') center / cover;width: '+
                     (100/(ink.media.media.length - 3))+'%;'" class="ink-media"></div>
                 </div>
-
-                <!--<img v-for="(media,index) in ink.media.media" v-if="ink.media.media != null || ink.media.media != null"-->
-                <!--:src="media" :width="imgWidth(media.length,index)" alt="">-->
             </div>
 
 
@@ -83,14 +80,14 @@
                 if (this.ink.like[i].user_id + '' === this.$root.id)
                     this.image = "hard-fill-color.svg";
 
-            let media = document.getElementsByClassName('media')[this.number].children;
-            if (media.length) {
-                if (media.length > 3) {
-                    for (let i = 3; i < media.length; i++) {
-                        media[i].height = media[0].height;
-                    }
-                }
-            }
+            // let media = document.getElementsByClassName('media')[this.number].children;
+            // if (media.length) {
+            //     if (media.length > 3) {
+            //         for (let i = 3; i < media.length; i++) {
+            //             media[i].height = media[0].height;
+            //         }
+            //     }
+            // }
 
             let timer = document.getElementsByClassName('time');
 
@@ -98,7 +95,10 @@
                 timer[j].style.top = (timer[j].offsetTop - 5) + 'px';
             }
 
-            this.widthMedia();
+            let mediaHTML = this.$el.getElementsByClassName('ink-media');
+
+            if (mediaHTML.length !== 0)
+                this.widthMedia();
 
         },
         updated() {
@@ -150,7 +150,7 @@
                     this.$children[0].line = lineHe(this.number, this.commentId);
             },
             like: function () {
-                var temp = this.image;
+                let temp = this.image;
                 if (this.image === "hard-fill-color.svg") {
                     this.image = "hard-fill.svg";
                 } else {
@@ -211,10 +211,6 @@
                     let inks = document.getElementsByClassName('ink-card');
                     let mediaHTML = this.$el.getElementsByClassName('ink-media');
                     for (let i = 0; i < mediaHTML.length; i++) {
-                        // mediaHTML[i].style.borderBottomLeftRadius = "";
-                        // mediaHTML[i].style.borderBottomRightRadius = "";
-                        // mediaHTML[i].style.borderTopLeftRadius = "";
-                        // mediaHTML[i].style.borderTopRightRadius = "";
                         mediaHTML[i].style.width = this.widthArray[i] + "px";
                     }
 
@@ -233,6 +229,7 @@
             deleteInk: function () {
                 axios.delete('/api/delete-ink/' + this.ink.id)
                     .then((response) => {
+                        this.showComments(12);
                         this.$el.innerHTML = ""
                     })
             },

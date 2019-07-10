@@ -40,7 +40,7 @@
 .main .ink-card .card-body {
   font-size: 28px;
   border: 2px solid #f98835;
-  padding: 36px 20px 12px 20px;
+  padding: 44px 20px 12px 20px;
   border-radius: 4px;
   margin-top: 12px;
 }
@@ -48,7 +48,7 @@
 .main .ink-card .card-body .time {
   color: #B2B2B2;
   float: right;
-  padding-right: 32px;
+  padding: 16px 32px 0 0;
 }
 
 .main .ink-card .card-body .media {
